@@ -1,0 +1,58 @@
+{
+  "@@locale": "en",
+  "onboardingTitle": "Round food for every mood",
+  "getStarted": "Let's get started",
+  "loginPrompt": "Already have an account? Log in",
+  "phoneTitle": "Enter your phone number",
+  "verifyTitle": "Verify your number",
+  "otpSent": "We sent a 6-digit OTP to {phone}",
+  "@otpSent": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "resendIn": "Resend in {time}",
+  "@resendIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "nameTitle": "What's your name?",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "dobTitle": "What's your date of birth?",
+  "continueButton": "Continue",
+  "verifyButton": "Verify",
+  "welcomeTitle": "Welcome to the world of J'donuts",
+  "explore": "Let's explore",
+  "home": "Home",
+  "rewards": "Rewards",
+  "rewardTab": "Reward",
+  "seasonal": "Seasonal specials",
+  "popular": "Popular",
+  "orderAgain": "Order again",
+  "nearbyShops": "There are 4 J'Donut shops near you",
+  "productDescriptionTitle": "What's this?",
+  "addToCart": "Add to cart",
+  "totalPoints": "Total points",
+  "eatMore": "Eat more earn more",
+  "gift": "Gift",
+  "earn": "EARN",
+  "silver": "Silver",
+  "gold": "Gold",
+  "platinum": "Platinum",
+  "language": "Language",
+  "english": "English",
+  "myanmar": "မြန်မာ",
+  "previous": "Previous",
+  "nextScreen": "Next screen",
+  "uiPreview": "UI preview",
+  "uiOnly": "UI preview only",
+  "currentTier": "You're here now",
+  "remainingPoints": "500 pts remaining",
+  "futureTier": "You'll be here soon"
+}
