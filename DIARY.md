@@ -23,7 +23,37 @@ let's define main entities
 - last name
 - dob
 - phone
+- current_points
+- member_id
 
+### Member
+
+- id
+- name
+- image_url
+- member_point
+
+### Reward
+
+- id
+- name
+- color_code
+- reward_points
+
+### Earn
+
+- id
+- product_id
+- quantity
+- earn_points
+
+### Gift
+
+- id
+- name
+- description
+- image_url
+- gift_points
 
 ### Product
 
@@ -32,9 +62,13 @@ let's define main entities
 - image_url
 - priority_no
 - price
+- currency
 - product_code
 - description
-- badge
+- is_new
+- discount_percentage
+- discount_amount
+- product_type_id
 
 ### Banners 
 
@@ -46,9 +80,18 @@ let's define main entities
 
 - id
 - name
+- description
+- address
 - image_url
 - lat
 - lng
+
+### Product Type
+
+- id
+- name
+- image_url
+- priority_no
 
 ### Category
 
@@ -56,13 +99,39 @@ let's define main entities
 - name
 - image_url
 - priority_no
+- is_active
+
+### Category Product
+
+- id
+- category_id
+- product_id
+
+### Cart
+
+- id
+- user_id
+- shop_id
+- product_id
+- quantity
+
+### Order
+
+- id
+- user_id
+- shop_id
+- status
+
+### Order Item
+
+- id
+- order_id
+- product_id
+- quantity
 
 ### Feature List
 
 - [ ] User login / register with phone no. along with OTP (6) digits ( default  123456 )
-- 
-
-
 
 ### Screen List
 
