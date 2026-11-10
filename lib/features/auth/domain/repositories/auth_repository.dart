@@ -5,7 +5,7 @@ import 'package:hometake/features/auth/domain/entities/params/user_register_para
 import 'package:hometake/features/auth/domain/entities/user_entity.dart';
 import '../../../../core/error/failures.dart';
 
-abstract class UserRepository{
+abstract class AuthRepository{
   Future<Either<Failure,UserEntity>> loginUser({required UserLoginParams userLoginParams});
 
   Future<Either<Failure,UserEntity>> registerUser({required UserRegisterParams userRegisterParams});
