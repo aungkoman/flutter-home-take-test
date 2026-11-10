@@ -19,7 +19,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -30,8 +30,9 @@ class AppDatabase extends _$AppDatabase {
       }
     }),
     onUpgrade: (m, from, to) async {
-      // Add incremental migrations here as the schema evolves.
-      // For now, v1 is the baseline; nothing to upgrade.
+      if (from < 2) {
+        await m.alterTable(TableMigration(users));
+      }
     },
     beforeOpen: (details) async {
       // Foreign keys are enforced only if enabled per connection.
@@ -60,7 +61,7 @@ class AppDatabase extends _$AppDatabase {
         (row) => UsersCompanion.insert(
           firstName: Value(row['firstName'] as String),
           lastName: Value(row['lastName'] as String),
-          email: row['email'] as String,
+          phone: Value(row['phone'] as String),
           currentPoints: Value(row['currentPoints'] as int),
           memberId: Value(row['memberId'] as int),
           createdAt: timestamp,

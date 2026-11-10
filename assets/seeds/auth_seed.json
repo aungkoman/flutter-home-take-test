@@ -8,21 +8,21 @@
     {
       "firstName": "Maya",
       "lastName": "Lin",
-      "email": "maya.silver@example.com",
+      "phone": "+959123456781",
       "currentPoints": 100,
       "memberId": 1
     },
     {
       "firstName": "Theo",
       "lastName": "Win",
-      "email": "theo.gold@example.com",
+      "phone": "+959123456782",
       "currentPoints": 650,
       "memberId": 2
     },
     {
       "firstName": "Nora",
       "lastName": "Min",
-      "email": "nora.platinum@example.com",
+      "phone": "+959123456783",
       "currentPoints": 1200,
       "memberId": 3
     }

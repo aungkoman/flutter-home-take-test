@@ -45,16 +45,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     requiredDuringInsert: false,
     defaultValue: const Constant(''),
   );
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
-  @override
-  late final GeneratedColumn<String> email = GeneratedColumn<String>(
-    'email',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
-  );
   static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
   @override
   late final GeneratedColumn<String> phone = GeneratedColumn<String>(
@@ -140,7 +130,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     id,
     firstName,
     lastName,
-    email,
     phone,
     dob,
     currentPoints,
@@ -175,14 +164,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
         _lastNameMeta,
         lastName.isAcceptableOrUnknown(data['last_name']!, _lastNameMeta),
       );
-    }
-    if (data.containsKey('email')) {
-      context.handle(
-        _emailMeta,
-        email.isAcceptableOrUnknown(data['email']!, _emailMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_emailMeta);
     }
     if (data.containsKey('phone')) {
       context.handle(
@@ -254,10 +235,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
         DriftSqlType.string,
         data['${effectivePrefix}last_name'],
       )!,
-      email: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}email'],
-      )!,
       phone: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}phone'],
@@ -299,7 +276,6 @@ class User extends DataClass implements Insertable<User> {
   final int id;
   final String firstName;
   final String lastName;
-  final String email;
   final String phone;
   final DateTime? dob;
   final int currentPoints;
@@ -311,7 +287,6 @@ class User extends DataClass implements Insertable<User> {
     required this.id,
     required this.firstName,
     required this.lastName,
-    required this.email,
     required this.phone,
     this.dob,
     required this.currentPoints,
@@ -326,7 +301,6 @@ class User extends DataClass implements Insertable<User> {
     map['id'] = Variable<int>(id);
     map['first_name'] = Variable<String>(firstName);
     map['last_name'] = Variable<String>(lastName);
-    map['email'] = Variable<String>(email);
     map['phone'] = Variable<String>(phone);
     if (!nullToAbsent || dob != null) {
       map['dob'] = Variable<DateTime>(dob);
@@ -344,7 +318,6 @@ class User extends DataClass implements Insertable<User> {
       id: Value(id),
       firstName: Value(firstName),
       lastName: Value(lastName),
-      email: Value(email),
       phone: Value(phone),
       dob: dob == null && nullToAbsent ? const Value.absent() : Value(dob),
       currentPoints: Value(currentPoints),
@@ -364,7 +337,6 @@ class User extends DataClass implements Insertable<User> {
       id: serializer.fromJson<int>(json['id']),
       firstName: serializer.fromJson<String>(json['firstName']),
       lastName: serializer.fromJson<String>(json['lastName']),
-      email: serializer.fromJson<String>(json['email']),
       phone: serializer.fromJson<String>(json['phone']),
       dob: serializer.fromJson<DateTime?>(json['dob']),
       currentPoints: serializer.fromJson<int>(json['currentPoints']),
@@ -381,7 +353,6 @@ class User extends DataClass implements Insertable<User> {
       'id': serializer.toJson<int>(id),
       'firstName': serializer.toJson<String>(firstName),
       'lastName': serializer.toJson<String>(lastName),
-      'email': serializer.toJson<String>(email),
       'phone': serializer.toJson<String>(phone),
       'dob': serializer.toJson<DateTime?>(dob),
       'currentPoints': serializer.toJson<int>(currentPoints),
@@ -396,7 +367,6 @@ class User extends DataClass implements Insertable<User> {
     int? id,
     String? firstName,
     String? lastName,
-    String? email,
     String? phone,
     Value<DateTime?> dob = const Value.absent(),
     int? currentPoints,
@@ -408,7 +378,6 @@ class User extends DataClass implements Insertable<User> {
     id: id ?? this.id,
     firstName: firstName ?? this.firstName,
     lastName: lastName ?? this.lastName,
-    email: email ?? this.email,
     phone: phone ?? this.phone,
     dob: dob.present ? dob.value : this.dob,
     currentPoints: currentPoints ?? this.currentPoints,
@@ -422,7 +391,6 @@ class User extends DataClass implements Insertable<User> {
       id: data.id.present ? data.id.value : this.id,
       firstName: data.firstName.present ? data.firstName.value : this.firstName,
       lastName: data.lastName.present ? data.lastName.value : this.lastName,
-      email: data.email.present ? data.email.value : this.email,
       phone: data.phone.present ? data.phone.value : this.phone,
       dob: data.dob.present ? data.dob.value : this.dob,
       currentPoints: data.currentPoints.present
@@ -443,7 +411,6 @@ class User extends DataClass implements Insertable<User> {
           ..write('id: $id, ')
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
-          ..write('email: $email, ')
           ..write('phone: $phone, ')
           ..write('dob: $dob, ')
           ..write('currentPoints: $currentPoints, ')
@@ -460,7 +427,6 @@ class User extends DataClass implements Insertable<User> {
     id,
     firstName,
     lastName,
-    email,
     phone,
     dob,
     currentPoints,
@@ -476,7 +442,6 @@ class User extends DataClass implements Insertable<User> {
           other.id == this.id &&
           other.firstName == this.firstName &&
           other.lastName == this.lastName &&
-          other.email == this.email &&
           other.phone == this.phone &&
           other.dob == this.dob &&
           other.currentPoints == this.currentPoints &&
@@ -490,7 +455,6 @@ class UsersCompanion extends UpdateCompanion<User> {
   final Value<int> id;
   final Value<String> firstName;
   final Value<String> lastName;
-  final Value<String> email;
   final Value<String> phone;
   final Value<DateTime?> dob;
   final Value<int> currentPoints;
@@ -502,7 +466,6 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.id = const Value.absent(),
     this.firstName = const Value.absent(),
     this.lastName = const Value.absent(),
-    this.email = const Value.absent(),
     this.phone = const Value.absent(),
     this.dob = const Value.absent(),
     this.currentPoints = const Value.absent(),
@@ -515,7 +478,6 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.id = const Value.absent(),
     this.firstName = const Value.absent(),
     this.lastName = const Value.absent(),
-    required String email,
     this.phone = const Value.absent(),
     this.dob = const Value.absent(),
     this.currentPoints = const Value.absent(),
@@ -523,14 +485,12 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.isVerified = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
-  }) : email = Value(email),
-       createdAt = Value(createdAt),
+  }) : createdAt = Value(createdAt),
        updatedAt = Value(updatedAt);
   static Insertable<User> custom({
     Expression<int>? id,
     Expression<String>? firstName,
     Expression<String>? lastName,
-    Expression<String>? email,
     Expression<String>? phone,
     Expression<DateTime>? dob,
     Expression<int>? currentPoints,
@@ -543,7 +503,6 @@ class UsersCompanion extends UpdateCompanion<User> {
       if (id != null) 'id': id,
       if (firstName != null) 'first_name': firstName,
       if (lastName != null) 'last_name': lastName,
-      if (email != null) 'email': email,
       if (phone != null) 'phone': phone,
       if (dob != null) 'dob': dob,
       if (currentPoints != null) 'current_points': currentPoints,
@@ -558,7 +517,6 @@ class UsersCompanion extends UpdateCompanion<User> {
     Value<int>? id,
     Value<String>? firstName,
     Value<String>? lastName,
-    Value<String>? email,
     Value<String>? phone,
     Value<DateTime?>? dob,
     Value<int>? currentPoints,
@@ -571,7 +529,6 @@ class UsersCompanion extends UpdateCompanion<User> {
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      email: email ?? this.email,
       phone: phone ?? this.phone,
       dob: dob ?? this.dob,
       currentPoints: currentPoints ?? this.currentPoints,
@@ -593,9 +550,6 @@ class UsersCompanion extends UpdateCompanion<User> {
     }
     if (lastName.present) {
       map['last_name'] = Variable<String>(lastName.value);
-    }
-    if (email.present) {
-      map['email'] = Variable<String>(email.value);
     }
     if (phone.present) {
       map['phone'] = Variable<String>(phone.value);
@@ -627,7 +581,6 @@ class UsersCompanion extends UpdateCompanion<User> {
           ..write('id: $id, ')
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
-          ..write('email: $email, ')
           ..write('phone: $phone, ')
           ..write('dob: $dob, ')
           ..write('currentPoints: $currentPoints, ')
@@ -1109,7 +1062,6 @@ typedef $$UsersTableCreateCompanionBuilder = UsersCompanion Function({
   Value<int> id,
   Value<String> firstName,
   Value<String> lastName,
-  required String email,
   Value<String> phone,
   Value<DateTime?> dob,
   Value<int> currentPoints,
@@ -1122,7 +1074,6 @@ typedef $$UsersTableUpdateCompanionBuilder = UsersCompanion Function({
   Value<int> id,
   Value<String> firstName,
   Value<String> lastName,
-  Value<String> email,
   Value<String> phone,
   Value<DateTime?> dob,
   Value<int> currentPoints,
@@ -1152,11 +1103,6 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
 
   ColumnFilters<String> get lastName => $composableBuilder(
     column: $table.lastName,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get email => $composableBuilder(
-    column: $table.email,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1220,11 +1166,6 @@ class $$UsersTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get email => $composableBuilder(
-    column: $table.email,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get phone => $composableBuilder(
     column: $table.phone,
     builder: (column) => ColumnOrderings(column),
@@ -1278,9 +1219,6 @@ class $$UsersTableAnnotationComposer
 
   GeneratedColumn<String> get lastName =>
       $composableBuilder(column: $table.lastName, builder: (column) => column);
-
-  GeneratedColumn<String> get email =>
-      $composableBuilder(column: $table.email, builder: (column) => column);
 
   GeneratedColumn<String> get phone =>
       $composableBuilder(column: $table.phone, builder: (column) => column);
@@ -1339,7 +1277,6 @@ class $$UsersTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String> firstName = const Value.absent(),
                 Value<String> lastName = const Value.absent(),
-                Value<String> email = const Value.absent(),
                 Value<String> phone = const Value.absent(),
                 Value<DateTime?> dob = const Value.absent(),
                 Value<int> currentPoints = const Value.absent(),
@@ -1351,7 +1288,6 @@ class $$UsersTableTableManager
                 id: id,
                 firstName: firstName,
                 lastName: lastName,
-                email: email,
                 phone: phone,
                 dob: dob,
                 currentPoints: currentPoints,
@@ -1365,7 +1301,6 @@ class $$UsersTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String> firstName = const Value.absent(),
                 Value<String> lastName = const Value.absent(),
-                required String email,
                 Value<String> phone = const Value.absent(),
                 Value<DateTime?> dob = const Value.absent(),
                 Value<int> currentPoints = const Value.absent(),
@@ -1377,7 +1312,6 @@ class $$UsersTableTableManager
                 id: id,
                 firstName: firstName,
                 lastName: lastName,
-                email: email,
                 phone: phone,
                 dob: dob,
                 currentPoints: currentPoints,
