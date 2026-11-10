@@ -1,0 +1,58 @@
+{
+  "@@locale": "my",
+  "onboardingTitle": "အရသာစုံ ဒိုးနတ်လေးတွေနဲ့ ပျော်ရွှင်လိုက်ပါ",
+  "getStarted": "စတင်အသုံးပြုမယ်",
+  "loginPrompt": "အကောင့်ရှိပြီးသားလား။ ဝင်မယ်",
+  "phoneTitle": "ဖုန်းနံပါတ် ထည့်ပါ",
+  "verifyTitle": "ဖုန်းနံပါတ် အတည်ပြုပါ",
+  "otpSent": "{phone} သို့ OTP ဂဏန်း ၆ လုံး ပို့ထားပါတယ်",
+  "@otpSent": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "resendIn": "ပြန်ပို့ရန် {time}",
+  "@resendIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "nameTitle": "နာမည် ဘယ်လိုခေါ်ပါသလဲ",
+  "firstName": "ပထမအမည်",
+  "lastName": "နောက်ဆုံးအမည်",
+  "dobTitle": "မွေးသက္ကရာဇ် ထည့်ပါ",
+  "continueButton": "ဆက်လုပ်မယ်",
+  "verifyButton": "အတည်ပြုမယ်",
+  "welcomeTitle": "J'Donuts ကမ္ဘာမှ ကြိုဆိုပါတယ်",
+  "explore": "စတင်လေ့လာမယ်",
+  "home": "ပင်မ",
+  "rewards": "ဆုလက်ဆောင်များ",
+  "rewardTab": "ဆုများ",
+  "seasonal": "ရာသီအလိုက် အထူးအစီအစဉ်",
+  "popular": "လူကြိုက်များသော",
+  "orderAgain": "ထပ်မံမှာယူရန်",
+  "nearbyShops": "အနီးအနားတွင် J'Donut ဆိုင် ၄ ဆိုင်ရှိသည်",
+  "productDescriptionTitle": "ဒီဒိုးနတ်အကြောင်း",
+  "addToCart": "ခြင်းထဲထည့်မယ်",
+  "totalPoints": "စုစုပေါင်းပွိုင့်",
+  "eatMore": "စားလေလေ ရလေလေ",
+  "gift": "လက်ဆောင်",
+  "earn": "ရယူမယ်",
+  "silver": "ငွေအဆင့်",
+  "gold": "ရွှေအဆင့်",
+  "platinum": "ပလက်တီနမ်အဆင့်",
+  "language": "ဘာသာစကား",
+  "english": "English",
+  "myanmar": "မြန်မာ",
+  "previous": "နောက်ပြန်",
+  "nextScreen": "နောက်စာမျက်နှာ",
+  "uiPreview": "UI နမူနာ",
+  "uiOnly": "UI နမူနာသာ ဖြစ်ပါသည်",
+  "currentTier": "လက်ရှိအဆင့်",
+  "remainingPoints": "ပွိုင့် ၅၀၀ လိုသေးသည်",
+  "futureTier": "နောက်တစ်ဆင့်"
+}
