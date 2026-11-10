@@ -147,6 +147,10 @@ let's define main entities
 
 dart run build_runner build --delete-conflicting-outputs
 
+so we are done with domain and data
+let's integrate login feature in ui.
+
+
 
 
 ### Packages
