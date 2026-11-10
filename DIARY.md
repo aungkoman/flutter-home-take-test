@@ -136,3 +136,34 @@ let's define main entities
 ### Screen List
 
 - [ ] Onboarding
+
+
+## Current Check List
+
+- [ ] let's add packages
+- [ ] Directory Structure
+- [ ] Entity
+
+
+### Packages
+
+get_it
+equatable
+dartz
+cached_network_image
+riverpod
+drift
+json_annotation
+
+
+flutter pub add get_it equatable dartz cached_network_image drift riverpod
+
+
+dev_dependencies
+json_annotation
+build_runner
+json_serializable
+drift: ^2.35.4
+
+flutter pub add --dev drift_dev build_runner json_serializable
+
