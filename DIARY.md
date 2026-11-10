@@ -160,16 +160,22 @@ drift
 json_annotation
 go_router
 
+drift_flutter
+path_provider
+
 
 flutter pub add get_it equatable dartz cached_network_image drift riverpod
 flutter pub add go_router
+flutter pub add drift_flutter path_provider
 
 
 dev_dependencies
 json_annotation
 build_runner
 json_serializable
-drift: ^2.35.4
+drift_dev
 
 flutter pub add --dev drift_dev build_runner json_serializable
+flutter pub add --dev drift_dev build_runner json_serializable
 
+dart run build_runner build --delete-conflicting-outputs

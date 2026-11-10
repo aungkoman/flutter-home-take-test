@@ -11,3 +11,24 @@ abstract class AuthRemoteDatasource{
 }
 
 // TODO: implement this data source  using Database ( drift ) , not API
+
+class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
+  @override
+  Future<UserEntity> loginUser({required UserLoginParams userLoginParams}) {
+    // TODO: implement loginUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UserEntity> registerUser({required UserRegisterParams userRegisterParams}) {
+    // TODO: implement registerUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UserEntity> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams}) {
+    // TODO: implement verifyOtp
+    throw UnimplementedError();
+  }
+  
+}
