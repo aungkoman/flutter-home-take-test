@@ -153,6 +153,11 @@ let's integrate login feature in ui.
 so basic data flow is completed.
 
 - [ ] add error handling
+- [ ] အချိန် ရရင် deeplink ထည့် သက်ဆိုင်ရာ donuts ကို ရောက်အောင်။
+- [ ] home page နဲ့ product အကြောင်း ဆက်သွားမယ်။
+
+မနက်ဖြန် အချိန် (၆) နာရီ ဆက်ယူ။
+
 
 
 ### Packages
