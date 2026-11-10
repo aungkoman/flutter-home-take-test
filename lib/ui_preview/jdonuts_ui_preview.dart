@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/jdonuts_theme.dart';
+import '../core/localization/locale_controller.dart';
+import '../l10n/app_localizations.dart';
 
 /// Standalone, static UI gallery based on the J'Donuts code-test designs.
 /// No repositories, providers, database, HTTP calls, or persistence.
@@ -12,11 +14,17 @@ const _ink = JDonutsColors.ink;
 class JDonutsUiPreview extends StatelessWidget {
   const JDonutsUiPreview({super.key});
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "J'Donuts UI Preview",
-    theme: JDonutsTheme.light,
-    home: const UiGallery(),
+  Widget build(BuildContext context) => ValueListenableBuilder<Locale?>(
+    valueListenable: LocaleController.current,
+    builder: (context, locale, _) => MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "J'Donuts UI Preview",
+      theme: JDonutsTheme.light,
+      locale: locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      home: const UiGallery(),
+    ),
   );
 }
 
@@ -33,10 +41,19 @@ class _UiGalleryState extends State<UiGallery> {
     'Name (filled)','Date of birth','Welcome','Home','Product detail','Rewards'];
   void next() => setState(() => page = (page + 1).clamp(0, 9));
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return Scaffold(
     appBar: AppBar(backgroundColor: Colors.white, title: Text('UI preview • ${names[page]}',
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-      actions: [PopupMenuButton<int>(tooltip: 'Choose screen', onSelected: (v) => setState(() => page = v),
+      actions: [PopupMenuButton<String>(tooltip: l.language,
+        icon: const Icon(Icons.language),
+        onSelected: (value) => LocaleController.select(value == 'system' ? null : Locale(value)),
+        itemBuilder: (_) => [
+          const PopupMenuItem(value: 'system', child: Text('System')),
+          PopupMenuItem(value: 'en', child: Text(l.english)),
+          PopupMenuItem(value: 'my', child: Text(l.myanmar)),
+        ]), PopupMenuButton<int>(tooltip: 'Choose screen', onSelected: (v) => setState(() => page = v),
         itemBuilder: (_) => List.generate(names.length, (i) => PopupMenuItem(value: i, child: Text('${i+1}. ${names[i]}'))))]),
     body: SafeArea(child: switch (page) {
       0 => _onboarding(),
@@ -55,9 +72,9 @@ class _UiGalleryState extends State<UiGallery> {
       destinations: const [NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
         NavigationDestination(icon: Icon(Icons.workspace_premium_outlined), label: 'Reward')]) :
       Padding(padding: const EdgeInsets.all(8), child: Row(children: [
-        TextButton(onPressed: page > 0 ? () => setState(() => page--) : null, child: const Text('Previous')),
+        TextButton(onPressed: page > 0 ? () => setState(() => page--) : null, child: Text(l.previous)),
         const Spacer(), Text('${page+1} / 10'), const Spacer(),
-        TextButton(onPressed: page < 9 ? next : null, child: const Text('Next screen'))])),
+        TextButton(onPressed: page < 9 ? next : null, child: Text(l.nextScreen))])),
   );
   Widget _button(String label, VoidCallback action) => SizedBox(width: double.infinity, height: 48,
     child: FilledButton(style: FilledButton.styleFrom(backgroundColor: _cyan, foregroundColor: Colors.white),
@@ -67,7 +84,9 @@ class _UiGalleryState extends State<UiGallery> {
       color: color, boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 14, offset: Offset(0, 8))]),
       child: Center(child: Container(width: size * .29, height: size * .29,
         decoration: const BoxDecoration(color: Color(0xFFF9F2EE), shape: BoxShape.circle))));
-  Widget _onboarding() => Column(children: [
+  Widget _onboarding() {
+    final l = AppLocalizations.of(context)!;
+    return Column(children: [
     Expanded(child: Stack(children: [
       Positioned(top: 30, left: -35, child: _donut(size: 180)),
       Positioned(top: 40, right: -30, child: _donut(size: 135, color: const Color(0xFFB9A3EA))),
@@ -75,8 +94,8 @@ class _UiGalleryState extends State<UiGallery> {
     const Text('Round food for\nevery mood', textAlign: TextAlign.center,
       style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, height: 1.05)),
     const SizedBox(height: 22),
-    Padding(padding: const EdgeInsets.symmetric(horizontal: 30), child: _button("Let's get started", next)),
-    TextButton(onPressed: () => setState(() => page = 1), child: const Text('Already have an account? Log in')),
+    Padding(padding: const EdgeInsets.symmetric(horizontal: 30), child: _button(l.getStarted, next)),
+    TextButton(onPressed: () => setState(() => page = 1), child: Text(l.loginPrompt)),
     const Padding(padding: EdgeInsets.all(16), child: Text('●   Google     Apple     Facebook',
       style: TextStyle(color: Colors.black54))), const SizedBox(height: 20),
   ]);
@@ -92,27 +111,33 @@ class _UiGalleryState extends State<UiGallery> {
         child: TextFormField(initialValue: hint.startsWith('Yo ') || hint == 'Phyoe Win' ? hint : null,
           decoration: InputDecoration(hintText: hint, filled: true, fillColor: Colors.white,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none)))),
-      const Spacer(), _button('Continue', next), const SizedBox(height: 24),
+      const Spacer(), _button(AppLocalizations.of(context)!.continueButton, next), const SizedBox(height: 24),
     ]));
-  Widget _otp() => Padding(padding: const EdgeInsets.all(30), child: Column(
+  Widget _otp() {
+    final l = AppLocalizations.of(context)!;
+    return Padding(padding: const EdgeInsets.all(30), child: Column(
     crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Align(alignment: Alignment.topRight, child: CircularProgressIndicator(value: .5, color: _cyan)),
-      const SizedBox(height: 55), const Text('Verify your number', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w900)),
-      const SizedBox(height: 10), const Text('We sent a 6-digit OTP to +959264135692', style: TextStyle(color: Colors.black54)),
+      const SizedBox(height: 55), Text(l.verifyTitle, style: TextStyle(fontSize: 29, fontWeight: FontWeight.w900)),
+      const SizedBox(height: 10), Text(l.otpSent('+959264135692'), style: TextStyle(color: Colors.black54)),
       const SizedBox(height: 30), Row(children: List.generate(6, (_) => Expanded(child: Container(
         height: 52, margin: const EdgeInsets.only(right: 6), color: Colors.white)))),
-      const SizedBox(height: 14), const Text('Resend in 05:00', style: TextStyle(color: Colors.pink)),
-      const Spacer(), _button('Verify', next), const SizedBox(height: 24),
+      const SizedBox(height: 14), Text(l.resendIn('05:00'), style: TextStyle(color: Colors.pink)),
+      const Spacer(), _button(l.verifyButton, next), const SizedBox(height: 24),
     ]));
-  Widget _welcome() => Column(children: [
+  }
+  Widget _welcome() {
+    final l = AppLocalizations.of(context)!;
+    return Column(children: [
     Expanded(child: Padding(padding: const EdgeInsets.all(18), child: GridView.count(crossAxisCount: 2,
       mainAxisSpacing: 14, crossAxisSpacing: 14, children: [
         for (final color in [Colors.purpleAccent, Colors.brown, Colors.pinkAccent, Colors.orangeAccent])
           Card(color: color.withValues(alpha: .25), child: Center(child: _donut(size: 115, color: color)))]))),
     const Text("Welcome to the\nworld of J'donuts", textAlign: TextAlign.center,
       style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
-    Padding(padding: const EdgeInsets.all(24), child: _button("Let's explore", next)),
+    Padding(padding: const EdgeInsets.all(24), child: _button(l.explore, next)),
   ]);
+  }
   Widget _productTile(String name, int price, Color color) => SizedBox(width: 155, child: InkWell(
     onTap: () => setState(() => page = 8), child: Card(color: Colors.white,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -126,7 +151,9 @@ class _UiGalleryState extends State<UiGallery> {
       _productTile('Melon Romance Donut', 3200, Colors.pinkAccent),
       _productTile('Strawberry Chocolate', 3200, Colors.brown),
       _productTile('Coconut Donut', 3200, Colors.deepOrangeAccent)]))]);
-  Widget _home() => ListView(padding: const EdgeInsets.all(18), children: [
+  Widget _home() {
+    final l = AppLocalizations.of(context)!;
+    return ListView(padding: const EdgeInsets.all(18), children: [
     Row(children: [const CircleAvatar(child: Icon(Icons.person)), const SizedBox(width: 10),
       const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [Text('Hanla', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
@@ -137,11 +164,12 @@ class _UiGalleryState extends State<UiGallery> {
       borderRadius: BorderRadius.circular(14)), child: const Center(child: Text(
       "We're now at\nCentral Boulevard", textAlign: TextAlign.center,
       style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold)))),
-    _section('Seasonal specials'), _section('Popular 🔥'), _section('Order again'),
-    const SizedBox(height: 20), const Text("There are 4 J'Donut shops near you",
+    _section(l.seasonal), _section(l.popular), _section(l.orderAgain),
+    const SizedBox(height: 20), Text(l.nearbyShops,
       style: TextStyle(fontWeight: FontWeight.bold)),
     const Card(child: ListTile(title: Text("J'Donuts nearby"), subtitle: Text('Explore now • Order online'))),
   ]);
+  }
   Widget _product() => ListView(padding: const EdgeInsets.all(24), children: [
     const Text('Coconut Donut', style: TextStyle(fontSize: 27, fontWeight: FontWeight.w900)),
     const Text('JD022123     •     NEW', style: TextStyle(color: Colors.deepOrange)),
@@ -155,14 +183,16 @@ class _UiGalleryState extends State<UiGallery> {
         icon: const Icon(Icons.remove)), Padding(padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Text('$quantity', style: const TextStyle(fontWeight: FontWeight.bold))),
       IconButton.filledTonal(onPressed: () => setState(() => quantity++), icon: const Icon(Icons.add))]),
-    const SizedBox(height: 22), const Text("What's this?", style: TextStyle(fontWeight: FontWeight.w900)),
+    const SizedBox(height: 22), Text(AppLocalizations.of(context)!.productDescriptionTitle, style: TextStyle(fontWeight: FontWeight.w900)),
     const Text('Enjoy our scrumptious coconut donut, with soft dough and a rich chocolate glaze.'),
-    const SizedBox(height: 35), _button('Add to cart   ${quantity * 3200} MMK', () {
+    const SizedBox(height: 35), _button('${AppLocalizations.of(context)!.addToCart}   ${quantity * 3200} MMK', () {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('UI preview only')));
     }),
   ]);
-  Widget _rewards() => ListView(padding: const EdgeInsets.all(20), children: [
-    const Row(children: [Expanded(child: Text("J' Donuts Rewards",
+  Widget _rewards() {
+    final l = AppLocalizations.of(context)!;
+    return ListView(padding: const EdgeInsets.all(20), children: [
+    Row(children: [Expanded(child: Text("J' Donuts ${l.rewards}",
       style: TextStyle(fontSize: 23, fontWeight: FontWeight.w900))),
       Chip(label: Text('Rewards 3'))]),
     const SizedBox(height: 30),
@@ -177,12 +207,12 @@ class _UiGalleryState extends State<UiGallery> {
       Stack(alignment: Alignment.center, children: [
         SizedBox(width: 155, height: 155, child: CircularProgressIndicator(value: .7, strokeWidth: 23,
           color: Colors.pinkAccent, backgroundColor: Colors.white)),
-        const Column(children: [Text('Total points', style: TextStyle(color: Colors.pink)),
+        Column(children: [Text(l.totalPoints, style: TextStyle(color: Colors.pink)),
           Text('680,000', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900))])])]),
     const SizedBox(height: 35),
-    SegmentedButton<int>(segments: const [
-      ButtonSegment(value: 0, label: Text('Eat more earn more')),
-      ButtonSegment(value: 1, label: Text('Gift'))],
+    SegmentedButton<int>(segments: [
+      ButtonSegment(value: 0, label: Text(l.eatMore)),
+      ButtonSegment(value: 1, label: Text(l.gift))],
       selected: {tab}, onSelectionChanged: (v) => setState(() => tab = v.first)),
     const SizedBox(height: 16),
     if (tab == 0) ...[
@@ -191,6 +221,7 @@ class _UiGalleryState extends State<UiGallery> {
       _challenge('Drink 12 cups americano', '9/12', Colors.brown, false),
     ] else const Card(child: Padding(padding: EdgeInsets.all(32), child: Text('Gift rewards'))),
   ]);
+  }
   Widget _challenge(String title, String progress, Color color, bool ready) => Card(
     color: Colors.white, margin: const EdgeInsets.only(bottom: 14), child: Padding(
       padding: const EdgeInsets.all(14), child: Row(children: [
