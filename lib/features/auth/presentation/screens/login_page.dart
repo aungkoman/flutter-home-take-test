@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart';
 
 import '../providers/login_provider.dart';
 
@@ -27,6 +28,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Listen to the provider for side-effects (Navigation)
+    ref.listen<AsyncValue<UserEntity?>>(loginProvider, (previous, next) {
+      // Check if we just finished loading and successfully got a user
+      if (previous?.isLoading == true && !next.isLoading && next.value != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const OtpVerifyPage(), // Replace with your actual OTP page
+          ),
+        );
+      }
+    });
+
     final AsyncValue<UserEntity?> loginState = ref.watch(loginProvider);
     final UserEntity? user = loginState.value;
     final String? errorMessage = ref.read(loginProvider.notifier).errorMessage;
@@ -96,7 +110,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           ),
                         ),
                       ),
-                      Text(loginState.value.runtimeType.toString()),
                     ],
                   ],
                 ),

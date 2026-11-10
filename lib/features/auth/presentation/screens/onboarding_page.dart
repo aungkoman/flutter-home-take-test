@@ -9,9 +9,19 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('On Boarding Page')),
       body: Center(
-        child: FilledButton(
-          onPressed: () => context.go('/login'),
-          child: const Text('Go to Login'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons vertically
+          children: [
+            FilledButton(
+              onPressed: () => context.go('/login'),
+              child: const Text('Go to Login'),
+            ),
+            const SizedBox(height: 16), // Adds spacing between the buttons
+            OutlinedButton(
+              onPressed: () => context.go('/register'),
+              child: const Text('Create an Account'),
+            ),
+          ],
         ),
       ),
     );

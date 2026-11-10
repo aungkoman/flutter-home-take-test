@@ -142,15 +142,17 @@ let's define main entities
 ## Current Check List
 
 - [x] let's add packages
-- [ ] Directory Structure
-- [ ] Entity
+- [x] Directory Structure
+- [x] Entity
 
 dart run build_runner build --delete-conflicting-outputs
 
 so we are done with domain and data
 let's integrate login feature in ui.
 
+so basic data flow is completed.
 
+- [ ] add error handling
 
 
 ### Packages
