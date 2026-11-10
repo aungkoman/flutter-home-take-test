@@ -2,23 +2,30 @@ import 'dart:developer' show log;
 
 import 'package:riverpod/riverpod.dart';
 
-import '../../domain/usecases/user_login.dart';
+import '../../domain/usecases/user_login_use_case.dart';
 
-final loginProvider =
-    AsyncNotifierProvider.family<LoginNotifier, UserEntity?, UserLogin>(
-      LoginNotifier.new,
-    );
+export '../../domain/usecases/user_login_use_case.dart' show UserEntity;
+
+final loginProvider = AsyncNotifierProvider<LoginNotifier, UserEntity?>(() {
+  throw StateError('Provide LoginNotifier in the root ProviderScope.');
+});
 
 class LoginNotifier extends AsyncNotifier<UserEntity?> {
   LoginNotifier(this._userLogin);
 
-  final UserLogin _userLogin;
+  final UserLoginUseCase _userLogin;
 
-  // ဒါက state
+  String? get errorMessage => switch (state.error) {
+    null => null,
+    SingleMessageReturnFailure(:final message) => message,
+    _ => 'Could not check your phone number. Try again.',
+  };
+
+  // 1. ဒါက state
   @override
   UserEntity? build() => null;
 
-  // state modifier methods တွေ။
+  // 2. state modifier methods တွေ။
   Future<void> login(String phone) async {
     if (state.isLoading) return;
 

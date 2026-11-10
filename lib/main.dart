@@ -3,23 +3,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'app_router.dart';
-import 'features/auth/data/database/app_database.dart';
-import 'features/auth/data/datasources/auth_remote_datasource.dart';
-import 'features/auth/data/repositories/auth_repository_impl.dart';
-import 'features/auth/domain/usecases/user_login.dart';
+import 'features/auth/domain/usecases/user_login_use_case.dart';
+import 'features/auth/presentation/providers/login_provider.dart';
+import 'injection_container.dart' as di;
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
 
-  final AppDatabase database = AppDatabase();
-  final UserLogin userLogin = UserLogin(
-    authRepository: AuthRepositoryImpl(
-      authRemoteDatasource: AuthRemoteDatasourceImpl(db: database),
+  final GoRouter router = createAppRouter();
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        loginProvider.overrideWith(
+          () => LoginNotifier(di.sl<UserLoginUseCase>()),
+        ),
+      ],
+      child: MyApp(router: router),
     ),
   );
-  final GoRouter router = createAppRouter(userLogin: userLogin);
-
-  runApp(ProviderScope(child: MyApp(router: router)));
 }
 
 class MyApp extends StatelessWidget {

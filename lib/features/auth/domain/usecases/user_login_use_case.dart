@@ -16,9 +16,9 @@ export '../entities/params/user_login_params.dart' show UserLoginParams;
 export '../entities/user_entity.dart' show UserEntity;
 
 
-class UserLogin implements UseCase<UserEntity, UserLoginParams>{
+class UserLoginUseCase implements UseCase<UserEntity, UserLoginParams>{
   final AuthRepository authRepository;
-  UserLogin({required this.authRepository});
+  UserLoginUseCase({required this.authRepository});
   @override
   Future<Either<Failure, UserEntity>> call(UserLoginParams userRegisterParams) {
     return authRepository.loginUser(userLoginParams: userRegisterParams);

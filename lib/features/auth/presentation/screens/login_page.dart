@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../domain/usecases/user_login.dart';
 import '../providers/login_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key, required this.userLogin});
-
-  final UserLogin userLogin;
+  const LoginPage({super.key});
 
   @override
   ConsumerState<LoginPage> createState() => _LoginPageState();
@@ -26,18 +22,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   Future<void> _submit() async {
     if (_formKey.currentState?.validate() != true) return;
-
-    await ref
-        .read(loginProvider(widget.userLogin).notifier)
-        .login(_phoneController.text);
+    await ref.read(loginProvider.notifier).login(_phoneController.text);
   }
 
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<UserEntity?> loginState = ref.watch(
-      loginProvider(widget.userLogin),
-    );
-    final Object? error = loginState.error;
+    final AsyncValue<UserEntity?> loginState = ref.watch(loginProvider);
+    final UserEntity? user = loginState.value;
+    final String? errorMessage = ref.read(loginProvider.notifier).errorMessage;
     final bool isLoading = loginState.isLoading;
 
     return Scaffold(
@@ -76,19 +68,35 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       onPressed: isLoading ? null : _submit,
                       child: Text(isLoading ? 'Checking…' : 'Continue'),
                     ),
-                    if (error != null) ...[
+                    if (!isLoading && errorMessage != null) ...[
                       const SizedBox(height: 12),
                       Text(
-                        error is SingleMessageReturnFailure
-                            ? error.message
-                            : 'Could not check your phone number. Try again.',
+                        errorMessage,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.error,
                         ),
                       ),
-                    ] else if (loginState.value != null) ...[
+                    ] else if (!isLoading && user != null) ...[
                       const SizedBox(height: 12),
-                      const Text('Phone number found.'),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${user.firstName} ${user.lastName}',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 8),
+                              Text('Phone: ${user.phone}'),
+                              Text('Membership: ${user.member.name}'),
+                              Text('Points: ${user.currentPoints}'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(loginState.value.runtimeType.toString()),
                     ],
                   ],
                 ),

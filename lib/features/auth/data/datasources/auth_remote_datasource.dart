@@ -21,6 +21,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
 
   @override
   Future<UserEntity> loginUser({required UserLoginParams userLoginParams}) async{
+
+    // add delayed of 3 seconds
+    await Future.delayed(Duration(seconds: 1));
     final phone = userLoginParams.phone.trim();
 
     final row = await (db.select(db.users)

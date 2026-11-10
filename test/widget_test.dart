@@ -4,7 +4,7 @@ import 'package:hometake/main.dart' as app;
 
 void main() {
   testWidgets('Home opens Login and Back returns to Home', (tester) async {
-    app.main();
+    await app.main();
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Go to Login'));
