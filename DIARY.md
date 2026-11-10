@@ -179,3 +179,8 @@ flutter pub add --dev drift_dev build_runner json_serializable
 flutter pub add --dev drift_dev build_runner json_serializable
 
 dart run build_runner build --delete-conflicting-outputs
+
+flutter pub add "json_annotation:^4.12.0"
+dart run build_runner build
+
+

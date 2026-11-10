@@ -1,0 +1,30 @@
+{
+  "members": [
+    { "id": 1, "name": "Silver", "memberPoints": 0 },
+    { "id": 2, "name": "Gold", "memberPoints": 500 },
+    { "id": 3, "name": "Platinum", "memberPoints": 1000 }
+  ],
+  "users": [
+    {
+      "firstName": "Maya",
+      "lastName": "Lin",
+      "email": "maya.silver@example.com",
+      "currentPoints": 100,
+      "memberId": 1
+    },
+    {
+      "firstName": "Theo",
+      "lastName": "Win",
+      "email": "theo.gold@example.com",
+      "currentPoints": 650,
+      "memberId": 2
+    },
+    {
+      "firstName": "Nora",
+      "lastName": "Min",
+      "email": "nora.platinum@example.com",
+      "currentPoints": 1200,
+      "memberId": 3
+    }
+  ]
+}
