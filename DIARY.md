@@ -140,7 +140,7 @@ let's define main entities
 
 ## Current Check List
 
-- [ ] let's add packages
+- [x] let's add packages
 - [ ] Directory Structure
 - [ ] Entity
 
