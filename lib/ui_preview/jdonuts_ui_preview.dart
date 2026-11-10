@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import '../core/theme/jdonuts_theme.dart';
 
 /// Standalone, static UI gallery based on the J'Donuts code-test designs.
 /// No repositories, providers, database, HTTP calls, or persistence.
 void main() => runApp(const JDonutsUiPreview());
 
-const _cyan = Color(0xFF49C7E3);
-const _pink = Color(0xFFF7EAF1);
-const _ink = Color(0xFF24242A);
+const _cyan = JDonutsColors.cyan;
+const _pink = JDonutsColors.pink;
+const _ink = JDonutsColors.ink;
 
 class JDonutsUiPreview extends StatelessWidget {
   const JDonutsUiPreview({super.key});
@@ -14,10 +15,7 @@ class JDonutsUiPreview extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "J'Donuts UI Preview",
-    theme: ThemeData(useMaterial3: true, scaffoldBackgroundColor: _pink,
-      colorScheme: ColorScheme.fromSeed(seedColor: _cyan),
-      textTheme: const TextTheme(headlineMedium: TextStyle(fontWeight: FontWeight.w900, color: _ink),
-        titleLarge: TextStyle(fontWeight: FontWeight.w800, color: _ink))),
+    theme: JDonutsTheme.light,
     home: const UiGallery(),
   );
 }
