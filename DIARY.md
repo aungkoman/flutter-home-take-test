@@ -30,6 +30,7 @@ let's define main entities
 
 - id
 - name
+- description
 - image_url
 - member_point
 

@@ -20,7 +20,7 @@ class MemberEntity{
 
   static MemberEntity get sample{
     return MemberEntity(
-      id: 0,
+      id: 1,
       name:"name",
       description:"description",
       createdAt: DateTime.now(),
