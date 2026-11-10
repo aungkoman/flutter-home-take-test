@@ -154,9 +154,11 @@ cached_network_image
 riverpod
 drift
 json_annotation
+go_router
 
 
 flutter pub add get_it equatable dartz cached_network_image drift riverpod
+flutter pub add go_router
 
 
 dev_dependencies
