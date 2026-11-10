@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'app_router.dart';
+import 'core/theme/jdonuts_theme.dart';
 import 'features/auth/domain/usecases/user_login_use_case.dart';
 import 'features/auth/presentation/providers/login_provider.dart';
 import 'injection_container.dart' as di;
@@ -34,9 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: "J' Donuts",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: JDonutsTheme.light,
       routerConfig: router,
     );
   }
