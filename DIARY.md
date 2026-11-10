@@ -145,6 +145,9 @@ let's define main entities
 - [ ] Directory Structure
 - [ ] Entity
 
+dart run build_runner build --delete-conflicting-outputs
+
+
 
 ### Packages
 
