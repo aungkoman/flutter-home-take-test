@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart';
 
 import '../providers/login_provider.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
+class PhoneNumberPage extends ConsumerStatefulWidget {
+  const PhoneNumberPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<PhoneNumberPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _LoginPageState extends ConsumerState<PhoneNumberPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -33,11 +34,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref.listen<AsyncValue<UserEntity?>>(loginProvider, (previous, next) {
       // Check if we just finished loading and successfully got a user
       if (previous?.isLoading == true && !next.isLoading && next.value != null) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const OtpVerifyPage(), // Replace with your actual OTP page
-          ),
-        );
+        context.go('/home');
       }
     });
 

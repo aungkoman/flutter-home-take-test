@@ -17,6 +17,22 @@
 - [ ] product detail
 - [ ] reward , earn and gift listing 
 
+
+as think of page flows,
+there is not login / register
+
+just enter phone number,
+on verification of OTP, we will decide it has already registered or not and then where we go.
+
+so use cases should be
+
+- enter phone number , 
+- enter otp , so return new / existing user , based on db
+- enter name, dob and register
+- home page listing
+- reward page listing
+
+
 ## What we do first.
 
 - [ ] data structure

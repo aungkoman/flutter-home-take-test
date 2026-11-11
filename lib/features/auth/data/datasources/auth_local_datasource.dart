@@ -53,42 +53,46 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
       throw SingleMessageReturnException(message: 'Date of birth is not valid.');
     }
 
-    return db.transaction(() async {
-      final User? existingUser = await (db.select(db.users)
-            ..where((u) => u.phone.equals(phone))
-            ..limit(1))
-          .getSingleOrNull();
-      if (existingUser != null) {
-        throw SingleMessageReturnException(
-          message: 'Phone number is already registered.',
+    try{
+      return await db.transaction(() async {
+        final User? existingUser = await (db.select(db.users)
+          ..where((u) => u.phone.equals(phone))
+          ..limit(1))
+            .getSingleOrNull();
+        if (existingUser != null) {
+          throw SingleMessageReturnException(
+            message: 'Phone number is already registered.',
+          );
+        }
+
+
+
+        final DateTime timestamp = DateTime.now().toUtc();
+        await db.customStatement(
+          'INSERT INTO users '
+              '(first_name, last_name, phone, dob, member_id,current_points, created_at, updated_at) '
+              'VALUES (?, ?, ?, ?, ?, ?,?, ?)',
+          [
+            userRegisterParams.firstName.trim(),
+            userRegisterParams.lastName.trim(),
+            phone,
+            db.typeMapping.mapToSqlVariable(dob),
+            1, // silver as default
+            0, // zero as default
+            db.typeMapping.mapToSqlVariable(timestamp),
+            db.typeMapping.mapToSqlVariable(timestamp),
+          ],
         );
-      }
+        db.markTablesUpdated({db.users});
 
-
-
-      final DateTime timestamp = DateTime.now().toUtc();
-      await db.customStatement(
-        'INSERT INTO users '
-        '(first_name, last_name, phone, dob, member_id,current_points, created_at, updated_at) '
-        'VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [
-          userRegisterParams.firstName.trim(),
-          userRegisterParams.lastName.trim(),
-          phone,
-          db.typeMapping.mapToSqlVariable(dob),
-          1, // silver as default
-          0, // zero as default
-          db.typeMapping.mapToSqlVariable(timestamp),
-          db.typeMapping.mapToSqlVariable(timestamp),
-        ],
-      );
-      db.markTablesUpdated({db.users});
-
-      final User row = await (db.select(db.users)
-            ..where((u) => u.phone.equals(phone)))
-          .getSingle();
-      return _toEntity(row);
-    });
+        final User row = await (db.select(db.users)
+          ..where((u) => u.phone.equals(phone)))
+            .getSingle();
+        return _toEntity(row);
+      });
+    } catch(error, stackTrace){
+      rethrow;
+    }
   }
 
   @override
