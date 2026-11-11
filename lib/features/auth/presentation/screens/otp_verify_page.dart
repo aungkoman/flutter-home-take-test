@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../providers/login_provider.dart';
+import '../providers/otp_verify_provider.dart';
 
 class OtpVerifyPage extends ConsumerStatefulWidget {
   const OtpVerifyPage({super.key});
-
 
   @override
   ConsumerState<OtpVerifyPage> createState() => _OtpVerifyPageState();
@@ -37,8 +42,43 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
     }
   }
 
+  Future<void> _verify() async {
+    // user id လိုချင်လို့
+    final UserEntity? loginUser = ref.read(loginProvider).value;
+    if (loginUser == null) {
+      // ဖုန်းနံပါတ် ထည့်ပြီး user id ပြန်သွားယူ
+      context.go('/login');
+      return;
+    }
+
+    final String code = _digits.join();
+    if (code.length != _otpLength) return;
+
+    await ref
+        .read(otpVerifyProvider.notifier)
+        .verifyOtp(userId: loginUser.id, otpCode: code);
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue<UserEntity?>>(otpVerifyProvider, (previous, next) {
+      if (previous?.isLoading != true || next is! AsyncData<UserEntity?>) {
+
+        return;
+      }
+
+      final UserEntity? user = next.value;
+      if (user == null) return;
+
+      context.go(user.firstName.trim().isEmpty ? '/register' : '/home');
+    });
+
+    final AsyncValue<UserEntity?> otpState = ref.watch(otpVerifyProvider);
+    final UserEntity? loginUser = ref.watch(loginProvider).value;
+    final bool isLoading = otpState.isLoading;
+    final String? errorMessage = ref
+        .read(otpVerifyProvider.notifier)
+        .errorMessage;
     final String code = _digits.join();
 
     return Scaffold(
@@ -64,6 +104,7 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
                             label: 'Digit ${index + 1} of $_otpLength',
                             child: TextField(
                               focusNode: _focusNodes[index],
+                              enabled: !isLoading,
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               selectAllOnFocus: true,
@@ -87,11 +128,31 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
                   ),
                   const SizedBox(height: 16),
                   FilledButton(
-                    onPressed: code.length == _otpLength
-                        ? () => null
+                    onPressed:
+                        code.length == _otpLength &&
+                            !isLoading &&
+                            loginUser != null
+                        ? _verify
                         : null,
-                    child: const Text('Verify'),
+                    child: Text(isLoading ? 'Verifying…' : 'Verify'),
                   ),
+                  if (errorMessage != null) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      errorMessage,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  ],
+                  if (loginUser == null) ...[
+                    const SizedBox(height: 12),
+                    const Text('Enter your phone number first.'),
+                    TextButton(
+                      onPressed: () => context.go('/login'),
+                      child: const Text('Go to Login'),
+                    ),
+                  ],
                 ],
               ),
             ),

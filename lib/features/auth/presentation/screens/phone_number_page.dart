@@ -3,9 +3,8 @@ import 'dart:developer' show log;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart';
-
 import '../providers/login_provider.dart';
+import '../providers/otp_verify_provider.dart';
 
 class PhoneNumberPage extends ConsumerStatefulWidget {
   const PhoneNumberPage({super.key});
@@ -56,7 +55,10 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
         name: 'auth.login',
       );
       // Check if we just finished loading and successfully got a user
-      if (previous?.isLoading == true && !next.isLoading && next.value != null) {
+      if (previous?.isLoading == true &&
+          next is AsyncData<UserEntity?> &&
+          next.value != null) {
+        ref.invalidate(otpVerifyProvider);
         context.go('/otp');
       }
     });

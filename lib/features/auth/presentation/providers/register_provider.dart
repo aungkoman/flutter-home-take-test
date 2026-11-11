@@ -29,6 +29,7 @@ class RegisterNotifier extends AsyncNotifier<UserEntity?> {
 
   // 2. state modifier methods တွေ။
   Future<void> register({
+    required int userId,
     required String firstName,
     required String lastName,
     required String dob,
@@ -42,6 +43,7 @@ class RegisterNotifier extends AsyncNotifier<UserEntity?> {
     try {
       final Either<Failure, UserEntity> userEither = await _userRegister(
         UserRegisterParams(
+          userId: userId,
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           dob: dob.trim(),

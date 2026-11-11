@@ -1,5 +1,7 @@
 import 'dart:developer' show log;
 
+import 'package:drift/drift.dart' show BooleanExpressionOperators, Value;
+
 import 'package:hometake/features/auth/domain/entities/user_entity.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -108,58 +110,50 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
   Future<UserEntity> registerUser({
     required UserRegisterParams userRegisterParams,
   }) async {
+    final String firstName = userRegisterParams.firstName.trim();
+    final String lastName = userRegisterParams.lastName.trim();
     final String phone = userRegisterParams.phone.trim();
     final DateTime? dob = DateTime.tryParse(userRegisterParams.dob.trim());
+    if (firstName.isEmpty || lastName.isEmpty) {
+      throw SingleMessageReturnException(
+        message: 'First name and last name are required.',
+      );
+    }
     if (phone.isEmpty) {
       throw SingleMessageReturnException(message: 'Phone number is required.');
     }
-    if (dob == null) {
+    if (dob == null || dob.isAfter(DateTime.now())) {
       throw SingleMessageReturnException(message: 'Date of birth is not valid.');
     }
 
-    try{
-      return await db.transaction(() async {
-        final User? existingUser = await (db.select(db.users)
-          ..where((u) => u.phone.equals(phone))
-          ..limit(1))
-            .getSingleOrNull();
-        if (existingUser != null) {
-          throw SingleMessageReturnException(
-            message: 'Phone number is already registered.',
-          );
-        }
-
-
-
-        final DateTime timestamp = DateTime.now().toUtc();
-        await db.customStatement(
-          'INSERT INTO users '
-              '(first_name, last_name, phone, dob, member_id,current_points, created_at, updated_at) '
-              'VALUES (?, ?, ?, ?, ?, ?,?, ?)',
-          [
-            userRegisterParams.firstName.trim(),
-            userRegisterParams.lastName.trim(),
-            phone,
-            db.typeMapping.mapToSqlVariable(dob),
-            1, // silver as default
-            0, // zero as default
-            db.typeMapping.mapToSqlVariable(timestamp),
-            db.typeMapping.mapToSqlVariable(timestamp),
-          ],
+    return db.transaction(() async {
+      final User? existingUser = await (db.select(db.users)
+            ..where((u) =>
+                u.id.equals(userRegisterParams.userId) & u.phone.equals(phone)))
+          .getSingleOrNull();
+      if (existingUser == null) {
+        throw SingleMessageReturnException(
+          message: 'User id and phone number are not registered.',
         );
-        db.markTablesUpdated({db.users});
+      }
 
-        final User row = await (db.select(db.users)
-          ..where((u) => u.phone.equals(phone)))
-            .getSingle();
-        return _toEntity(row);
-      });
-    } catch(error, stackTrace){
-      print(stackTrace);
-      rethrow;
-    }
+      await (db.update(db.users)
+            ..where((u) => u.id.equals(existingUser.id)))
+          .write(
+        UsersCompanion(
+          firstName: Value(firstName),
+          lastName: Value(lastName),
+          dob: Value(dob),
+          updatedAt: Value(DateTime.now().toUtc()),
+        ),
+      );
+
+      final User row = await (db.select(db.users)
+            ..where((u) => u.id.equals(existingUser.id)))
+          .getSingle();
+      return _toEntity(row);
+    });
   }
-
   @override
   Future<UserEntity> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams}) async{
     await Future.delayed(Duration(seconds: 1));
