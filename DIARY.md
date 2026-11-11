@@ -10,12 +10,20 @@
 
 ## 2026-11-11 Wed
 
-- [ ] otp verify usecase
-- [ ] login usecase 
-- [ ] register usecase
-- [ ] home page listing
-- [ ] product detail
-- [ ] reward , earn and gift listing 
+
+### Submission Check List
+
+- [ ] up and running
+- [ ] android , ios release , apk - ios app
+
+
+
+- [x] otp verify usecase
+- [x] login usecase 
+- [x] register usecase
+- [x] home page listing
+- [x] product detail
+- [x] reward , earn and gift listing 
 
 
 as think of page flows,
