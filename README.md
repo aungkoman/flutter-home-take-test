@@ -12,6 +12,13 @@ A Flutter take-home project for browsing donuts, choosing a shop, managing a car
 
 The Dart constraint in `pubspec.yaml` is `^3.13.7`. The versions above match the SDK used for development. Android and iOS are the configured platforms; the iOS deployment target is 15.0.
 
+
+## Demo
+
+ios demo screen recording
+
+https://drive.google.com/file/d/1ye7W2iLdlWUjQiNk9XS-Su44N_sHfjub/view?usp=sharing
+
 ## How to run
 
 Install Flutter and the platform tools: Android Studio/Android SDK for Android, or Xcode on macOS for iOS. Start an emulator/simulator or connect a device, then run from the repository root:
