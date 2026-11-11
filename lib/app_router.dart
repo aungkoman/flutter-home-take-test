@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'features/settings/presentation/screens/settings_page.dart';
 import 'features/wallet/presentation/screens/wallet_page.dart';
 import 'features/order/presentation/screens/order_page.dart';
@@ -18,8 +20,8 @@ import 'features/product/presentation/screens/category_detail_page.dart';
 import 'features/product/presentation/screens/product_detail_page.dart';
 import 'features/product/presentation/screens/product_type_detail_page.dart';
 import 'features/product/domain/entities/category_entity.dart';
-import 'features/product/domain/entities/product_entity.dart';
 import 'features/product/domain/entities/product_type_entity.dart';
+import 'features/product/presentation/widgets/product_hero_tags.dart';
 import 'features/rewards/presentation/screens/reward_page.dart';
 
 GoRouter createAppRouter() {
@@ -49,53 +51,23 @@ GoRouter createAppRouter() {
 
           GoRoute(
             path: 'catalog',
-            builder: (context, state) => CatalogPage(
-              categoryId: int.tryParse(
-                state.uri.queryParameters['categoryId'] ?? '',
-              ),
-              productTypeId: int.tryParse(
-                state.uri.queryParameters['productTypeId'] ?? '',
-              ),
-            ),
+            redirect: (context, state) =>
+                '/home/catalog${state.uri.hasQuery ? '?${state.uri.query}' : ''}',
           ),
           GoRoute(
             path: 'categories/:id',
-            builder: (context, state) {
-              final CategoryEntity? preview = state.extra is CategoryEntity
-                  ? state.extra as CategoryEntity
-                  : null;
-              return CategoryDetailPage(
-                id: state.pathParameters['id']!,
-                name: preview?.name,
-                imageUrl: preview?.imageUrl,
-              );
-            },
+            redirect: (context, state) =>
+                '/home/categories/${state.pathParameters['id']}',
           ),
           GoRoute(
             path: 'product-types/:id',
-            builder: (context, state) {
-              final ProductTypeEntity? preview =
-                  state.extra is ProductTypeEntity
-                  ? state.extra as ProductTypeEntity
-                  : null;
-              return ProductTypeDetailPage(
-                id: state.pathParameters['id']!,
-                name: preview?.name,
-                imageUrl: preview?.imageUrl,
-              );
-            },
+            redirect: (context, state) =>
+                '/home/product-types/${state.pathParameters['id']}',
           ),
           GoRoute(
             path: 'products/:id',
-            builder: (context, state) {
-              final ProductEntity? preview = state.extra is ProductEntity
-                  ? state.extra as ProductEntity
-                  : null;
-              return ProductDetailPage(
-                id: state.pathParameters['id']!,
-                initialProduct: preview,
-              );
-            },
+            redirect: (context, state) =>
+                '/home/products/${state.pathParameters['id']}',
           ),
 
           // Bottom-nav shell
@@ -108,6 +80,69 @@ GoRouter createAppRouter() {
                   GoRoute(
                     path: '/home',
                     builder: (context, state) => const HomePage(),
+                    routes: [
+                      GoRoute(
+                        path: 'catalog',
+                        builder: (context, state) => CatalogPage(
+                          categoryId: int.tryParse(
+                            state.uri.queryParameters['categoryId'] ?? '',
+                          ),
+                          productTypeId: int.tryParse(
+                            state.uri.queryParameters['productTypeId'] ?? '',
+                          ),
+                        ),
+                      ),
+                      GoRoute(
+                        path: 'categories/:id',
+                        pageBuilder: (context, state) {
+                          final CategoryEntity? preview =
+                              state.extra is CategoryEntity
+                              ? state.extra as CategoryEntity
+                              : null;
+                          return _heroTransitionPage(
+                            state,
+                            CategoryDetailPage(
+                              id: state.pathParameters['id']!,
+                              name: preview?.name,
+                              imageUrl: preview?.imageUrl,
+                            ),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'product-types/:id',
+                        pageBuilder: (context, state) {
+                          final ProductTypeEntity? preview =
+                              state.extra is ProductTypeEntity
+                              ? state.extra as ProductTypeEntity
+                              : null;
+                          return _heroTransitionPage(
+                            state,
+                            ProductTypeDetailPage(
+                              id: state.pathParameters['id']!,
+                              name: preview?.name,
+                              imageUrl: preview?.imageUrl,
+                            ),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'products/:id',
+                        pageBuilder: (context, state) {
+                          final ProductHeroRouteData? preview =
+                              state.extra is ProductHeroRouteData
+                              ? state.extra as ProductHeroRouteData
+                              : null;
+                          return _heroTransitionPage(
+                            state,
+                            ProductDetailPage(
+                              id: state.pathParameters['id']!,
+                              heroData: preview,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -150,3 +185,15 @@ GoRouter createAppRouter() {
     ],
   );
 }
+
+CustomTransitionPage<void> _heroTransitionPage(
+  GoRouterState state,
+  Widget child,
+) => CustomTransitionPage<void>(
+  key: state.pageKey,
+  child: child,
+  transitionDuration: const Duration(milliseconds: 900),
+  reverseTransitionDuration: const Duration(milliseconds: 700),
+  transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+      FadeTransition(opacity: animation, child: child),
+);

@@ -319,11 +319,13 @@ class ProductDetailSkeleton extends StatelessWidget {
     this.productId,
     this.productName,
     this.imageUrl,
+    this.heroScope,
   });
 
   final int? productId;
   final String? productName;
   final String? imageUrl;
+  final String? heroScope;
 
   @override
   Widget build(BuildContext context) => Center(
@@ -334,9 +336,12 @@ class ProductDetailSkeleton extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (productId != null && imageUrl != null && imageUrl!.isNotEmpty)
+            if (productId != null &&
+                imageUrl != null &&
+                imageUrl!.isNotEmpty &&
+                heroScope != null)
               Hero(
-                tag: ProductHeroTags.image(productId!),
+                tag: ProductHeroTags.image(productId!, heroScope!),
                 child: Image.asset(
                   imageUrl!,
                   height: 240,
@@ -356,9 +361,9 @@ class ProductDetailSkeleton extends StatelessWidget {
                 borderRadius: 24,
               ),
             const SizedBox(height: 24),
-            if (productId != null && productName != null)
+            if (productId != null && productName != null && heroScope != null)
               Hero(
-                tag: ProductHeroTags.name(productId!),
+                tag: ProductHeroTags.name(productId!, heroScope!),
                 child: Material(
                   color: Colors.transparent,
                   child: Text(

@@ -79,7 +79,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                     borderRadius: BorderRadius.circular(24),
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
-                      onTap: () => context.push('/catalog'),
+                      onTap: () => context.push('/home/catalog'),
                       child: Padding(
                         padding: const EdgeInsets.all(18),
                         child: Row(

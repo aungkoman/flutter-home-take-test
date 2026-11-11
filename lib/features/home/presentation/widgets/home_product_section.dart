@@ -13,6 +13,7 @@ class HomeProductSection extends StatelessWidget {
     this.collectionKind,
     this.collectionId,
     this.imageUrl,
+    required this.heroScope,
   });
 
   final String title;
@@ -21,6 +22,7 @@ class HomeProductSection extends StatelessWidget {
   final String? collectionKind;
   final int? collectionId;
   final String? imageUrl;
+  final String heroScope;
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +141,18 @@ class HomeProductSection extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(width: 14),
               itemBuilder: (context, index) {
                 final ProductEntity product = products[index];
+                final String productScope = '$heroScope-$index';
                 return SizedBox(
                   width: cardWidth,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(22),
-                    onTap: () =>
-                        context.push('/products/${product.id}', extra: product),
+                    onTap: () => context.push(
+                      '/home/products/${product.id}',
+                      extra: ProductHeroRouteData(
+                        product: product,
+                        scope: productScope,
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -157,7 +165,10 @@ class HomeProductSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: Hero(
-                            tag: ProductHeroTags.image(product.id),
+                            tag: ProductHeroTags.image(
+                              product.id,
+                              productScope,
+                            ),
                             child: Image.asset(
                               product.imageUrl,
                               fit: BoxFit.contain,
@@ -174,7 +185,7 @@ class HomeProductSection extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Hero(
-                            tag: ProductHeroTags.name(product.id),
+                            tag: ProductHeroTags.name(product.id, productScope),
                             child: Material(
                               color: Colors.transparent,
                               child: Text(

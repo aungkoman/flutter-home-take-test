@@ -70,10 +70,16 @@ class CatalogPage extends ConsumerWidget {
                       ListTile(
                         leading: _CatalogImage(
                           path: product.imageUrl,
-                          heroTag: ProductHeroTags.image(product.id),
+                          heroTag: ProductHeroTags.image(
+                            product.id,
+                            'catalog-products',
+                          ),
                         ),
                         title: Hero(
-                          tag: ProductHeroTags.name(product.id),
+                          tag: ProductHeroTags.name(
+                            product.id,
+                            'catalog-products',
+                          ),
                           child: Material(
                             color: Colors.transparent,
                             child: Text(product.name),
@@ -88,8 +94,11 @@ class CatalogPage extends ConsumerWidget {
                         isThreeLine: true,
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => context.push(
-                          '/products/${product.id}',
-                          extra: product,
+                          '/home/products/${product.id}',
+                          extra: ProductHeroRouteData(
+                            product: product,
+                            scope: 'catalog-products',
+                          ),
                         ),
                       ),
                   ],
@@ -146,7 +155,7 @@ class CatalogPage extends ConsumerWidget {
                         ),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => context.push(
-                          '/product-types/${type.id}',
+                          '/home/product-types/${type.id}',
                           extra: type,
                         ),
                         subtitle: Text(
@@ -178,7 +187,7 @@ class CatalogPage extends ConsumerWidget {
                         ),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => context.push(
-                          '/categories/${category.id}',
+                          '/home/categories/${category.id}',
                           extra: category,
                         ),
                         subtitle: Text(

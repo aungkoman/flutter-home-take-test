@@ -87,8 +87,9 @@ class HomePage extends ConsumerWidget {
                         collectionKind: 'category',
                         collectionId: category.id,
                         imageUrl: category.imageUrl,
+                        heroScope: 'home-category-${category.id}',
                         onViewAll: () => context.push(
-                          '/categories/${category.id}',
+                          '/home/categories/${category.id}',
                           extra: category,
                         ),
                       ),
@@ -107,8 +108,9 @@ class HomePage extends ConsumerWidget {
                           collectionKind: 'product-type',
                           collectionId: type.id,
                           imageUrl: type.imageUrl,
+                          heroScope: 'home-product-type-${type.id}',
                           onViewAll: () => context.push(
-                            '/product-types/${type.id}',
+                            '/home/product-types/${type.id}',
                             extra: type,
                           ),
                         ),
@@ -122,7 +124,7 @@ class HomePage extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 20, 24, 140),
                       child: OutlinedButton.icon(
-                        onPressed: () => context.push('/catalog'),
+                        onPressed: () => context.push('/home/catalog'),
                         icon: const Icon(Icons.grid_view_rounded),
                         label: const Text('View full catalog'),
                       ),

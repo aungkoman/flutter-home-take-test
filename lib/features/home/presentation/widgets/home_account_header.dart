@@ -63,7 +63,7 @@ class HomeAccountHeader extends StatelessWidget {
                 ),
                 IconButton(
                   tooltip: 'View catalog',
-                  onPressed: () => context.push('/catalog'),
+                  onPressed: () => context.push('/home/catalog'),
                   icon: const Icon(Icons.grid_view_rounded),
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.white.withValues(alpha: 0.6),

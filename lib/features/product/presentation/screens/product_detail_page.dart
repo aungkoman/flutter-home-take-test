@@ -6,10 +6,10 @@ import '../widgets/loading_effects.dart';
 import '../widgets/product_hero_tags.dart';
 
 class ProductDetailPage extends ConsumerWidget {
-  const ProductDetailPage({super.key, required this.id, this.initialProduct});
+  const ProductDetailPage({super.key, required this.id, this.heroData});
 
   final String id;
-  final ProductEntity? initialProduct;
+  final ProductHeroRouteData? heroData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,9 +22,10 @@ class ProductDetailPage extends ConsumerWidget {
       appBar: AppBar(title: const Text('Product details')),
       body: productState.when(
         loading: () => ProductDetailSkeleton(
-          productId: initialProduct?.id,
-          productName: initialProduct?.name,
-          imageUrl: initialProduct?.imageUrl,
+          productId: heroData?.product.id,
+          productName: heroData?.product.name,
+          imageUrl: heroData?.product.imageUrl,
+          heroScope: heroData?.scope,
         ),
         error: (error, stackTrace) => Center(
           child: Column(
@@ -53,9 +54,12 @@ class ProductDetailPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (product.imageUrl.isNotEmpty)
-                      Hero(
-                        tag: ProductHeroTags.image(product.id),
-                        child: Image.asset(
+                      _productHero(
+                        ProductHeroTags.image(
+                          product.id,
+                          heroData?.scope ?? 'unmatched',
+                        ),
+                        Image.asset(
                           product.imageUrl,
                           height: 240,
                           fit: BoxFit.contain,
@@ -71,9 +75,12 @@ class ProductDetailPage extends ConsumerWidget {
                         ),
                       ),
                     const SizedBox(height: 24),
-                    Hero(
-                      tag: ProductHeroTags.name(product.id),
-                      child: Material(
+                    _productHero(
+                      ProductHeroTags.name(
+                        product.id,
+                        heroData?.scope ?? 'unmatched',
+                      ),
+                      Material(
                         color: Colors.transparent,
                         child: Text(
                           product.name,
@@ -129,5 +136,10 @@ class ProductDetailPage extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  Widget _productHero(String tag, Widget child) {
+    if (heroData == null) return child;
+    return Hero(tag: tag, child: child);
   }
 }

@@ -271,13 +271,18 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                         ),
                         delegate: SliverChildBuilderDelegate((context, index) {
                           final ProductEntity product = results[index];
+                          final String productScope =
+                              'collection-$heroKind-$id-$index';
                           return StaggeredEntrance(
                             index: index,
                             child: InkWell(
                               borderRadius: BorderRadius.circular(16),
                               onTap: () => context.push(
-                                '/products/${product.id}',
-                                extra: product,
+                                '/home/products/${product.id}',
+                                extra: ProductHeroRouteData(
+                                  product: product,
+                                  scope: productScope,
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -293,7 +298,10 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                       ),
                                     ),
                                     child: Hero(
-                                      tag: ProductHeroTags.image(product.id),
+                                      tag: ProductHeroTags.image(
+                                        product.id,
+                                        productScope,
+                                      ),
                                       child: Image.asset(
                                         product.imageUrl,
                                         fit: BoxFit.contain,
@@ -315,7 +323,10 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                     child: SizedBox(
                                       height: nameHeight,
                                       child: Hero(
-                                        tag: ProductHeroTags.name(product.id),
+                                        tag: ProductHeroTags.name(
+                                          product.id,
+                                          productScope,
+                                        ),
                                         child: Material(
                                           color: Colors.transparent,
                                           child: Text(
