@@ -3,12 +3,18 @@ import 'package:drift/drift.dart';
 import '../../../auth/data/database/app_database.dart' as database;
 import '../../domain/entities/product_catalog.dart';
 
-class ProductLocalDatasource {
-  ProductLocalDatasource({required this.db});
+abstract class ProductLocalDatasource {
+  Future<ProductCatalog> getCatalog();
+}
+
+class ProductLocalDatasourceImpl implements ProductLocalDatasource {
+  ProductLocalDatasourceImpl({required this.db});
 
   final database.AppDatabase db;
 
-  Future<ProductCatalog> getCatalog() {
+  @override
+  Future<ProductCatalog> getCatalog() async{
+    await Future.delayed(Duration(seconds: 3));
     return db.transaction(() async {
       final List<database.ProductType> typeRows =
           await (db.select(db.productTypes)..orderBy([

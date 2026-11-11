@@ -33,7 +33,7 @@ Future<void> init() async {
   );
 
   sl.registerLazySingleton<ProductLocalDatasource>(
-    () => ProductLocalDatasource(db: sl<AppDatabase>()),
+    () => ProductLocalDatasourceImpl(db: sl<AppDatabase>()),
   );
   sl.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(localDatasource: sl<ProductLocalDatasource>()),
