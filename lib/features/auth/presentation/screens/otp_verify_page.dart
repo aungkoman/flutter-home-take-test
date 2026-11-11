@@ -23,6 +23,15 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   static const int _otpLength = 6;
 
   final List<String> _digits = List<String>.filled(_otpLength, '');
+
+  // One controller per box so we can clear a box programmatically when
+  // the user backspaces into it from the following box.
+  final List<TextEditingController> _controllers =
+      List<TextEditingController>.generate(
+        _otpLength,
+        (_) => TextEditingController(),
+      );
+
   final List<FocusNode> _focusNodes = List<FocusNode>.generate(
     _otpLength,
     (_) => FocusNode(),
@@ -47,16 +56,47 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   @override
   void initState() {
     super.initState();
+    _attachBackspaceHandlers();
     _startCountdown();
   }
 
   @override
   void dispose() {
     _countdownTimer?.cancel();
-    for (final FocusNode fn in _focusNodes) {
-      fn.dispose();
+    for (int i = 0; i < _otpLength; i++) {
+      _controllers[i].dispose();
+      _focusNodes[i].dispose();
     }
     super.dispose();
+  }
+
+  // ── Backspace handler ─────────────────────────────────────────────────────
+
+  /// Hooks into each [FocusNode] so a backspace key-down on an **empty** box
+  /// clears the previous box and shifts focus back to it.
+  ///
+  /// Why not use [onChanged]? [onChanged] only fires when the field *value
+  /// changes*. If a box is already empty the value cannot change, so backspace
+  /// is silently swallowed — this key-event handler catches it.
+  void _attachBackspaceHandlers() {
+    for (int i = 0; i < _otpLength; i++) {
+      final int index = i;
+      _focusNodes[index].onKeyEvent = (_, KeyEvent event) {
+        final bool isBackspace =
+            event is KeyDownEvent &&
+            event.logicalKey == LogicalKeyboardKey.backspace;
+
+        if (isBackspace && _digits[index].isEmpty && index > 0) {
+          setState(() {
+            _digits[index - 1] = '';
+            _controllers[index - 1].clear();
+          });
+          _focusNodes[index - 1].requestFocus();
+          return KeyEventResult.handled;
+        }
+        return KeyEventResult.ignored;
+      };
+    }
   }
 
   // ── Countdown helpers ─────────────────────────────────────────────────────
@@ -83,12 +123,19 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   // ── OTP input helpers ─────────────────────────────────────────────────────
 
   void _onDigitChanged(int index, String digit) {
+    final bool wasFilled = _digits[index].isNotEmpty;
     setState(() => _digits[index] = digit);
 
+    // Advance to the next box when a digit is entered.
     if (digit.isNotEmpty && index < _otpLength - 1) {
       _focusNodes[index + 1].requestFocus();
-    } else if (digit.isEmpty && index > 0) {
+    } else if (digit.isEmpty && wasFilled && index > 0) {
       _focusNodes[index - 1].requestFocus();
+      final TextEditingController previous = _controllers[index - 1];
+      previous.selection = TextSelection(
+        baseOffset: 0,
+        extentOffset: previous.text.length,
+      );
     }
   }
 
@@ -105,10 +152,9 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
     final String code = _digits.join();
     if (code.length != _otpLength) return;
 
-    await ref.read(otpVerifyProvider.notifier).verifyOtp(
-          userId: loginUser.id,
-          otpCode: code,
-        );
+    await ref
+        .read(otpVerifyProvider.notifier)
+        .verifyOtp(userId: loginUser.id, otpCode: code);
   }
 
   /// Called when the user taps Resend. Restarts the countdown.
@@ -123,25 +169,21 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   @override
   Widget build(BuildContext context) {
     // Navigation side-effects
-    ref.listen<AsyncValue<UserEntity?>>(
-      otpVerifyProvider,
-      (previous, next) {
-        if (previous?.isLoading != true || next is! AsyncData<UserEntity?>) {
-          return;
-        }
-        final UserEntity? user = next.value;
-        if (user == null) return;
-        context.go(
-          user.firstName.trim().isEmpty ? '/register' : '/welcome',
-        );
-      },
-    );
+    ref.listen<AsyncValue<UserEntity?>>(otpVerifyProvider, (previous, next) {
+      if (previous?.isLoading != true || next is! AsyncData<UserEntity?>) {
+        return;
+      }
+      final UserEntity? user = next.value;
+      if (user == null) return;
+      context.go(user.firstName.trim().isEmpty ? '/register' : '/welcome');
+    });
 
     final AsyncValue<UserEntity?> otpState = ref.watch(otpVerifyProvider);
     final UserEntity? loginUser = ref.watch(loginProvider).value;
     final bool isLoading = otpState.isLoading;
-    final String? errorMessage =
-        ref.read(otpVerifyProvider.notifier).errorMessage;
+    final String? errorMessage = ref
+        .read(otpVerifyProvider.notifier)
+        .errorMessage;
     final String code = _digits.join();
 
     final bool isKeyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
@@ -243,7 +285,8 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
                             width: double.infinity,
                             height: 52,
                             child: FilledButton(
-                              onPressed: code.length == _otpLength &&
+                              onPressed:
+                                  code.length == _otpLength &&
                                       !isLoading &&
                                       loginUser != null
                                   ? _verify
@@ -253,8 +296,9 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
                                 disabledBackgroundColor: appColors.pinkDisabled,
                                 foregroundColor: colorScheme.onSecondary,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(AppRadii.md),
+                                  borderRadius: BorderRadius.circular(
+                                    AppRadii.md,
+                                  ),
                                 ),
                               ),
                               child: Text(
@@ -354,14 +398,13 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
       children: List<Widget>.generate(_otpLength, (int index) {
         return Expanded(
           child: Padding(
-            padding: EdgeInsets.only(
-              right: index == _otpLength - 1 ? 0 : 9,
-            ),
+            padding: EdgeInsets.only(right: index == _otpLength - 1 ? 0 : 9),
             child: Semantics(
               label: 'Digit ${index + 1} of $_otpLength',
               child: SizedBox(
                 height: 58,
                 child: TextField(
+                  controller: _controllers[index],
                   focusNode: _focusNodes[index],
                   enabled: !isLoading,
                   keyboardType: TextInputType.number,
@@ -469,7 +512,8 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
         TextSpan(
           children: [
             const TextSpan(
-              text: 'By continuing, you acknowledge that '
+              text:
+                  'By continuing, you acknowledge that '
                   'you have read and agree to our ',
             ),
             TextSpan(

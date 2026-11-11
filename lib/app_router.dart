@@ -79,13 +79,13 @@ GoRouter createAppRouter() {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    path: 'cart',
-                    builder: (context, state) => const CartPage(),
-                  ),
-                  GoRoute(
                     path: '/home',
                     builder: (context, state) => const HomePage(),
                     routes: [
+                      GoRoute(
+                        path: 'cart',
+                        builder: (context, state) => const CartPage(),
+                      ),
                       GoRoute(
                         path: 'catalog',
                         builder: (context, state) => CatalogPage(

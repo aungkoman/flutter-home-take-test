@@ -195,42 +195,7 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                     ),
                   ),
                 ] else if (!isLoading && user != null) ...[
-                  const SizedBox(height: AppSpacing.lg),
-                  Container(
-                    padding: const EdgeInsets.all(AppSpacing.lg),
-                    decoration: BoxDecoration(
-                      color: colorScheme.surface,
-                      borderRadius: BorderRadius.circular(AppRadii.card),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${user.firstName} ${user.lastName}',
-                          style: textTheme.titleLarge,
-                        ),
-                        const SizedBox(height: AppSpacing.sm),
-                        Text(
-                          'Phone: ${user.phone}',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: appColors.textMuted,
-                          ),
-                        ),
-                        Text(
-                          'Membership: ${user.member.name}',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: appColors.textMuted,
-                          ),
-                        ),
-                        Text(
-                          'Points: ${user.currentPoints}',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: appColors.textMuted,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const SizedBox(height: AppSpacing.lg)
                 ],
 
                 const Spacer(),

@@ -71,14 +71,14 @@ class HomeAccountHeader extends ConsumerWidget {
                     ],
                   ),
                 ),
-                IconButton(
-                  tooltip: 'View catalog',
-                  onPressed: () => context.push('/home/catalog'),
-                  icon: const Icon(Icons.grid_view_rounded),
-                  style: IconButton.styleFrom(
-                    backgroundColor: colorScheme.surface.withValues(alpha: 0.6),
-                  ),
-                ),
+                // IconButton(
+                //   tooltip: 'View catalog',
+                //   onPressed: () => context.push('/home/catalog'),
+                //   icon: const Icon(Icons.grid_view_rounded),
+                //   style: IconButton.styleFrom(
+                //     backgroundColor: colorScheme.surface.withValues(alpha: 0.6),
+                //   ),
+                // ),
                 const SizedBox(width: 4),
                 IconButton(
                   tooltip: 'View cart',
