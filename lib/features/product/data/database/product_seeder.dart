@@ -54,20 +54,7 @@ Future<void> seedProductCatalog(AppDatabase db) async {
         ),
       ),
     );
-    batch.insertAllOnConflictUpdate(
-      db.shops,
-      (seed['shops'] as List).cast<Map<String, dynamic>>().map(
-        (row) => ShopsCompanion.insert(
-          id: Value(row['id'] as int),
-          name: row['name'] as String,
-          description: row['description'] as String,
-          address: row['address'] as String,
-          imageUrl: row['imageUrl'] as String,
-          lat: (row['lat'] as num).toDouble(),
-          lng: (row['lng'] as num).toDouble(),
-        ),
-      ),
-    );
+    batch.insertAllOnConflictUpdate(db.shops, _shopRows(seed));
     batch.insertAllOnConflictUpdate(
       db.categories,
       (seed['categories'] as List).cast<Map<String, dynamic>>().map(
@@ -109,4 +96,47 @@ Future<void> seedProductPrices(AppDatabase db) async {
           ProductsCompanion(price: Value((row['price'] as num).toDouble())),
         );
   }
+}
+
+Future<void> seedProductCodes(AppDatabase db) async {
+  final String source = await rootBundle.loadString(
+    'assets/seeds/product_seed.json',
+  );
+  final Map<String, dynamic> seed = jsonDecode(source) as Map<String, dynamic>;
+
+  for (final Map<String, dynamic> row
+      in (seed['products'] as List).cast<Map<String, dynamic>>()) {
+    await (db.update(db.products)..where(
+          (product) =>
+              product.id.equals(row['id'] as int) &
+              (product.productCode.isNull() | product.productCode.equals('')),
+        ))
+        .write(
+          ProductsCompanion(productCode: Value(row['productCode'] as String)),
+        );
+  }
+}
+
+Iterable<ShopsCompanion> _shopRows(Map<String, dynamic> seed) {
+  return (seed['shops'] as List).cast<Map<String, dynamic>>().map(
+    (row) => ShopsCompanion.insert(
+      id: Value(row['id'] as int),
+      name: row['name'] as String,
+      description: (row['description'] as String?) ?? '',
+      address: row['address'] as String,
+      imageUrl: row['imageUrl'] as String,
+      lat: (row['lat'] as num).toDouble(),
+      lng: (row['lng'] as num).toDouble(),
+    ),
+  );
+}
+
+Future<void> seedShops(AppDatabase db) async {
+  final String source = await rootBundle.loadString(
+    'assets/seeds/product_seed.json',
+  );
+  final Map<String, dynamic> seed = jsonDecode(source) as Map<String, dynamic>;
+  await db.batch((batch) {
+    batch.insertAllOnConflictUpdate(db.shops, _shopRows(seed));
+  });
 }

@@ -83,7 +83,13 @@ class CatalogPage extends ConsumerWidget {
                 children: [
                   for (final ShopEntity shop in data.shops)
                     ListTile(
-                      leading: _CatalogImage(path: shop.imageUrl),
+                      leading: shop.imageUrl.isEmpty
+                          ? const SizedBox(
+                              width: 48,
+                              height: 48,
+                              child: Icon(Icons.storefront_outlined),
+                            )
+                          : _CatalogImage(path: shop.imageUrl),
                       title: Text(shop.name),
                       subtitle: Text(
                         '${shop.address}\n${shop.lat}, ${shop.lng}',

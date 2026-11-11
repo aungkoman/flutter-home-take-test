@@ -32,7 +32,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -70,6 +70,12 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from == 4 && _seedOnCreate) {
         await transaction(() => seedProductPrices(this));
+      }
+      if (from >= 4 && from < 6 && _seedOnCreate) {
+        await transaction(() => seedProductCodes(this));
+      }
+      if (from >= 4 && from < 7 && _seedOnCreate) {
+        await transaction(() => seedShops(this));
       }
     },
     beforeOpen: (details) async {

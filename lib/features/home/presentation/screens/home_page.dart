@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.push('/products/1');
+          // context.push('/products/1');
+          context.push('/catalog');
         },
       ),
     );
