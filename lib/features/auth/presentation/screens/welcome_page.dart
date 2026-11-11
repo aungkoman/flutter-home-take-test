@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../widgets/donut_sticker.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -15,41 +16,62 @@ class WelcomePage extends StatelessWidget {
       backgroundColor: appColors.blushBackground,
       body: Stack(
         children: [
-          // Background layout with donuts (placeholders used here as we don't have the assets)
           Positioned(
             top: -20,
             left: -20,
-            child: _buildPlaceholderDonut(
-              context,
-              appColors.placeholderSky,
-              colorScheme.primary,
+            child: DonutSticker(
+              asset: 'assets/images/donut-brown.png',
+              size: 205,
+              backgroundColor: appColors.placeholderSky,
+              rotation: -0.2,
             ),
           ),
           Positioned(
             top: 40,
             right: -40,
-            child: _buildPlaceholderDonut(
-              context,
-              appColors.pinkSoft,
-              colorScheme.secondary,
+            child: DonutSticker(
+              asset: 'assets/images/donut-red.png',
+              size: 195,
+              backgroundColor: appColors.pinkSoft,
+              rotation: 0.18,
             ),
           ),
           Positioned(
             top: 250,
             left: -30,
-            child: _buildPlaceholderDonut(
-              context,
-              appColors.pinkSoft,
-              appColors.pinkDeep,
+            child: DonutSticker(
+              asset: 'assets/images/donut-yellow.png',
+              size: 180,
+              backgroundColor: appColors.pinkSoft,
+              rotation: -0.32,
             ),
           ),
           Positioned(
             top: 350,
             right: -20,
-            child: _buildPlaceholderDonut(
-              context,
-              appColors.placeholderPeach,
-              appColors.placeholderCocoa,
+            child: DonutSticker(
+              asset: 'assets/images/donut-brown.png',
+              size: 178,
+              backgroundColor: appColors.placeholderPeach,
+              rotation: 0.25,
+            ),
+          ),
+          const Positioned(
+            top: 195,
+            right: 112,
+            child: DonutSticker(
+              asset: 'assets/images/donut-yellow.png',
+              size: 78,
+              rotation: 0.2,
+            ),
+          ),
+          const Positioned(
+            top: 430,
+            left: 115,
+            child: DonutSticker(
+              asset: 'assets/images/donut-red.png',
+              size: 64,
+              rotation: -0.3,
             ),
           ),
 
@@ -109,36 +131,6 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  // Helper method to create placeholder colored squares for the donuts
-  Widget _buildPlaceholderDonut(
-    BuildContext context,
-    Color bgColor,
-    Color donutColor,
-  ) {
-    return Container(
-      width: 220,
-      height: 280,
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(AppRadii.pill),
-      ),
-      child: Center(
-        child: Container(
-          width: 140,
-          height: 140,
-          decoration: BoxDecoration(
-            color: donutColor,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: context.colorScheme.surface.withValues(alpha: 0.3),
-              width: 20,
-            ),
-          ),
-        ),
       ),
     );
   }

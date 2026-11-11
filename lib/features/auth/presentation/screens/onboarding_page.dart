@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../widgets/donut_sticker.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -15,8 +16,6 @@ class OnboardingPage extends StatelessWidget {
       backgroundColor: appColors.blushBackground,
       body: Stack(
         children: [
-          // Background Assets Placeholder
-          // Replace these Containers with Positioned Image.asset() for the donuts
           Positioned(
             top: -40,
             left: -40,
@@ -39,6 +38,43 @@ class OnboardingPage extends StatelessWidget {
                 color: appColors.pinkSoft,
                 shape: BoxShape.circle,
               ),
+            ),
+          ),
+          const Positioned(
+            top: 8,
+            left: 10,
+            child: DonutSticker(
+              asset: 'assets/images/donut-red.png',
+              size: 112,
+              rotation: -0.22,
+            ),
+          ),
+          Positioned(
+            top: 122,
+            left: 0,
+            child: DonutSticker(
+              asset: 'assets/images/donut-yellow.png',
+              size: 118,
+              backgroundColor: appColors.pinkSoft,
+              rotation: 0.18,
+            ),
+          ),
+          const Positioned(
+            top: 174,
+            right: 18,
+            child: DonutSticker(
+              asset: 'assets/images/donut-brown.png',
+              size: 104,
+              rotation: -0.35,
+            ),
+          ),
+          const Positioned(
+            top: 270,
+            right: 48,
+            child: DonutSticker(
+              asset: 'assets/images/donut-red.png',
+              size: 68,
+              rotation: 0.3,
             ),
           ),
 
