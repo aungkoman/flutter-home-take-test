@@ -296,8 +296,9 @@ class _ProductDetailContentState extends State<_ProductDetailContent> {
                                       color: appColors.orangeBadge,
                                       borderRadius: BorderRadius.circular(9),
                                     ),
+                                    key: const ValueKey('product-new-badge'),
                                     child: Text(
-                                      'New',
+                                      'NEW',
                                       style: textTheme.labelMedium?.copyWith(
                                         fontSize: 13,
                                         color: colorScheme.onTertiary,

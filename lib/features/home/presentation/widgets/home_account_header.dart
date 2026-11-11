@@ -1,5 +1,7 @@
 import 'dart:developer' show log;
 
+import 'connection_indicator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -68,6 +70,8 @@ class HomeAccountHeader extends ConsumerWidget {
                         user?.phone ?? 'A little moment of joy',
                         style: textTheme.bodySmall,
                       ),
+                      const SizedBox(height: 6),
+                      const ConnectionIndicator(),
                     ],
                   ),
                 ),

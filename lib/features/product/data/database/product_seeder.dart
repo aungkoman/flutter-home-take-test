@@ -187,3 +187,14 @@ Future<void> seedProductCurrency(AppDatabase db) async {
       .update(db.products)
       .write(const ProductsCompanion(currency: Value('MMK')));
 }
+
+/// Applies the randomly selected presentation flags without changing prices.
+Future<void> seedProductNewFlags(AppDatabase db) async {
+  final source = await rootBundle.loadString('assets/seeds/product_seed.json');
+  final seed = jsonDecode(source) as Map<String, dynamic>;
+  for (final row in (seed['products'] as List).cast<Map<String, dynamic>>()) {
+    await (db.update(db.products)
+          ..where((product) => product.id.equals(row['id'] as int)))
+        .write(ProductsCompanion(isNew: Value(row['isNew'] as bool)));
+  }
+}

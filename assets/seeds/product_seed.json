@@ -609,7 +609,7 @@
       "currency": "MMK",
       "productCode": "JDDN2",
       "description": "A soft bun filled with smooth chocolate custard.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -679,7 +679,7 @@
       "currency": "MMK",
       "productCode": "JDDN7",
       "description": "A soft donut with a crisp, satisfying crunch.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -693,7 +693,7 @@
       "currency": "MMK",
       "productCode": "JDDN8",
       "description": "A classic ring donut with a light, soft bite.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -707,7 +707,7 @@
       "currency": "MMK",
       "productCode": "JDDN9",
       "description": "A soft donut topped with crunchy yellow flakes.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -749,7 +749,7 @@
       "currency": "MMK",
       "productCode": "JDDN12",
       "description": "A soft donut topped with crunchy rainbow blue flakes.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -763,7 +763,7 @@
       "currency": "MMK",
       "productCode": "JDDN13",
       "description": "A soft donut topped with crunchy blue flakes.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -777,7 +777,7 @@
       "currency": "MMK",
       "productCode": "JDDN14",
       "description": "A soft donut finished with a glossy pink glaze.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -861,7 +861,7 @@
       "currency": "MMK",
       "productCode": "JDDN20",
       "description": "Bite-sized donuts with a sweet pandan flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -903,7 +903,7 @@
       "currency": "MMK",
       "productCode": "JDDN23",
       "description": "Bite-sized donuts with a sweet egg custard flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -917,7 +917,7 @@
       "currency": "MMK",
       "productCode": "JDDN24",
       "description": "Bite-sized donuts with a sweet chocolate flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -959,7 +959,7 @@
       "currency": "MMK",
       "productCode": "JDDN27",
       "description": "A soft donut finished with a glossy green glaze.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -973,7 +973,7 @@
       "currency": "MMK",
       "productCode": "JDDN28",
       "description": "A soft donut finished with a glossy blue glaze.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -987,7 +987,7 @@
       "currency": "MMK",
       "productCode": "JDDN29",
       "description": "A soft donut dipped in a light honey glaze.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1085,7 +1085,7 @@
       "currency": "MMK",
       "productCode": "JDDN36",
       "description": "A soft donut filled with smooth pandan cream.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1155,7 +1155,7 @@
       "currency": "MMK",
       "productCode": "JDDN41",
       "description": "A soft donut filled with smooth blueberry cream.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1197,7 +1197,7 @@
       "currency": "MMK",
       "productCode": "JDDN44",
       "description": "A soft donut decorated with a playful valentine design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1225,7 +1225,7 @@
       "currency": "MMK",
       "productCode": "JDDN46",
       "description": "A soft donut decorated with a playful sunflower design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1267,7 +1267,7 @@
       "currency": "MMK",
       "productCode": "JDDN49",
       "description": "A soft donut decorated with a playful star fish design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1295,7 +1295,7 @@
       "currency": "MMK",
       "productCode": "JDDN51",
       "description": "A soft donut decorated with a playful nabi design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1365,7 +1365,7 @@
       "currency": "MMK",
       "productCode": "JDDN56",
       "description": "A soft donut decorated with a playful hello cherry design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1379,7 +1379,7 @@
       "currency": "MMK",
       "productCode": "JDDN57",
       "description": "A soft donut decorated with a playful happy clown design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1393,7 +1393,7 @@
       "currency": "MMK",
       "productCode": "JDDN58",
       "description": "A soft donut decorated with a playful galaxy way design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1421,7 +1421,7 @@
       "currency": "MMK",
       "productCode": "JDDN60",
       "description": "A soft donut decorated with a playful creamy hotdog design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1463,7 +1463,7 @@
       "currency": "MMK",
       "productCode": "JDDN63",
       "description": "A soft donut decorated with a playful choco dream design.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1575,7 +1575,7 @@
       "currency": "MMK",
       "productCode": "JDDN71",
       "description": "A soft donut topped with crunchy black flakes.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1589,7 +1589,7 @@
       "currency": "MMK",
       "productCode": "JDDN72",
       "description": "A soft donut with a gentle matcha flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 1
@@ -1813,7 +1813,7 @@
       "currency": "MMK",
       "productCode": "JDBV12",
       "description": "A creamy milk drink with sweet strawberry flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 2
@@ -1953,7 +1953,7 @@
       "currency": "MMK",
       "productCode": "JDBV22",
       "description": "A chilled coffee with smooth latte flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 2
@@ -2093,7 +2093,7 @@
       "currency": "MMK",
       "productCode": "JDBR3",
       "description": "Toasted bread layered with strawberry and kaya.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 3
@@ -2107,7 +2107,7 @@
       "currency": "MMK",
       "productCode": "JDBR4",
       "description": "Toasted bread layered with strawberry.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 3
@@ -2191,7 +2191,7 @@
       "currency": "MMK",
       "productCode": "JDBR10",
       "description": "Toasted bread layered with egg milk.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 3
@@ -2303,7 +2303,7 @@
       "currency": "MMK",
       "productCode": "JDBR18",
       "description": "Toasted bread layered with butter sugar.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 3
@@ -2401,7 +2401,7 @@
       "currency": "MMK",
       "productCode": "JDBR25",
       "description": "Soft bread baked with a savory cheese finish.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 3
@@ -2443,7 +2443,7 @@
       "currency": "MMK",
       "productCode": "JDCAKE2",
       "description": "A soft cake with a sweet coconut flavor.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 4
@@ -2527,7 +2527,7 @@
       "currency": "MMK",
       "productCode": "JDCAKE8",
       "description": "A soft cake topped with smooth, sweet custard.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 4
@@ -2541,7 +2541,7 @@
       "currency": "MMK",
       "productCode": "JDCAKE9",
       "description": "A rich chocolate treat with a hint of rum.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 4
@@ -2611,7 +2611,7 @@
       "currency": "MMK",
       "productCode": "JDCK1",
       "description": "Crisp cookies with a gentle vanilla sweetness.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 5
@@ -2723,7 +2723,7 @@
       "currency": "MMK",
       "productCode": "JDCK9",
       "description": "A box of crisp, buttery cookies for sharing.",
-      "isNew": false,
+      "isNew": true,
       "discountPercentage": null,
       "discountAmount": null,
       "productTypeId": 5
