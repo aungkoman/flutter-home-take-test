@@ -10,6 +10,7 @@ import '../../../product/presentation/widgets/loading_effects.dart';
 import '../widgets/home_account_header.dart';
 import '../widgets/home_banner_carousel.dart';
 import '../widgets/home_product_section.dart';
+import '../widgets/home_shops_section.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -68,7 +69,9 @@ class HomePage extends ConsumerWidget {
                           !typeNames.contains(category.name.toLowerCase()),
                     )
                     .toList();
-                final List<Widget> sections = [];
+                final List<Widget> sections = [
+                  HomeShopsSection(shops: data.shops),
+                ];
                 for (final (int index, CategoryEntity category)
                     in featured.indexed) {
                   sections.add(

@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hometake/features/auth/presentation/screens/welcome_page.dart';
 
 import 'features/product/presentation/screens/catalog_page.dart';
+import 'features/product/presentation/screens/shop_detail_page.dart';
 import 'features/cart/presentation/screens/cart_page.dart';
 
 import 'package:hometake/features/auth/presentation/screens/onboarding_page.dart';
@@ -105,6 +106,11 @@ GoRouter createAppRouter({
                     path: '/home',
                     builder: (context, state) => const HomePage(),
                     routes: [
+                      GoRoute(
+                        path: 'shops/:id',
+                        builder: (context, state) =>
+                            ShopDetailPage(id: state.pathParameters['id']!),
+                      ),
                       GoRoute(
                         path: 'cart',
                         builder: (context, state) => const CartPage(),
