@@ -55,6 +55,10 @@ so usecase should be
 - home_listing
 - reward_listing
 
+
+context.go replaces the stack
+let's push 
+
 ## What we do first.
 
 - [ ] data structure

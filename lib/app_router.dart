@@ -6,6 +6,7 @@ import 'package:hometake/features/auth/presentation/screens/regiser_page.dart';
 import 'features/auth/presentation/screens/phone_number_page.dart';
 import 'features/home/presentation/main_shell.dart';
 import 'features/home/presentation/screens/home_page.dart';
+import 'features/product/presentation/screens/product_detail_page.dart';
 import 'features/rewards/presentation/screens/reward_page.dart';
 
 GoRouter createAppRouter() {
@@ -15,19 +16,27 @@ GoRouter createAppRouter() {
         path: '/',
         builder: (context, state) => const OnboardingPage(),
         routes: [
-          GoRoute(
-            path: 'register',
-            builder: (context, state) => const RegisterPage(),
-          ),
+
+          // its' all about entering phone number
           GoRoute(
             path: 'login',
             builder: (context, state) => const PhoneNumberPage(),
+          ),
+          GoRoute(
+            path: 'register',
+            builder: (context, state) => const RegisterPage(),
           ),
           GoRoute(
             path: 'otp',
             builder: (context, state) => const OtpVerifyPage(),
           ),
 
+          GoRoute(
+            path: 'products/:id',
+            builder: (context, state) => ProductDetailPage(
+              id: state.pathParameters['id']!,
+            ),
+          ),
 
           // Bottom-nav shell
           StatefulShellRoute.indexedStack(

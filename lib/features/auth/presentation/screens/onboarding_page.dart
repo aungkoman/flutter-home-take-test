@@ -18,7 +18,7 @@ class OnboardingPage extends StatelessWidget {
             ),
             const SizedBox(height: 16), // Adds spacing between the buttons
             OutlinedButton(
-              onPressed: () => context.go('/register'),
+              onPressed: () => context.go('/login'),
               child: const Text('Create an Account'),
             ),
           ],
