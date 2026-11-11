@@ -44,37 +44,12 @@ Future<void> seedProductCatalog(AppDatabase db) async {
         ),
       ),
     );
-    batch.insertAllOnConflictUpdate(
-      db.banners,
-      (seed['banners'] as List).cast<Map<String, dynamic>>().map(
-        (row) => BannersCompanion.insert(
-          id: Value(row['id'] as int),
-          name: row['name'] as String,
-          imageUrl: row['imageUrl'] as String,
-        ),
-      ),
-    );
+    batch.insertAllOnConflictUpdate(db.banners, _bannerRows(seed));
     batch.insertAllOnConflictUpdate(db.shops, _shopRows(seed));
-    batch.insertAllOnConflictUpdate(
-      db.categories,
-      (seed['categories'] as List).cast<Map<String, dynamic>>().map(
-        (row) => CategoriesCompanion.insert(
-          id: Value(row['id'] as int),
-          name: row['name'] as String,
-          imageUrl: row['imageUrl'] as String,
-          priorityNo: row['priorityNo'] as int,
-          isActive: row['isActive'] as bool,
-        ),
-      ),
-    );
+    batch.insertAllOnConflictUpdate(db.categories, _categoryRows(seed));
     batch.insertAll(
       db.categoryProducts,
-      (seed['categoryProducts'] as List).cast<Map<String, dynamic>>().map(
-        (row) => CategoryProductsCompanion.insert(
-          categoryId: row['categoryId'] as int,
-          productId: row['productId'] as int,
-        ),
-      ),
+      _categoryProductRows(seed),
       mode: InsertMode.insertOrIgnore,
     );
   });
@@ -138,5 +113,54 @@ Future<void> seedShops(AppDatabase db) async {
   final Map<String, dynamic> seed = jsonDecode(source) as Map<String, dynamic>;
   await db.batch((batch) {
     batch.insertAllOnConflictUpdate(db.shops, _shopRows(seed));
+  });
+}
+
+Iterable<BannersCompanion> _bannerRows(Map<String, dynamic> seed) {
+  return (seed['banners'] as List).cast<Map<String, dynamic>>().map(
+    (row) => BannersCompanion.insert(
+      id: Value(row['id'] as int),
+      name: row['name'] as String,
+      imageUrl: row['imageUrl'] as String,
+    ),
+  );
+}
+
+Iterable<CategoriesCompanion> _categoryRows(Map<String, dynamic> seed) {
+  return (seed['categories'] as List).cast<Map<String, dynamic>>().map(
+    (row) => CategoriesCompanion.insert(
+      id: Value(row['id'] as int),
+      name: row['name'] as String,
+      imageUrl: row['imageUrl'] as String,
+      priorityNo: row['priorityNo'] as int,
+      isActive: row['isActive'] as bool,
+    ),
+  );
+}
+
+Iterable<CategoryProductsCompanion> _categoryProductRows(
+  Map<String, dynamic> seed,
+) {
+  return (seed['categoryProducts'] as List).cast<Map<String, dynamic>>().map(
+    (row) => CategoryProductsCompanion.insert(
+      categoryId: row['categoryId'] as int,
+      productId: row['productId'] as int,
+    ),
+  );
+}
+
+Future<void> seedHomeCatalog(AppDatabase db) async {
+  final String source = await rootBundle.loadString(
+    'assets/seeds/product_seed.json',
+  );
+  final Map<String, dynamic> seed = jsonDecode(source) as Map<String, dynamic>;
+  await db.batch((batch) {
+    batch.insertAllOnConflictUpdate(db.banners, _bannerRows(seed));
+    batch.insertAllOnConflictUpdate(db.categories, _categoryRows(seed));
+    batch.insertAll(
+      db.categoryProducts,
+      _categoryProductRows(seed),
+      mode: InsertMode.insertOrIgnore,
+    );
   });
 }

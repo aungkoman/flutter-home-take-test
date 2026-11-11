@@ -66,7 +66,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       if (previous?.isLoading == true &&
           next is AsyncData<UserEntity?> &&
           next.value != null) {
-        context.go('/home');
+        context.go('/welcome');
       }
     });
 

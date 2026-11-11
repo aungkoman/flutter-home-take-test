@@ -70,7 +70,7 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
       final UserEntity? user = next.value;
       if (user == null) return;
 
-      context.go(user.firstName.trim().isEmpty ? '/register' : '/home');
+      context.go(user.firstName.trim().isEmpty ? '/register' : '/welcome');
     });
 
     final AsyncValue<UserEntity?> otpState = ref.watch(otpVerifyProvider);

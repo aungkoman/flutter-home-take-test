@@ -74,6 +74,13 @@ where we start?
 
 start with entity
 
+
+prsesentation ကောင်းဖို့ data seeder ပြည်စုံအောင် လုပ်။
+
+
+let's talk about reward
+
+
 ## What we do first.
 
 - [ ] data structure

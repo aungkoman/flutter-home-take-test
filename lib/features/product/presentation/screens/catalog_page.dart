@@ -5,7 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../providers/catalog_provider.dart';
 
 class CatalogPage extends ConsumerWidget {
-  const CatalogPage({super.key});
+  const CatalogPage({super.key, this.categoryId, this.productTypeId});
+
+  final int? categoryId;
+  final int? productTypeId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,97 +52,107 @@ class CatalogPage extends ConsumerWidget {
               ],
             ),
           ),
-          data: (ProductCatalog data) => TabBarView(
-            children: [
-              _CatalogList(
-                children: [
-                  for (final ProductEntity product in data.products)
-                    ListTile(
-                      leading: _CatalogImage(path: product.imageUrl),
-                      title: Text(product.name),
-                      subtitle: Text(
-                        '${product.price?.toStringAsFixed(2) ?? "Price unavailable"} '
-                        '${product.currency ?? ""} · '
-                        '${product.productType.name}\n'
-                        '${product.productCode ?? "No product code"} · ID ${product.id}',
+          data: (ProductCatalog data) {
+            final List<ProductEntity> products = data.products.where((product) {
+              return (categoryId == null ||
+                      product.categoryProducts.any(
+                        (link) => link.categoryId == categoryId,
+                      )) &&
+                  (productTypeId == null ||
+                      product.productTypeId == productTypeId);
+            }).toList();
+            return TabBarView(
+              children: [
+                _CatalogList(
+                  children: [
+                    for (final ProductEntity product in products)
+                      ListTile(
+                        leading: _CatalogImage(path: product.imageUrl),
+                        title: Text(product.name),
+                        subtitle: Text(
+                          '${product.price?.toStringAsFixed(2) ?? "Price unavailable"} '
+                          '${product.currency ?? ""} · '
+                          '${product.productType.name}\n'
+                          '${product.productCode ?? "No product code"} · ID ${product.id}',
+                        ),
+                        isThreeLine: true,
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => context.push('/products/${product.id}'),
                       ),
-                      isThreeLine: true,
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => context.push('/products/${product.id}'),
-                    ),
-                ],
-              ),
-              _CatalogList(
-                children: [
-                  for (final BannerEntity banner in data.banners)
-                    ListTile(
-                      leading: _CatalogImage(path: banner.imageUrl),
-                      title: Text(banner.name),
-                      subtitle: Text('ID ${banner.id}'),
-                    ),
-                ],
-              ),
-              _CatalogList(
-                children: [
-                  for (final ShopEntity shop in data.shops)
-                    ListTile(
-                      leading: shop.imageUrl.isEmpty
-                          ? const SizedBox(
-                              width: 48,
-                              height: 48,
-                              child: Icon(Icons.storefront_outlined),
-                            )
-                          : _CatalogImage(path: shop.imageUrl),
-                      title: Text(shop.name),
-                      subtitle: Text(
-                        '${shop.address}\n${shop.lat}, ${shop.lng}',
+                  ],
+                ),
+                _CatalogList(
+                  children: [
+                    for (final BannerEntity banner in data.banners)
+                      ListTile(
+                        leading: _CatalogImage(path: banner.imageUrl),
+                        title: Text(banner.name),
+                        subtitle: Text('ID ${banner.id}'),
                       ),
-                      isThreeLine: true,
-                    ),
-                ],
-              ),
-              _CatalogList(
-                children: [
-                  for (final ProductTypeEntity type in data.productTypes)
-                    ListTile(
-                      leading: _CatalogImage(path: type.imageUrl),
-                      title: Text(type.name),
-                      subtitle: Text(
-                        '${type.products.length} products · Priority ${type.priorityNo}',
+                  ],
+                ),
+                _CatalogList(
+                  children: [
+                    for (final ShopEntity shop in data.shops)
+                      ListTile(
+                        leading: shop.imageUrl.isEmpty
+                            ? const SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Icon(Icons.storefront_outlined),
+                              )
+                            : _CatalogImage(path: shop.imageUrl),
+                        title: Text(shop.name),
+                        subtitle: Text(
+                          '${shop.address}\n${shop.lat}, ${shop.lng}',
+                        ),
+                        isThreeLine: true,
                       ),
-                    ),
-                ],
-              ),
-              _CatalogList(
-                children: [
-                  for (final CategoryEntity category in data.categories)
-                    ListTile(
-                      leading: _CatalogImage(path: category.imageUrl),
-                      title: Text(category.name),
-                      subtitle: Text(
-                        '${category.categoryProducts.length} products · '
-                        '${category.isActive ? "Active" : "Inactive"}',
+                  ],
+                ),
+                _CatalogList(
+                  children: [
+                    for (final ProductTypeEntity type in data.productTypes)
+                      ListTile(
+                        leading: _CatalogImage(path: type.imageUrl),
+                        title: Text(type.name),
+                        subtitle: Text(
+                          '${type.products.length} products · Priority ${type.priorityNo}',
+                        ),
                       ),
-                    ),
-                ],
-              ),
-              _CatalogList(
-                children: [
-                  for (final CategoryProductEntity link
-                      in data.categoryProducts)
-                    ListTile(
-                      title: Text(
-                        '${link.category.name} → ${link.product.name}',
+                  ],
+                ),
+                _CatalogList(
+                  children: [
+                    for (final CategoryEntity category in data.categories)
+                      ListTile(
+                        leading: _CatalogImage(path: category.imageUrl),
+                        title: Text(category.name),
+                        subtitle: Text(
+                          '${category.categoryProducts.length} products · '
+                          '${category.isActive ? "Active" : "Inactive"}',
+                        ),
                       ),
-                      subtitle: Text(
-                        'ID ${link.id} · Category ${link.categoryId} · '
-                        'Product ${link.productId}',
+                  ],
+                ),
+                _CatalogList(
+                  children: [
+                    for (final CategoryProductEntity link
+                        in data.categoryProducts)
+                      ListTile(
+                        title: Text(
+                          '${link.category.name} → ${link.product.name}',
+                        ),
+                        subtitle: Text(
+                          'ID ${link.id} · Category ${link.categoryId} · '
+                          'Product ${link.productId}',
+                        ),
                       ),
-                    ),
-                ],
-              ),
-            ],
-          ),
+                  ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

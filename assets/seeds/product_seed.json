@@ -73,9 +73,39 @@
       "imageUrl": "",
       "priorityNo": 6,
       "isActive": true
+    },
+    {
+      "id": 7,
+      "name": "Seasonal specials",
+      "imageUrl": "assets/images/1766568083486-Monster Flake Black.png",
+      "priorityNo": 7,
+      "isActive": true
+    },
+    {
+      "id": 8,
+      "name": "Popular",
+      "imageUrl": "assets/images/1766385568019-Chocolate Brownie.png",
+      "priorityNo": 8,
+      "isActive": true
     }
   ],
-  "banners": [],
+  "banners": [
+    {
+      "id": 1,
+      "name": "Seasonal specials",
+      "imageUrl": "assets/images/1766568083486-Monster Flake Black.png"
+    },
+    {
+      "id": 2,
+      "name": "Find your favorite",
+      "imageUrl": "assets/images/1766806843135-Fancy Clover.png"
+    },
+    {
+      "id": 3,
+      "name": "Coffee & a little joy",
+      "imageUrl": "assets/images/1766384445988-Signature Iced Coffee.png"
+    }
+  ],
   "shops": [
     {
       "id": 1,
@@ -3483,6 +3513,56 @@
       "id": 154,
       "categoryId": 6,
       "productId": 154
+    },
+    {
+      "id": 155,
+      "categoryId": 7,
+      "productId": 71
+    },
+    {
+      "id": 156,
+      "categoryId": 7,
+      "productId": 13
+    },
+    {
+      "id": 157,
+      "categoryId": 7,
+      "productId": 70
+    },
+    {
+      "id": 158,
+      "categoryId": 7,
+      "productId": 9
+    },
+    {
+      "id": 159,
+      "categoryId": 8,
+      "productId": 141
+    },
+    {
+      "id": 160,
+      "categoryId": 8,
+      "productId": 62
+    },
+    {
+      "id": 161,
+      "categoryId": 8,
+      "productId": 8
+    },
+    {
+      "id": 162,
+      "categoryId": 8,
+      "productId": 1
+    },
+    {
+      "id": 163,
+      "categoryId": 8,
+      "productId": 24
+    },
+    {
+      "id": 164,
+      "categoryId": 8,
+      "productId": 131
     }
   ]
 }

@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:hometake/features/auth/presentation/screens/welcome_page.dart';
 
 import 'features/product/presentation/screens/catalog_page.dart';
 
@@ -32,10 +33,21 @@ GoRouter createAppRouter() {
             path: 'otp',
             builder: (context, state) => const OtpVerifyPage(),
           ),
+          GoRoute(
+            path: 'welcome',
+            builder: (context, state) => const WelcomePage(),
+          ),
 
           GoRoute(
             path: 'catalog',
-            builder: (context, state) => const CatalogPage(),
+            builder: (context, state) => CatalogPage(
+              categoryId: int.tryParse(
+                state.uri.queryParameters['categoryId'] ?? '',
+              ),
+              productTypeId: int.tryParse(
+                state.uri.queryParameters['productTypeId'] ?? '',
+              ),
+            ),
           ),
           GoRoute(
             path: 'products/:id',
