@@ -1,3 +1,7 @@
+import 'features/settings/presentation/screens/settings_page.dart';
+import 'features/wallet/presentation/screens/wallet_page.dart';
+import 'features/order/presentation/screens/order_page.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:hometake/features/auth/presentation/screens/welcome_page.dart';
 
@@ -85,6 +89,30 @@ GoRouter createAppRouter() {
                   GoRoute(
                     path: '/reward',
                     builder: (context, state) => const RewardPage(),
+                  ),
+                ],
+              ),
+              StatefulShellBranch(
+                routes: [
+                  GoRoute(
+                    path: '/order',
+                    builder: (context, state) => const OrderPage(),
+                  ),
+                ],
+              ),
+              StatefulShellBranch(
+                routes: [
+                  GoRoute(
+                    path: '/wallet',
+                    builder: (context, state) => const WalletPage(),
+                  ),
+                ],
+              ),
+              StatefulShellBranch(
+                routes: [
+                  GoRoute(
+                    path: '/settings',
+                    builder: (context, state) => const SettingsPage(),
                   ),
                 ],
               ),

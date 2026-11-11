@@ -18,3 +18,13 @@ The collection screen was compared with the supplied Seasonal specials reference
 Checks passed at 369 pixels and 320 pixels with 1.4x text: category filtering, product-type filtering, search by name and code, clear search, empty results, product-detail navigation and return, and invalid collection IDs. The Dart analyzer reported no issues. No blocking layout findings were observed.
 
 Preview: C:/Users/aungk/.codex/visualizations/2026/11/10/01a1c5f2-a937-73c3-a9d2-da998091b86c/category-detail-preview.png
+
+Bottom navigation presentation: passed within the UI-only scope.
+
+Added Home, Reward, Order, Wallet and Settings destinations, with the cyan bar and pink selected pill. Rendered previews were inspected at 369 x 800 logical pixels. The Order reference and revised screen were opened together after correcting its width and font.
+
+The screens adapt the supplied references with sample balances, empty states, local filter selections and informational sheets. Standard Material icons replace the custom reward illustration, tier badges and gift artwork. Order uses a static map placeholder; no map service, location lookup, wallet transaction, logout or other business operation is connected.
+
+An enlarged-text check found an Order city-selector overflow at 320 pixels. The selector now expands within its available width. Repeated checks passed at 369 pixels and at 320 pixels with 1.4x text, covering all tabs, reward and shop filters, wallet balance visibility, the history sheet and retained wallet state.
+
+Previews: reward-tab-preview.png, order-tab-preview.png, wallet-tab-preview.png and settings-tab-preview.png in the existing visualization output directory.
