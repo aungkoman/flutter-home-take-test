@@ -78,7 +78,11 @@ class ProductDetailPage extends ConsumerWidget {
                             shop = await showShopSelector(context, ref);
                             if (shop == null || !context.mounted) return;
                           }
-                          if (context.mounted) context.push('/home/cart');
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context)
+                                .removeCurrentSnackBar();
+                            context.push('/home/cart');
+                          }
                         } catch (error, stackTrace) {
                           log(
                             'Could not open cart',
@@ -467,8 +471,12 @@ class _ProductDetailContentState extends State<_ProductDetailContent> {
                 if (!context.mounted) return;
                 if (status == _AddToCartStatus.signInRequired) return;
                 final bool added = status == _AddToCartStatus.added;
-                ScaffoldMessenger.of(context).showSnackBar(
+                final messenger = ScaffoldMessenger.of(context);
+                messenger.removeCurrentSnackBar();
+                messenger.showSnackBar(
                   SnackBar(
+                    duration: const Duration(seconds: 5),
+                    persist: false,
                     content: Text(
                       added
                           ? '${product.name} added to cart.'
@@ -479,7 +487,10 @@ class _ProductDetailContentState extends State<_ProductDetailContent> {
                     action: added
                         ? SnackBarAction(
                             label: 'VIEW CART',
-                            onPressed: () => context.push('/home/cart'),
+                            onPressed: () {
+                              messenger.removeCurrentSnackBar();
+                              context.push('/home/cart');
+                            },
                           )
                         : null,
                   ),

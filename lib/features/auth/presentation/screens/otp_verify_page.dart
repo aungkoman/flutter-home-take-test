@@ -25,7 +25,10 @@ class OtpVerifyPage extends ConsumerStatefulWidget {
 class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage>
     with SingleTickerProviderStateMixin {
   static const int _otpLength = 6;
-  late final AnimationController _shakeController;
+  late final AnimationController _shakeController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 420),
+  );
 
   final List<String> _digits = List<String>.filled(_otpLength, '');
 
@@ -61,10 +64,6 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage>
   @override
   void initState() {
     super.initState();
-    _shakeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 420),
-    );
     _attachBackspaceHandlers();
     _startCountdown();
   }

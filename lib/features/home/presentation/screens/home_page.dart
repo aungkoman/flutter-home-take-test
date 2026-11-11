@@ -11,6 +11,7 @@ import '../widgets/home_account_header.dart';
 import '../widgets/home_banner_carousel.dart';
 import '../widgets/home_product_section.dart';
 import '../widgets/home_shops_section.dart';
+import '../widgets/home_order_again_section.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -127,6 +128,7 @@ class HomePage extends ConsumerWidget {
                 //     ),
                 //   ),
                 // );
+                sections.add(HomeOrderAgainSection(products: data.products));
                 sections.add(
                   Padding(
                     padding: const EdgeInsets.only(bottom: 140),
