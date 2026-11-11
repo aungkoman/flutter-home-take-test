@@ -1,3 +1,5 @@
+import '../providers/session_provider.dart';
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -169,13 +171,23 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   @override
   Widget build(BuildContext context) {
     // Navigation side-effects
-    ref.listen<AsyncValue<UserEntity?>>(otpVerifyProvider, (previous, next) {
+    ref.listen<AsyncValue<UserEntity?>>(otpVerifyProvider, (
+      previous,
+      next,
+    ) async {
       if (previous?.isLoading != true || next is! AsyncData<UserEntity?>) {
         return;
       }
       final UserEntity? user = next.value;
       if (user == null) return;
-      context.go(user.firstName.trim().isEmpty ? '/register' : '/welcome');
+      if (user.firstName.trim().isEmpty) {
+        context.go('/register');
+        return;
+      }
+      final bool saved = await ref
+          .read(sessionProvider.notifier)
+          .authenticate(user);
+      if (mounted && saved) context.go('/home');
     });
 
     final AsyncValue<UserEntity?> otpState = ref.watch(otpVerifyProvider);

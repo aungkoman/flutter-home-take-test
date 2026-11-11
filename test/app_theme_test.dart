@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hometake/core/theme/app_theme.dart';
@@ -9,17 +10,20 @@ import 'package:hometake/features/wallet/presentation/screens/wallet_page.dart';
 
 void main() {
   group('AppTheme & AppColors', () {
-    test('provides brand color scheme, text theme, and AppColors extension', () {
-      final ThemeData theme = AppTheme.light;
+    test(
+      'provides brand color scheme, text theme, and AppColors extension',
+      () {
+        final ThemeData theme = AppTheme.light;
 
-      expect(theme.useMaterial3, isTrue);
-      expect(theme.colorScheme.primary, const Color(0xFF60C1DE));
-      expect(theme.colorScheme.secondary, const Color(0xFFDC629F));
-      expect(theme.scaffoldBackgroundColor, AppColors.light.pageBackground);
-      expect(theme.extension<AppColors>(), AppColors.light);
-      expect(theme.textTheme.displaySmall?.fontSize, 32);
-      expect(theme.textTheme.titleSmall?.height, 1.25);
-    });
+        expect(theme.useMaterial3, isTrue);
+        expect(theme.colorScheme.primary, const Color(0xFF60C1DE));
+        expect(theme.colorScheme.secondary, const Color(0xFFDC629F));
+        expect(theme.scaffoldBackgroundColor, AppColors.light.pageBackground);
+        expect(theme.extension<AppColors>(), AppColors.light);
+        expect(theme.textTheme.displaySmall?.fontSize, 32);
+        expect(theme.textTheme.titleSmall?.height, 1.25);
+      },
+    );
 
     test('AppColors.copyWith and lerp update and interpolate tokens', () {
       final AppColors modified = AppColors.light.copyWith(
@@ -99,7 +103,9 @@ void main() {
       expect(find.text('Wallet Balance (Ks)'), findsOneWidget);
 
       await tester.pumpWidget(
-        MaterialApp(theme: AppTheme.light, home: const SettingsPage()),
+        ProviderScope(
+          child: MaterialApp(theme: AppTheme.light, home: const SettingsPage()),
+        ),
       );
       expect(find.text('Your account'), findsOneWidget);
 
@@ -115,9 +121,7 @@ void main() {
           ),
         ),
       );
-      final ChoiceChip firstChip = tester.widget(
-        find.byType(ChoiceChip).first,
-      );
+      final ChoiceChip firstChip = tester.widget(find.byType(ChoiceChip).first);
       expect(firstChip.selectedColor, AppTheme.light.colorScheme.primary);
       expect(firstChip.backgroundColor, AppColors.light.pageBackground);
     });

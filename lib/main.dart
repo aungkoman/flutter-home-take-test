@@ -1,3 +1,4 @@
+import 'features/auth/presentation/providers/session_provider.dart';
 import 'features/rewards/presentation/providers/rewards_provider.dart';
 import 'features/cart/presentation/providers/cart_provider.dart';
 import 'features/cart/presentation/providers/selected_shop_provider.dart';
@@ -25,57 +26,73 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
 
-  final GoRouter router = createAppRouter();
-
+  final ProviderContainer container = ProviderContainer(
+    overrides: [
+      sessionProvider.overrideWith(
+        () => SessionNotifier(
+          restoreSession: di.sl<RestoreSession>(),
+          saveSession: di.sl<SaveSession>(),
+          logout: di.sl<Logout>(),
+        ),
+      ),
+      cartProvider.overrideWith(
+        () => CartNotifier(
+          getCartItems: di.sl<GetCartItems>(),
+          addCartItem: di.sl<AddCartItem>(),
+          setCartItemQuantity: di.sl<SetCartItemQuantity>(),
+          removeCartItem: di.sl<RemoveCartItem>(),
+        ),
+      ),
+      selectedShopProvider.overrideWith(
+        () => SelectedShopNotifier(
+          getSelectedShopId: di.sl<GetSelectedShopId>(),
+          setSelectedShopId: di.sl<SetSelectedShopId>(),
+        ),
+      ),
+      rewardsProvider.overrideWith2(
+        (userId) => RewardsNotifier(
+          getRewards: di.sl<GetRewards>(),
+          getEarns: di.sl<GetEarns>(),
+          getGifts: di.sl<GetGifts>(),
+          getEarnProgress: di.sl<GetEarnProgress>(),
+          userId: userId,
+        ),
+      ),
+      categoryProductsProvider.overrideWith2(
+        (id) => CategoryProductsNotifier(di.sl<GetCategoryProducts>(), id),
+      ),
+      productTypeProductsProvider.overrideWith2(
+        (id) =>
+            ProductTypeProductsNotifier(di.sl<GetProductTypeProducts>(), id),
+      ),
+      productDetailProvider.overrideWith2(
+        (id) => ProductDetailNotifier(di.sl<GetProductById>(), id),
+      ),
+      catalogProvider.overrideWith(
+        () => CatalogNotifier(di.sl<GetProductCatalog>()),
+      ),
+      loginProvider.overrideWith(
+        () => LoginNotifier(di.sl<UserLoginUseCase>()),
+      ),
+      registerProvider.overrideWith(
+        () => RegisterNotifier(di.sl<UserRegister>()),
+      ),
+      otpVerifyProvider.overrideWith(
+        () => OtpVerifyNotifier(di.sl<UserOtpVerify>()),
+      ),
+    ],
+  );
+  final ValueNotifier<AsyncValue<UserEntity?>> sessionChanges = ValueNotifier(
+    container.read(sessionProvider),
+  );
+  container.listen(sessionProvider, (_, next) => sessionChanges.value = next);
+  final GoRouter router = createAppRouter(
+    sessionState: () => container.read(sessionProvider),
+    refreshListenable: sessionChanges,
+  );
   runApp(
-    ProviderScope(
-      overrides: [
-        cartProvider.overrideWith(
-          () => CartNotifier(
-            getCartItems: di.sl<GetCartItems>(),
-            addCartItem: di.sl<AddCartItem>(),
-            setCartItemQuantity: di.sl<SetCartItemQuantity>(),
-            removeCartItem: di.sl<RemoveCartItem>(),
-          ),
-        ),
-        selectedShopProvider.overrideWith(
-          () => SelectedShopNotifier(
-            getSelectedShopId: di.sl<GetSelectedShopId>(),
-            setSelectedShopId: di.sl<SetSelectedShopId>(),
-          ),
-        ),
-        rewardsProvider.overrideWith2(
-          (userId) => RewardsNotifier(
-            getRewards: di.sl<GetRewards>(),
-            getEarns: di.sl<GetEarns>(),
-            getGifts: di.sl<GetGifts>(),
-            getEarnProgress: di.sl<GetEarnProgress>(),
-            userId: userId,
-          ),
-        ),
-        categoryProductsProvider.overrideWith2(
-          (id) => CategoryProductsNotifier(di.sl<GetCategoryProducts>(), id),
-        ),
-        productTypeProductsProvider.overrideWith2(
-          (id) =>
-              ProductTypeProductsNotifier(di.sl<GetProductTypeProducts>(), id),
-        ),
-        productDetailProvider.overrideWith2(
-          (id) => ProductDetailNotifier(di.sl<GetProductById>(), id),
-        ),
-        catalogProvider.overrideWith(
-          () => CatalogNotifier(di.sl<GetProductCatalog>()),
-        ),
-        loginProvider.overrideWith(
-          () => LoginNotifier(di.sl<UserLoginUseCase>()),
-        ),
-        registerProvider.overrideWith(
-          () => RegisterNotifier(di.sl<UserRegister>()),
-        ),
-        otpVerifyProvider.overrideWith(
-          () => OtpVerifyNotifier(di.sl<UserOtpVerify>()),
-        ),
-      ],
+    UncontrolledProviderScope(
+      container: container,
       child: MyApp(router: router),
     ),
   );

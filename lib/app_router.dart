@@ -1,3 +1,10 @@
+import 'features/auth/presentation/session_redirect.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'features/auth/presentation/providers/session_provider.dart';
+import 'features/auth/presentation/screens/session_gate_page.dart';
+
 import 'package:flutter/material.dart';
 
 import 'features/settings/presentation/screens/settings_page.dart';
@@ -25,9 +32,20 @@ import 'features/product/domain/entities/product_type_entity.dart';
 import 'features/product/presentation/widgets/product_hero_tags.dart';
 import 'features/rewards/presentation/screens/reward_page.dart';
 
-GoRouter createAppRouter() {
+GoRouter createAppRouter({
+  AsyncValue<UserEntity?> Function()? sessionState,
+  Listenable? refreshListenable,
+}) {
   return GoRouter(
+    refreshListenable: refreshListenable,
+    redirect: sessionState == null
+        ? null
+        : (context, state) => sessionRedirect(sessionState(), state.uri.path),
     routes: [
+      GoRoute(
+        path: '/session',
+        builder: (context, state) => const SessionGatePage(),
+      ),
       GoRoute(
         path: '/',
         builder: (context, state) => const OnboardingPage(),

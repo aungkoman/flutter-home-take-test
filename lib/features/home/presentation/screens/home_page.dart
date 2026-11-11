@@ -1,10 +1,9 @@
+import '../../../auth/presentation/providers/current_user_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../auth/presentation/providers/login_provider.dart';
-import '../../../auth/presentation/providers/otp_verify_provider.dart';
-import '../../../auth/presentation/providers/register_provider.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../product/presentation/providers/catalog_provider.dart';
 import '../../../product/presentation/widgets/loading_effects.dart';
@@ -19,13 +18,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AppColors appColors = context.appColors;
     final AsyncValue<ProductCatalog> catalog = ref.watch(catalogProvider);
-    final UserEntity? loginUser = ref.watch(loginProvider).value;
-    final UserEntity? verifiedUser = ref.watch(otpVerifyProvider).value;
-    final UserEntity? registeredUser = ref.watch(registerProvider).value;
-    final UserEntity? user =
-        (registeredUser?.id == verifiedUser?.id ? registeredUser : null) ??
-        verifiedUser ??
-        loginUser;
+    final UserEntity? user = ref.watch(currentUserProvider);
 
     return Scaffold(
       backgroundColor: appColors.pageBackground,

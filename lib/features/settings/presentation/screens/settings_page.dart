@@ -1,12 +1,20 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../auth/presentation/providers/session_provider.dart';
+import '../../../auth/presentation/providers/login_provider.dart';
+import '../../../auth/presentation/providers/otp_verify_provider.dart';
+import '../../../auth/presentation/providers/register_provider.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../home/presentation/widgets/tab_ui.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ColorScheme colorScheme = context.colorScheme;
     final AppColors appColors = context.appColors;
     final TextTheme textTheme = context.textTheme;
@@ -121,12 +129,7 @@ class SettingsPage extends StatelessWidget {
               ),
               onTap: () => showTabSheet(context, 'Language', 'English'),
             ),
-            _item(
-              context,
-              Icons.info_outline,
-              'About',
-              'Welcome to J’Donuts.',
-            ),
+            _item(context, Icons.info_outline, 'About', 'Welcome to J’Donuts.'),
             _item(
               context,
               Icons.article_outlined,
@@ -139,16 +142,35 @@ class SettingsPage extends StatelessWidget {
               'Privacy Policy',
               'Privacy policy will appear here.',
             ),
-            _item(
-              context,
-              Icons.logout,
-              'Logout',
-              'You can manage your sign-in here.',
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () async {
+                final bool cleared = await ref
+                    .read(sessionProvider.notifier)
+                    .signOut();
+                if (!context.mounted) return;
+                if (!cleared) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Could not log out. Try again.'),
+                    ),
+                  );
+                  return;
+                }
+                ref.invalidate(loginProvider);
+                ref.invalidate(otpVerifyProvider);
+                ref.invalidate(registerProvider);
+                context.go('/');
+              },
             ),
             const SizedBox(height: 20),
             Text(
               'J’Donuts',
-              style: textTheme.titleMedium?.copyWith(color: appColors.textMuted),
+              style: textTheme.titleMedium?.copyWith(
+                color: appColors.textMuted,
+              ),
             ),
             const SizedBox(height: 140),
           ],

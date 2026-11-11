@@ -1,10 +1,9 @@
+import '../../../auth/presentation/providers/current_user_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_theme.dart';
-import '../../../auth/presentation/providers/login_provider.dart';
-import '../../../auth/presentation/providers/otp_verify_provider.dart';
-import '../../../auth/presentation/providers/register_provider.dart';
 import '../../../home/presentation/widgets/tab_ui.dart';
 import '../../../product/presentation/widgets/loading_effects.dart';
 import '../providers/rewards_provider.dart';
@@ -22,13 +21,7 @@ class _RewardPageState extends ConsumerState<RewardPage> {
     final ColorScheme colorScheme = context.colorScheme;
     final AppColors appColors = context.appColors;
     final TextTheme textTheme = context.textTheme;
-    final UserEntity? loginUser = ref.watch(loginProvider).value;
-    final UserEntity? verifiedUser = ref.watch(otpVerifyProvider).value;
-    final UserEntity? registeredUser = ref.watch(registerProvider).value;
-    final UserEntity? user =
-        (registeredUser?.id == verifiedUser?.id ? registeredUser : null) ??
-        verifiedUser ??
-        loginUser;
+    final UserEntity? user = ref.watch(currentUserProvider);
     final int userId = user?.id ?? 0;
     final AsyncValue<RewardsViewData> state = ref.watch(
       rewardsProvider(userId),
@@ -604,10 +597,7 @@ class _RewardPageState extends ConsumerState<RewardPage> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            gift.name,
-            style: textTheme.titleMedium?.copyWith(fontSize: 15),
-          ),
+          Text(gift.name, style: textTheme.titleMedium?.copyWith(fontSize: 15)),
           const SizedBox(height: 6),
           Text(
             gift.description,

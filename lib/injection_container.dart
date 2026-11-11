@@ -1,3 +1,8 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'features/auth/data/datasources/session_local_datasource.dart';
+import 'features/auth/data/repositories/session_repository_impl.dart';
+import 'features/auth/domain/usecases/session_usecases.dart';
 import 'features/cart/domain/usecases/get_cart_items.dart';
 import 'features/cart/domain/usecases/add_cart_item.dart';
 import 'features/cart/domain/usecases/set_cart_item_quantity.dart';
@@ -49,6 +54,25 @@ Future<void> init() async {
   // remote data sources
   sl.registerLazySingleton<AuthLocalDatasource>(
     () => AuthLocalDatasourceImpl(db: sl<AppDatabase>()),
+  );
+
+  sl.registerLazySingleton<SessionLocalDatasource>(
+    () => SecureSessionLocalDatasource(storage: const FlutterSecureStorage()),
+  );
+  sl.registerLazySingleton<SessionRepository>(
+    () => SessionRepositoryImpl(
+      authLocalDatasource: sl<AuthLocalDatasource>(),
+      sessionLocalDatasource: sl<SessionLocalDatasource>(),
+    ),
+  );
+  sl.registerLazySingleton<RestoreSession>(
+    () => RestoreSession(repository: sl<SessionRepository>()),
+  );
+  sl.registerLazySingleton<SaveSession>(
+    () => SaveSession(repository: sl<SessionRepository>()),
+  );
+  sl.registerLazySingleton<Logout>(
+    () => Logout(repository: sl<SessionRepository>()),
   );
 
   // repositories

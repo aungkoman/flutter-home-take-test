@@ -1,3 +1,5 @@
+import '../providers/session_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,8 +10,18 @@ import '../providers/register_provider.dart';
 import '../../domain/validators/auth_validators.dart';
 
 const List<String> _months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 class RegisterPage extends ConsumerStatefulWidget {
@@ -24,7 +36,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _dobController = TextEditingController(); // Keeps the formatted date for the API
+  final TextEditingController _dobController =
+      TextEditingController(); // Keeps the formatted date for the API
 
   DateTime? _dob;
   String? _dobError; // inline error driven by AuthValidators.dob
@@ -73,7 +86,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       _dob = selected;
       _dobError = AuthValidators.dob(selected); // validate immediately on pick
       _dobController.text =
-      '${selected.year.toString().padLeft(4, '0')}-'
+          '${selected.year.toString().padLeft(4, '0')}-'
           '${selected.month.toString().padLeft(2, '0')}-'
           '${selected.day.toString().padLeft(2, '0')}';
     });
@@ -92,12 +105,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     await ref
         .read(registerProvider.notifier)
         .register(
-      userId: user.id,
-      phone: user.phone,
-      firstName: _firstNameController.text,
-      lastName: _lastNameController.text,
-      dob: _dobController.text,
-    );
+          userId: user.id,
+          phone: user.phone,
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          dob: _dobController.text,
+        );
   }
 
   Widget _buildTextField(
@@ -158,11 +171,17 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AsyncValue<UserEntity?>>(registerProvider, (previous, next) {
+    ref.listen<AsyncValue<UserEntity?>>(registerProvider, (
+      previous,
+      next,
+    ) async {
       if (previous?.isLoading == true &&
           next is AsyncData<UserEntity?> &&
           next.value != null) {
-        context.go('/welcome');
+        final bool saved = await ref
+            .read(sessionProvider.notifier)
+            .authenticate(next.value!);
+        if (mounted && saved) context.go('/welcome');
       }
     });
 
@@ -172,7 +191,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     final UserEntity? user = ref.watch(loginProvider).value;
     final AsyncValue<UserEntity?> registration = ref.watch(registerProvider);
     final bool isLoading = registration.isLoading;
-    final String? errorMessage = ref.read(registerProvider.notifier).errorMessage;
+    final String? errorMessage = ref
+        .read(registerProvider.notifier)
+        .errorMessage;
 
     return Scaffold(
       backgroundColor: appColors.blushBackground,
@@ -242,9 +263,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           children: [
                             _buildDobDisplayBox(
                               context,
-                              _dob != null
-                                  ? _months[_dob!.month - 1]
-                                  : 'Month',
+                              _dob != null ? _months[_dob!.month - 1] : 'Month',
                             ),
                             const SizedBox(height: AppSpacing.lg),
                             _buildDobDisplayBox(
@@ -293,7 +312,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: isLoading || user == null ||
+                  onPressed:
+                      isLoading ||
+                          user == null ||
                           (_currentStep == 1 &&
                               AuthValidators.dob(_dob) != null)
                       ? null
