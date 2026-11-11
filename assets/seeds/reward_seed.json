@@ -43,6 +43,18 @@
       "productId": 102,
       "quantity": 12,
       "earnPoints": 200
+    },
+    {
+      "id": 4,
+      "productId": 1,
+      "quantity": 4,
+      "earnPoints": 150
+    },
+    {
+      "id": 5,
+      "productId": 2,
+      "quantity": 4,
+      "earnPoints": 200
     }
   ],
   "gifts": [
@@ -70,28 +82,78 @@
   ],
   "progress": [
     {
-      "phone": "+959123456781",
+      "phone": "+95912345678",
       "earnId": 1,
-      "completedQuantity": 4
+      "completedQuantity": 0
     },
     {
-      "phone": "+959123456781",
+      "phone": "+95912345678",
       "earnId": 2,
       "completedQuantity": 1
     },
     {
-      "phone": "+959123456781",
+      "phone": "+95912345678",
       "earnId": 3,
-      "completedQuantity": 9
+      "completedQuantity": 6
     },
     {
-      "phone": "+959123456782",
-      "earnId": 1,
-      "completedQuantity": 2
+      "phone": "+95912345678",
+      "earnId": 4,
+      "completedQuantity": 3
     },
     {
-      "phone": "+959123456783",
+      "phone": "+95912345678",
+      "earnId": 5,
+      "completedQuantity": 4
+    },
+    {
+      "phone": "+95912345679",
       "earnId": 1,
+      "completedQuantity": 0
+    },
+    {
+      "phone": "+95912345679",
+      "earnId": 2,
+      "completedQuantity": 1
+    },
+    {
+      "phone": "+95912345679",
+      "earnId": 3,
+      "completedQuantity": 6
+    },
+    {
+      "phone": "+95912345679",
+      "earnId": 4,
+      "completedQuantity": 3
+    },
+    {
+      "phone": "+95912345679",
+      "earnId": 5,
+      "completedQuantity": 4
+    },
+    {
+      "phone": "+95912345670",
+      "earnId": 1,
+      "completedQuantity": 0
+    },
+    {
+      "phone": "+95912345670",
+      "earnId": 2,
+      "completedQuantity": 1
+    },
+    {
+      "phone": "+95912345670",
+      "earnId": 3,
+      "completedQuantity": 6
+    },
+    {
+      "phone": "+95912345670",
+      "earnId": 4,
+      "completedQuantity": 3
+    },
+    {
+      "phone": "+95912345670",
+      "earnId": 5,
       "completedQuantity": 4
     }
   ]

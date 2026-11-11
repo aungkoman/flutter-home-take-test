@@ -5,7 +5,10 @@ import 'package:flutter/services.dart';
 
 import '../../../auth/data/database/app_database.dart';
 
-Future<void> seedRewards(AppDatabase db) async {
+Future<void> seedRewards(
+  AppDatabase db, {
+  bool replaceDemoProgress = false,
+}) async {
   final String source = await rootBundle.loadString(
     'assets/seeds/reward_seed.json',
   );
@@ -66,7 +69,9 @@ Future<void> seedRewards(AppDatabase db) async {
             earnId: row['earnId'] as int,
             completedQuantity: row['completedQuantity'] as int,
           ),
-          mode: InsertMode.insertOrIgnore,
+          mode: replaceDemoProgress
+              ? InsertMode.insertOrReplace
+              : InsertMode.insertOrIgnore,
         );
   }
 }

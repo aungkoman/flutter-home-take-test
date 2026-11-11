@@ -130,14 +130,14 @@ Session, catalog, product details, cart, and selected shop state are shared thro
 ## Offline strategy
 
 - Drift stores users, membership tiers, products, categories, banners, shops, rewards, earn progress, cart items, and the selected shop in local SQLite (`hometake`).
-- Bundled JSON seeds the database on first launch. Versioned migrations update existing installations; current schema version is **15**.
+- Bundled JSON seeds the database on first launch. Versioned migrations update existing installations; current schema version is **17**.
 - Product and brand images are bundled, so browsing does not depend on image downloads.
 - Cart data is scoped by user and shop. The selected shop is persisted locally.
 - `flutter_secure_storage` stores the authenticated user ID. Startup restores that account from SQLite; logout clears the session without deleting the catalog.
 - Pull-to-refresh reloads local data. There is no remote API, queued upload, or synchronization/conflict-resolution layer.
 - Home shows an Online/Offline indicator using `internet_connection_checker_plus`. Its external reachability checks are informational and do not block local features.
 
-Product prices use **MMK** throughout Home, collections, product details, catalog, and cart totals. The seeded amounts are demo values, with no exchange-rate conversion. A fixed random subset of 38 of the 154 seeded products is marked `isNew`, with a NEW badge on product details.
+Product prices use **MMK** throughout Home, collections, product details, catalog, and cart totals. Five earn offers show 0%, 25%, 50%, 75%, and 100% progress for each presentation account. The completed offer opens a demo points alert; it does not update points. The seeded amounts are demo values, with no exchange-rate conversion. A fixed random subset of 38 of the 154 seeded products is marked `isNew`, with a NEW badge on product details.
 
 ## Animations built
 

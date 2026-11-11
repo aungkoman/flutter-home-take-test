@@ -52,12 +52,14 @@ class RewardsCards extends StatelessWidget {
 
   Widget _earn(BuildContext context, EarnEntity earn) {
     final int count = data.completedFor(earn.id).clamp(0, earn.quantity);
+    final double progress = earn.quantity > 0 ? count / earn.quantity : 0;
+    final int percent = (progress * 100).round();
     final bool eligible = user != null && count >= earn.quantity;
     final bool drink = earn.productEntity.productTypeId == 2;
     return RewardCard(
       image: ChallengeArtwork(
         imagePath: earn.productEntity.imageUrl,
-        progress: earn.quantity > 0 ? count / earn.quantity : 0,
+        progress: progress,
         isDrink: drink,
       ),
       body: Column(
@@ -68,7 +70,20 @@ class RewardsCards extends StatelessWidget {
             style: context.textTheme.titleMedium?.copyWith(fontSize: 15),
           ),
           const SizedBox(height: AppSpacing.sm),
-          Text('$count/${earn.quantity}', style: context.textTheme.bodySmall),
+          Text(
+            '$count/${earn.quantity} • $percent% complete',
+            style: context.textTheme.bodySmall,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          LinearProgressIndicator(
+            value: progress,
+            minHeight: 6,
+            borderRadius: BorderRadius.circular(AppRadii.pill),
+            backgroundColor: context.appColors.progressTrack,
+            color: context.colorScheme.secondary,
+            semanticsLabel: 'Offer progress',
+            semanticsValue: '$percent%',
+          ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 10,
@@ -76,10 +91,21 @@ class RewardsCards extends StatelessWidget {
             children: [
               RewardEarnButton(
                 eligible: eligible,
-                onPressed: () => showTabSheet(
-                  context,
-                  'Earning offer',
-                  'You’ve completed this offer. ${earn.earnPoints} points are available to claim.',
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (dialogContext) => AlertDialog(
+                    title: const Text('Get your points!'),
+                    content: Text(
+                      'You completed this offer and can get ${earn.earnPoints} points.\n\n'
+                      'This is a presentation demo. Your points balance will stay the same.',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(dialogContext).pop(),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Text(

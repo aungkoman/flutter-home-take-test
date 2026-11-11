@@ -391,9 +391,9 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('680,000'), findsOneWidget);
     expect(find.text('Rewards 1'), findsOneWidget);
-    expect(find.text('4/4'), findsOneWidget);
-    expect(find.text('1/4'), findsOneWidget);
-    expect(find.text('9/12'), findsOneWidget);
+    expect(find.text('4/4 • 100% complete'), findsOneWidget);
+    expect(find.text('1/4 • 25% complete'), findsOneWidget);
+    expect(find.text('9/12 • 75% complete'), findsOneWidget);
     final List<FilledButton> buttons = tester
         .widgetList<FilledButton>(find.byType(FilledButton))
         .toList();
@@ -405,7 +405,7 @@ void main() {
     expect(find.byType(AnimatedSwitcher), findsOneWidget);
     await tester.pumpAndSettle();
     expect(find.text('Donut gift'), findsOneWidget);
-    expect(find.text('4/4'), findsNothing);
+    expect(find.text('4/4 • 100% complete'), findsNothing);
     expect(tester.takeException(), isNull);
   });
   testWidgets('Rewards remains readable at 320 width and 1.3 text scale', (
