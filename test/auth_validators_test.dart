@@ -41,6 +41,38 @@ void main() {
     });
   });
 
+  group('canonicalizePhone', () {
+    for (final String value in [
+      '09254135592',
+      '9254135592',
+      '+959254135592',
+      '09 254-135592',
+      '+95 9 254 135592',
+      '959254135592',
+    ]) {
+      test('$value resolves to one +95 representation', () {
+        expect(canonicalizePhone(value), '+959254135592');
+      });
+    }
+    test(
+      'a valid local number starting 959 is not mistaken for a country prefix',
+      () {
+        expect(canonicalizePhone('95912345'), '+9595912345');
+      },
+    );
+    for (final String? value in [
+      null,
+      '',
+      '123',
+      '009254135592',
+      '09abc135592',
+    ]) {
+      test('invalid value $value has no canonical phone', () {
+        expect(canonicalizePhone(value), isNull);
+      });
+    }
+  });
+
   // ---------------------------------------------------------------------------
   // AuthValidators.firstName
   // ---------------------------------------------------------------------------
@@ -127,8 +159,11 @@ void main() {
 
     test('exactly $kMinAgeYears years old today → valid', () {
       final today = DateTime.now();
-      final exactlyOldEnough =
-          DateTime(today.year - kMinAgeYears, today.month, today.day);
+      final exactlyOldEnough = DateTime(
+        today.year - kMinAgeYears,
+        today.month,
+        today.day,
+      );
       expect(AuthValidators.dob(exactlyOldEnough), isNull);
     });
 

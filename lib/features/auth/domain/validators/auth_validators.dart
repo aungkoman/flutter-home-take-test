@@ -8,7 +8,7 @@
 ///
 /// No Flutter / package imports — only `dart:core` — so these functions are
 /// testable without a Flutter environment and reusable in UseCases.
-library auth_validators;
+library;
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -43,11 +43,20 @@ String? _normalisePhone(String raw) {
   String d = raw.replaceAll(RegExp(r'[\s\-]'), '');
   if (d.startsWith('+95')) {
     d = d.substring(3);
-  } else if (d.startsWith('959') && d.length > 3) {
+  } else if (d.startsWith('959') && d.length > 10) {
     d = d.substring(2); // bare country code (no +)
   }
   if (d.startsWith('0')) d = d.substring(1);
   return d.isEmpty ? null : d;
+}
+
+/// Returns a validated +95 phone, or null when the input is invalid.
+/// Keep this canonical form at the use-case and persistence boundaries.
+String? canonicalizePhone(String? raw) {
+  if (raw == null) return null;
+  final String? local = _normalisePhone(raw.trim());
+  if (local == null || !RegExp(_myanmarPhoneRe).hasMatch(local)) return null;
+  return '+95$local';
 }
 
 // ---------------------------------------------------------------------------
@@ -62,8 +71,7 @@ String? validatePhone(String? raw) {
   if (raw == null || raw.trim().isEmpty) {
     return 'Enter your phone number.';
   }
-  final String? n = _normalisePhone(raw.trim());
-  if (n == null || !RegExp(_myanmarPhoneRe).hasMatch(n)) {
+  if (canonicalizePhone(raw) == null) {
     return 'Enter a valid Myanmar phone number (e.g. 09254135592).';
   }
   return null;
@@ -128,7 +136,8 @@ String? validateDob(DateTime? selected) {
 
   // Age check: birthday this calendar year might not have occurred yet.
   int age = today.year - selected.year;
-  final bool birthdayPassed = (today.month > selected.month) ||
+  final bool birthdayPassed =
+      (today.month > selected.month) ||
       (today.month == selected.month && today.day >= selected.day);
   if (!birthdayPassed) age--;
 
