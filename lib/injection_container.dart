@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 
+import 'features/product/data/datasources/product_local_datasource.dart';
+import 'features/product/data/repositories/product_repository_impl.dart';
+import 'features/product/domain/repositories/product_repository.dart';
+import 'features/product/domain/usecases/get_product_catalog.dart';
+
 import 'features/auth/data/database/app_database.dart';
 import 'features/auth/data/datasources/auth_local_datasource.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
@@ -25,6 +30,16 @@ Future<void> init() async {
   // repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(authLocalDatasource: sl<AuthLocalDatasource>()),
+  );
+
+  sl.registerLazySingleton<ProductLocalDatasource>(
+    () => ProductLocalDatasource(db: sl<AppDatabase>()),
+  );
+  sl.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(localDatasource: sl<ProductLocalDatasource>()),
+  );
+  sl.registerLazySingleton<GetProductCatalog>(
+    () => GetProductCatalog(repository: sl<ProductRepository>()),
   );
 
   // Use cases

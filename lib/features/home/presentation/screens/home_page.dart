@@ -9,12 +9,26 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
       body: Center(
-        child: FilledButton(
-          onPressed: () => context.go('/login'),
-          child: const Text('Go to Login'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FilledButton(
+              onPressed: () => context.push('/catalog'),
+              child: const Text('View catalog'),
+            ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () => context.go('/login'),
+              child: const Text('Go to Login'),
+            ),
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){ context.push('/products/1'); }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push('/products/1');
+        },
+      ),
     );
   }
 }

@@ -72,6 +72,8 @@ flutter:
 
   assets:
     - assets/seeds/auth_seed.json
+    - assets/seeds/product_seed.json
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

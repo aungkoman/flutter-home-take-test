@@ -1,0 +1,3010 @@
+{
+  "productTypes": [
+    {
+      "id": 1,
+      "name": "Donuts",
+      "imageUrl": "assets/images/1768970222567-Type=Donut (1).png",
+      "priorityNo": 1
+    },
+    {
+      "id": 2,
+      "name": "Beverages",
+      "imageUrl": "assets/images/1768970259689-Type=Drink.png",
+      "priorityNo": 2
+    },
+    {
+      "id": 3,
+      "name": "Bread",
+      "imageUrl": "assets/images/1766679588028-bread.png",
+      "priorityNo": 3
+    },
+    {
+      "id": 4,
+      "name": "Cake",
+      "imageUrl": "assets/images/1768970354998-Type=Cake.png",
+      "priorityNo": 4
+    },
+    {
+      "id": 5,
+      "name": "Cookies",
+      "imageUrl": "assets/images/1766679613280-cookie.png",
+      "priorityNo": 5
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "All",
+      "imageUrl": "",
+      "priorityNo": 1,
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "name": "Donuts",
+      "imageUrl": "",
+      "priorityNo": 2,
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "name": "Beverages",
+      "imageUrl": "",
+      "priorityNo": 3,
+      "isActive": true
+    },
+    {
+      "id": 4,
+      "name": "Bread",
+      "imageUrl": "",
+      "priorityNo": 4,
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "name": "Cake",
+      "imageUrl": "",
+      "priorityNo": 5,
+      "isActive": true
+    },
+    {
+      "id": 6,
+      "name": "Cookies",
+      "imageUrl": "",
+      "priorityNo": 6,
+      "isActive": true
+    }
+  ],
+  "banners": [],
+  "shops": [],
+  "products": [
+    {
+      "id": 1,
+      "name": "Custard Pistachio Bun",
+      "imageUrl": "assets/images/1786176403040-Custard Pistachio Bun.png",
+      "priorityNo": 1,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 2,
+      "name": "Custard Chocolate Bun",
+      "imageUrl": "assets/images/1786176259509-Custard Chocolate Bun.png",
+      "priorityNo": 2,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 3,
+      "name": "Custard Original Bun",
+      "imageUrl": "assets/images/1786175890543-Custard Original Bun.png",
+      "priorityNo": 3,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 4,
+      "name": "Creamy Milk Filling",
+      "imageUrl": "assets/images/1770176870105-à¸_à¸´à¸_à¸¥à¸´à¹_à¸_à¸_à¸¡.png",
+      "priorityNo": 4,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 5,
+      "name": "Tiramisu Panna",
+      "imageUrl": "assets/images/1770176565970-à¹_à¸_à¸_à¸_à¸²à¸_à¸´à¸£à¸²à¸¡à¸´à¸£à¹_à¸².png",
+      "priorityNo": 5,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 6,
+      "name": "Panna Choco",
+      "imageUrl": "assets/images/1770176443261-à¹_à¸_à¸_à¸_à¸²à¸_à¹_à¸_à¸_à¹_à¸_.png",
+      "priorityNo": 6,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 7,
+      "name": "Mellow Crunch",
+      "imageUrl": "assets/images/1770172462051-à¹_à¸¡à¸¥à¹_à¸¥à¸§à¹_à¸_à¸£à¸±à¹_à¸_à¸_à¹_ (1).png",
+      "priorityNo": 7,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 8,
+      "name": "Plain Ring Donut",
+      "imageUrl": "assets/images/1767596518249-Plain Ring Donut.png",
+      "priorityNo": 8,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 9,
+      "name": "Monster Yellow Flake",
+      "imageUrl": "assets/images/1767596489602-Monster Flake Yellow.png",
+      "priorityNo": 9,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 10,
+      "name": "Monster White Flake",
+      "imageUrl": "assets/images/1767596450627-Monster Flake White.png",
+      "priorityNo": 10,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 11,
+      "name": "Monster Red Flake",
+      "imageUrl": "assets/images/1767596365518-Monster Flake Red.png",
+      "priorityNo": 11,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 12,
+      "name": "Monster Rainbow Blue Flake",
+      "imageUrl": "assets/images/1767596335106-Monster Flake Colorful.png",
+      "priorityNo": 12,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 13,
+      "name": "Monster Blue Flake",
+      "imageUrl": "assets/images/1767596297851-Monster Flake Blue.png",
+      "priorityNo": 13,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 14,
+      "name": "Mirror Glazing Pink",
+      "imageUrl": "assets/images/1767596264862-Mirror Glazing Pink.png",
+      "priorityNo": 14,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 15,
+      "name": "Mirror Glazing (Violet)",
+      "imageUrl": "assets/images/1767596187787-Mirror Glazing Purple.png",
+      "priorityNo": 15,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 16,
+      "name": "Mirror Glazing (Red)",
+      "imageUrl": "assets/images/1767596074013-Mirror Glazing Red.png",
+      "priorityNo": 16,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 17,
+      "name": "J'Bites Vanilla",
+      "imageUrl": "assets/images/1767595991567-J_Bites Vanilla.png",
+      "priorityNo": 17,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 18,
+      "name": "J'Bites Strawberry",
+      "imageUrl": "assets/images/1767595959257-J_Bites Strawberry.png",
+      "priorityNo": 18,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 19,
+      "name": "J'Bites Raspberry",
+      "imageUrl": "assets/images/1767595913970-J_Bites Blueberry.png",
+      "priorityNo": 19,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 20,
+      "name": "J'Bites Pandan",
+      "imageUrl": "assets/images/1767595870311-J_Bites Pandan.png",
+      "priorityNo": 20,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 21,
+      "name": "J'Bites Orange",
+      "imageUrl": "assets/images/1767595844167-J_Bites Orange.png",
+      "priorityNo": 21,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 22,
+      "name": "J'Bites Kiwi",
+      "imageUrl": "assets/images/1767595813085-J_Bites Kiwi.png",
+      "priorityNo": 22,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 23,
+      "name": "J'Bites Egg Custard",
+      "imageUrl": "assets/images/1767595785923-J_Bites Egg Custard.png",
+      "priorityNo": 23,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 24,
+      "name": "J'Bites Chocolate",
+      "imageUrl": "assets/images/1767595758963-J_Bites Chocolate.png",
+      "priorityNo": 24,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 25,
+      "name": "J'Bites Blueberry",
+      "imageUrl": "assets/images/1767595725260-J_Bites Raspberry.png",
+      "priorityNo": 25,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 26,
+      "name": "Mirror Glazing (Orange)",
+      "imageUrl": "assets/images/1767153562983-Mirror Glazing Orange.png",
+      "priorityNo": 26,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 27,
+      "name": "Mirror Glazing (Green)",
+      "imageUrl": "assets/images/1766889028609-Mirror Glazing Green.png",
+      "priorityNo": 27,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 28,
+      "name": "Mirror Glazing (Blue)",
+      "imageUrl": "assets/images/1766888913939-Mirror Glazing Blue.png",
+      "priorityNo": 28,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 29,
+      "name": "Honey Dipped Muchkin",
+      "imageUrl": "assets/images/1767594986635-Honey Dipped Munchkin.png",
+      "priorityNo": 29,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 30,
+      "name": "Honey Dipped",
+      "imageUrl": "assets/images/1767595029116-Honey Dipped.png",
+      "priorityNo": 30,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 31,
+      "name": "Frosted Strawberry",
+      "imageUrl": "assets/images/1767595065373-Strawberry Frost.png",
+      "priorityNo": 31,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 32,
+      "name": "Frosted Chocolate",
+      "imageUrl": "assets/images/1766808102502-Frosted Chocolate.png",
+      "priorityNo": 32,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 33,
+      "name": "Filling Vanilla",
+      "imageUrl": "assets/images/1766808065323-Filling Vanilla.png",
+      "priorityNo": 33,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 34,
+      "name": "Filling Strawberry",
+      "imageUrl": "assets/images/1766808018869-Filling Strawberry.png",
+      "priorityNo": 34,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 35,
+      "name": "Filling Raspberry",
+      "imageUrl": "assets/images/1766807987611-Filling Blueberry.png",
+      "priorityNo": 35,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 36,
+      "name": "Filling Pandan",
+      "imageUrl": "assets/images/1766807947626-Filling Pandan.png",
+      "priorityNo": 36,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 37,
+      "name": "Filling Orange",
+      "imageUrl": "assets/images/1766807917094-Filling Orange.png",
+      "priorityNo": 37,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 38,
+      "name": "Filling Kiwi",
+      "imageUrl": "assets/images/1766807879416-Filling Kiwi.png",
+      "priorityNo": 38,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 39,
+      "name": "Filling Egg Custard",
+      "imageUrl": "assets/images/1766807848030-Filling Egg Custard.png",
+      "priorityNo": 39,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 40,
+      "name": "Filling Chocolate",
+      "imageUrl": "assets/images/1766807796302-Filling Chocolate.png",
+      "priorityNo": 40,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 41,
+      "name": "Filling Blueberry",
+      "imageUrl": "assets/images/1766807814492-Filling Raspberry.png",
+      "priorityNo": 41,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 42,
+      "name": "Fancy Vanilla Strawberry",
+      "imageUrl": "assets/images/1766807719678-Fancy Vanilla Strawberry.png",
+      "priorityNo": 42,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 43,
+      "name": "Fancy Vanilla Custard",
+      "imageUrl": "assets/images/1766807688547-Fancy Vanilla Custard.png",
+      "priorityNo": 43,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 44,
+      "name": "Fancy Valentine",
+      "imageUrl": "assets/images/1766807656053-Fancy Valentine.png",
+      "priorityNo": 44,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 45,
+      "name": "Fancy Sweetheart",
+      "imageUrl": "assets/images/1766807585293-Fancy Sweetheart.png",
+      "priorityNo": 45,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 46,
+      "name": "Fancy Sunflower",
+      "imageUrl": "assets/images/1766807545824-Fancy Marigold.png",
+      "priorityNo": 46,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 47,
+      "name": "Fancy Strawberry",
+      "imageUrl": "assets/images/1766807410881-Fancy Strawberry.png",
+      "priorityNo": 47,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 48,
+      "name": "Fancy Starry Night",
+      "imageUrl": "assets/images/1766807374122-Fancy Starry Night.png",
+      "priorityNo": 48,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 49,
+      "name": "Fancy Star Fish",
+      "imageUrl": "assets/images/1766807341859-Fancy Star Fish.png",
+      "priorityNo": 49,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 50,
+      "name": "Fancy Rainbow Delight",
+      "imageUrl": "assets/images/1766807304190-Fancy Rainbow Delight.png",
+      "priorityNo": 50,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 51,
+      "name": "Fancy Nabi",
+      "imageUrl": "assets/images/1766807273089-Fancy Nabi.png",
+      "priorityNo": 51,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 52,
+      "name": "Fancy Mermaid",
+      "imageUrl": "assets/images/1766807241572-Fancy Mermaid.png",
+      "priorityNo": 52,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 53,
+      "name": "Fancy Marigold",
+      "imageUrl": "assets/images/1766807213616-Fancy Sun Flower.png",
+      "priorityNo": 53,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 54,
+      "name": "Fancy Mandrin",
+      "imageUrl": "assets/images/1766807171935-Fancy Mandrin.png",
+      "priorityNo": 54,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 55,
+      "name": "Fancy Juciy Grape",
+      "imageUrl": "assets/images/1766807140419-Fancy Juciy Grape.png",
+      "priorityNo": 55,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 56,
+      "name": "Fancy Hello Cherry",
+      "imageUrl": "assets/images/1766807072811-Fancy Hello Cherry.png",
+      "priorityNo": 56,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 57,
+      "name": "Fancy Happy Clown",
+      "imageUrl": "assets/images/1766807038301-Fancy Happy Clown.png",
+      "priorityNo": 57,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 58,
+      "name": "Fancy Galaxy Way",
+      "imageUrl": "assets/images/1766807007971-Fancy Galaxy Way.png",
+      "priorityNo": 58,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 59,
+      "name": "Fancy Creamy Shell",
+      "imageUrl": "assets/images/1766806971028-Fancy Creamy Shell.png",
+      "priorityNo": 59,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 60,
+      "name": "Fancy Creamy Hotdog",
+      "imageUrl": "assets/images/1766806920522-Fancy Creamy Hotdog.png",
+      "priorityNo": 60,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 61,
+      "name": "Fancy Cotton Candy",
+      "imageUrl": "assets/images/1766806885985-Fancy Cotton Candy.png",
+      "priorityNo": 61,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 62,
+      "name": "Fancy Clover",
+      "imageUrl": "assets/images/1766806843135-Fancy Clover.png",
+      "priorityNo": 62,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 63,
+      "name": "Fancy Choco Dream",
+      "imageUrl": "assets/images/1766806810595-Fancy Choco Dream.png",
+      "priorityNo": 63,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 64,
+      "name": "Fancy Be Mine",
+      "imageUrl": "assets/images/1766806781674-Fancy Be Mine.png",
+      "priorityNo": 64,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 65,
+      "name": "Fancy Adam & Eve",
+      "imageUrl": "assets/images/1766806748175-Fancy Adam & Eve.png",
+      "priorityNo": 65,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 66,
+      "name": "Monster Purple Flake",
+      "imageUrl": "assets/images/1766806561467-Monster Flake Purple.png",
+      "priorityNo": 66,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 67,
+      "name": "Monster Pink Flake",
+      "imageUrl": "assets/images/1766806520387-Monster Flake Pink.png",
+      "priorityNo": 67,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 68,
+      "name": "Monster Orange Flake",
+      "imageUrl": "assets/images/1766806459223-Monster Flake Orange.png",
+      "priorityNo": 68,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 69,
+      "name": "Monster Orange Flake (Green)",
+      "imageUrl": "assets/images/1766806400756-Monster Flake Green.png",
+      "priorityNo": 69,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 70,
+      "name": "Monster Blue Flake (v2)",
+      "imageUrl": "assets/images/1766805719826-Monster Flake Blue.png",
+      "priorityNo": 70,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 71,
+      "name": "Monster Black Flake",
+      "imageUrl": "assets/images/1766568083486-Monster Flake Black.png",
+      "priorityNo": 71,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 72,
+      "name": "J'donuts Matcha Magic",
+      "imageUrl": "assets/images/1766386525666-Matcha Magic.png",
+      "priorityNo": 72,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 73,
+      "name": "J'donuts Crispy Choco Crunch",
+      "imageUrl": "assets/images/1766386459147-Crispy Choco Crunch.png",
+      "priorityNo": 73,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 74,
+      "name": "J'donuts Caramel Charm",
+      "imageUrl": "assets/images/1766386432843-Caramel Charm.png",
+      "priorityNo": 74,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 75,
+      "name": "J'donuts Cappuccino Chip Delight",
+      "imageUrl": "assets/images/1766386412090-Cappuccino Chip Delight.png",
+      "priorityNo": 75,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 76,
+      "name": "J'donuts Banana Bliss",
+      "imageUrl": "assets/images/1766386379879-Banana Bliss.png",
+      "priorityNo": 76,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 1
+    },
+    {
+      "id": 77,
+      "name": "J'donut Honey Lemon Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389416836-Steel Tumbler Blue.png",
+      "priorityNo": 77,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 78,
+      "name": "J'donut Lilac Lemonade Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389442801-Steel Tumbler Purple.png",
+      "priorityNo": 78,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 79,
+      "name": "J'donut Mango Passion Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389578562-Steel Tumbler Pink.png",
+      "priorityNo": 79,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 80,
+      "name": "J'donut Orange Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389598973-Steel Tumbler Purple.png",
+      "priorityNo": 80,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 81,
+      "name": "J'donut Guava Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389626688-Steel Tumbler Pink.png",
+      "priorityNo": 81,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 82,
+      "name": "J'donut Kiwi Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389650952-Steel Tumbler Purple.png",
+      "priorityNo": 82,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 83,
+      "name": "J'donut Strawberry Juice (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389671661-Steel Tumbler Blue.png",
+      "priorityNo": 83,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 84,
+      "name": "Signature Iced Coffee Extra Shot (Steel Tumbler)",
+      "imageUrl": "assets/images/1766389717333-Steel Tumbler Blue.png",
+      "priorityNo": 84,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 85,
+      "name": "Signature Iced Coffee Extra Shot",
+      "imageUrl": "assets/images/1766390141406-Signature Iced Coffee.png",
+      "priorityNo": 85,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 86,
+      "name": "Signature Iced Coffee",
+      "imageUrl": "assets/images/1766384445988-Signature Iced Coffee.png",
+      "priorityNo": 86,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 87,
+      "name": "Signature Hot Coffee",
+      "imageUrl": "assets/images/1766384429773-Signature Hot Coffee.png",
+      "priorityNo": 87,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 88,
+      "name": "J'donut Strawberry Milk",
+      "imageUrl": "assets/images/1766384395532-Strawberry Milk.png",
+      "priorityNo": 88,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 89,
+      "name": "J'donut Strawberry Juice",
+      "imageUrl": "assets/images/1766384328055-Strawberry Juice.png",
+      "priorityNo": 89,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 90,
+      "name": "J'donut Orange Juice",
+      "imageUrl": "assets/images/1766384339430-Orange Juice.png",
+      "priorityNo": 90,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 91,
+      "name": "J'donut Lilac Lemonade Juice",
+      "imageUrl": "assets/images/1766384090334-Lilac Lemonade Juice.png",
+      "priorityNo": 91,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 92,
+      "name": "J'donut Kiwi Juice",
+      "imageUrl": "assets/images/1766384064335-Kiwi Juice.png",
+      "priorityNo": 92,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 93,
+      "name": "J'donut Iced Matcha Green Tea",
+      "imageUrl": "assets/images/1766384041048-Matcha.png",
+      "priorityNo": 93,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 94,
+      "name": "J'donut Honey Lemon Juice",
+      "imageUrl": "assets/images/1766383906894-Honey Lemon Juice.png",
+      "priorityNo": 94,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 95,
+      "name": "J'donut Guava Juice",
+      "imageUrl": "assets/images/1766383876718-Guava Juice.png",
+      "priorityNo": 95,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 96,
+      "name": "J'Donuts Hot Tea",
+      "imageUrl": "assets/images/1766383849927-Hot Tea.png",
+      "priorityNo": 96,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 97,
+      "name": "Iced Coffee Mocha",
+      "imageUrl": "assets/images/1766383827082-SC Iced Coffee Mocha.png",
+      "priorityNo": 97,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 98,
+      "name": "Iced Coffee Latte",
+      "imageUrl": "assets/images/1766383805419-SC Iced Coffee Latte.png",
+      "priorityNo": 98,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 99,
+      "name": "Iced Coffee Cappuccino",
+      "imageUrl": "assets/images/1766383783239-SC Iced Coffee Cappuccino.png",
+      "priorityNo": 99,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 100,
+      "name": "Hot Coffee Mocha",
+      "imageUrl": "assets/images/1766383653419-SC Hot Coffee Mocha.png",
+      "priorityNo": 100,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 101,
+      "name": "Hot Coffee Cappuccino",
+      "imageUrl": "assets/images/1766383630201-SC Hot Coffee Cappuccino.png",
+      "priorityNo": 101,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 102,
+      "name": "Hot Coffee Americano",
+      "imageUrl": "assets/images/1766383605558-SC Hot Coffee Americano_.png",
+      "priorityNo": 102,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 103,
+      "name": "J'donut Mango Passion Juice",
+      "imageUrl": "assets/images/1766383416581-Mango Passion Juice.png",
+      "priorityNo": 103,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 104,
+      "name": "Hot Coffee Latte",
+      "imageUrl": "assets/images/1766383147860-SC Hot Coffee Latte.png",
+      "priorityNo": 104,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 105,
+      "name": "Hot Coffee Espresso",
+      "imageUrl": "assets/images/1766383106255-SC Hot Coffee Espresso.png",
+      "priorityNo": 105,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 2
+    },
+    {
+      "id": 106,
+      "name": "Bread Sticks",
+      "imageUrl": "assets/images/1766386097073-Bread Sticks.png",
+      "priorityNo": 106,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 107,
+      "name": "Honey Dipped Munchkin",
+      "imageUrl": "assets/images/1766385747210-Honey Dipped Munchkin.png",
+      "priorityNo": 107,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 108,
+      "name": "Toast Bread (Strawberry+Kaya)",
+      "imageUrl": "assets/images/1766385386448-Strawberry + Kaya Toast.png",
+      "priorityNo": 108,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 109,
+      "name": "Toast Bread (Strawberry)",
+      "imageUrl": "assets/images/1766385361813-Strawberry Toast.png",
+      "priorityNo": 109,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 110,
+      "name": "Toast Bread (Orange)",
+      "imageUrl": "assets/images/1766385343070-Orange Toast.png",
+      "priorityNo": 110,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 111,
+      "name": "Toast Bread (Orange + Strawberry)",
+      "imageUrl": "assets/images/1766385325667-Orange + Strawberry Toast.png",
+      "priorityNo": 111,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 112,
+      "name": "Toast Bread (Kaya)",
+      "imageUrl": "assets/images/1766385306450-Kaya Toast.png",
+      "priorityNo": 112,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 113,
+      "name": "Toast Bread (Kaya + Orange)",
+      "imageUrl": "assets/images/1766385290174-Kaya + Orange Toast.png",
+      "priorityNo": 113,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 114,
+      "name": "Toast Bread (Egg Milk+Strawberry)",
+      "imageUrl": "assets/images/1766385181191-Egg Milk + Strawberry Toast.png",
+      "priorityNo": 114,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 115,
+      "name": "Toast Bread (Egg Milk)",
+      "imageUrl": "assets/images/1766385156765-Egg Milk Toast.png",
+      "priorityNo": 115,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 116,
+      "name": "Toast Bread (Egg Milk +Kaya)",
+      "imageUrl": "assets/images/1766385129393-Egg Milk + Kaya Toast.png",
+      "priorityNo": 116,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 117,
+      "name": "Toast Bread (Egg Milk + Orange)",
+      "imageUrl": "assets/images/1766385110127-Egg Milk + Orange Toast.png",
+      "priorityNo": 117,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 118,
+      "name": "Toast Bread (Chocolate+Kaya)",
+      "imageUrl": "assets/images/1766385091867-Chocolate + Kaya Toast.png",
+      "priorityNo": 118,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 119,
+      "name": "Toast Bread (Chocolate)",
+      "imageUrl": "assets/images/1766385068185- Chocolate Toast.png",
+      "priorityNo": 119,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 120,
+      "name": "Toast Bread (Chocolate +Egg Milk)",
+      "imageUrl": "assets/images/1766385045474-Chocolate + Egg Milk Toast.png",
+      "priorityNo": 120,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 121,
+      "name": "Toast Bread (Chocolate + Strawberry)",
+      "imageUrl": "assets/images/1766385021683-Chocolate + Strawberry Toast.png",
+      "priorityNo": 121,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 122,
+      "name": "Toast Bread (Chocolate + Orange)",
+      "imageUrl": "assets/images/1766385005629-Chocolate + Orange Toast.png",
+      "priorityNo": 122,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 123,
+      "name": "Toast Bread (Butter Sugar)",
+      "imageUrl": "assets/images/1766384977115-Sugar Toast Toast.png",
+      "priorityNo": 123,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 124,
+      "name": "Milk Cream Bun",
+      "imageUrl": "assets/images/1766384902353-Milk Cream Bun.png",
+      "priorityNo": 124,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 125,
+      "name": "Dannish Strawberry",
+      "imageUrl": "assets/images/1766384885048-Dannish Strawberry.png",
+      "priorityNo": 125,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 126,
+      "name": "Dannish Blueberry",
+      "imageUrl": "assets/images/1766384867618-Dannish Blueberry.png",
+      "priorityNo": 126,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 127,
+      "name": "Coconut Bun (Cashewnut)",
+      "imageUrl": "assets/images/1766384846300-Coconut Bun (Cashewnut).png",
+      "priorityNo": 127,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 128,
+      "name": "Coconut Bun",
+      "imageUrl": "assets/images/1766384824581-Coconut Bun.png",
+      "priorityNo": 128,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 129,
+      "name": "Cheese Croissant",
+      "imageUrl": "assets/images/1766384803085-Cheese Croissant.png",
+      "priorityNo": 129,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 130,
+      "name": "Cheese Bread",
+      "imageUrl": "assets/images/1766384786977-Cheese Bread.png",
+      "priorityNo": 130,
+      "price": 8500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 131,
+      "name": "Butter Cream Bread",
+      "imageUrl": "assets/images/1766384768490-Butter Bread.png",
+      "priorityNo": 131,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 3
+    },
+    {
+      "id": 132,
+      "name": "Cake Peanut",
+      "imageUrl": "assets/images/1766806702698-Cake Peanut.png",
+      "priorityNo": 132,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 133,
+      "name": "Cake Coconut",
+      "imageUrl": "assets/images/1766806671290-Cake Coconut.png",
+      "priorityNo": 133,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 134,
+      "name": "Cake Chocolate coconut",
+      "imageUrl": "assets/images/1766806642677-Cake Chocolate coconut.png",
+      "priorityNo": 134,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 135,
+      "name": "Cake Chocolate Peanut",
+      "imageUrl": "assets/images/1766806601096-Cake Chocolate Peanut.png",
+      "priorityNo": 135,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 136,
+      "name": "Raisin Cake box",
+      "imageUrl": "assets/images/1766390301846-Raisin Cake box.jpeg",
+      "priorityNo": 136,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 137,
+      "name": "Raisin Cake 6's",
+      "imageUrl": "assets/images/1766385649791- Raisin Cake Box 6pc.png",
+      "priorityNo": 137,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 138,
+      "name": "Raisin Cake 1's",
+      "imageUrl": "assets/images/1766385630191-Raisin Cake 1pc.png",
+      "priorityNo": 138,
+      "price": 9000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 139,
+      "name": "Custard Cake",
+      "imageUrl": "assets/images/1766385606566-Custard Cake.png",
+      "priorityNo": 139,
+      "price": 8000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 140,
+      "name": "Chocolate Rum Ball",
+      "imageUrl": "assets/images/1766385587961-Chocolate Rum Ball.png",
+      "priorityNo": 140,
+      "price": 5500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 141,
+      "name": "Chocolate Browine",
+      "imageUrl": "assets/images/1766385568019-Chocolate Brownie.png",
+      "priorityNo": 141,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 142,
+      "name": "Buttercake 6's",
+      "imageUrl": "assets/images/1766385552950-Butter Cake S.png",
+      "priorityNo": 142,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 143,
+      "name": "Buttercake 10's",
+      "imageUrl": "assets/images/1766385529959-Butter Cake B.png",
+      "priorityNo": 143,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 144,
+      "name": "Buttercake 1's",
+      "imageUrl": "assets/images/1766385486316-Butter Cake 1pc.png",
+      "priorityNo": 144,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 4
+    },
+    {
+      "id": 145,
+      "name": "Vanilla Cookies",
+      "imageUrl": "assets/images/1766386583993-Vanilla Cookies.png",
+      "priorityNo": 145,
+      "price": 7000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 146,
+      "name": "J’Express",
+      "imageUrl": "assets/images/1766386566684-JExpress.png",
+      "priorityNo": 146,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 147,
+      "name": "J’Bus",
+      "imageUrl": "assets/images/1766386548292-JBus.png",
+      "priorityNo": 147,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 148,
+      "name": "Heart Shape Cookies",
+      "imageUrl": "assets/images/1766386362135-Heartshape Cookies.png",
+      "priorityNo": 148,
+      "price": 6000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 149,
+      "name": "Crispy Egg Roll (S)",
+      "imageUrl": "assets/images/1766386281217-Crispy Egg Roll (Small).png",
+      "priorityNo": 149,
+      "price": 7500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 150,
+      "name": "Crispy Egg Roll (B)",
+      "imageUrl": "assets/images/1766386263964-Crispy Egg Roll (Big).png",
+      "priorityNo": 150,
+      "price": 10000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 151,
+      "name": "Coconut Strawberry Egg Roll (S)",
+      "imageUrl": "assets/images/1766386217204-Coconut Strawberry Egg Roll.png",
+      "priorityNo": 151,
+      "price": 6500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 152,
+      "name": "Cashewnut Cookies",
+      "imageUrl": "assets/images/1766386191519-Cashewnut Cookies.png",
+      "priorityNo": 152,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 153,
+      "name": "Butter Cookies Box",
+      "imageUrl": "assets/images/1766386170151-Butter Cookies.png",
+      "priorityNo": 153,
+      "price": 9500,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    },
+    {
+      "id": 154,
+      "name": "Butter Biscuit 12's",
+      "imageUrl": "assets/images/1766386151059-Butter Biscuit.png",
+      "priorityNo": 154,
+      "price": 5000,
+      "currency": null,
+      "productCode": null,
+      "description": null,
+      "isNew": false,
+      "discountPercentage": null,
+      "discountAmount": null,
+      "productTypeId": 5
+    }
+  ],
+  "categoryProducts": [
+    {
+      "id": 1,
+      "categoryId": 2,
+      "productId": 1
+    },
+    {
+      "id": 2,
+      "categoryId": 2,
+      "productId": 2
+    },
+    {
+      "id": 3,
+      "categoryId": 2,
+      "productId": 3
+    },
+    {
+      "id": 4,
+      "categoryId": 2,
+      "productId": 4
+    },
+    {
+      "id": 5,
+      "categoryId": 2,
+      "productId": 5
+    },
+    {
+      "id": 6,
+      "categoryId": 2,
+      "productId": 6
+    },
+    {
+      "id": 7,
+      "categoryId": 2,
+      "productId": 7
+    },
+    {
+      "id": 8,
+      "categoryId": 2,
+      "productId": 8
+    },
+    {
+      "id": 9,
+      "categoryId": 2,
+      "productId": 9
+    },
+    {
+      "id": 10,
+      "categoryId": 2,
+      "productId": 10
+    },
+    {
+      "id": 11,
+      "categoryId": 2,
+      "productId": 11
+    },
+    {
+      "id": 12,
+      "categoryId": 2,
+      "productId": 12
+    },
+    {
+      "id": 13,
+      "categoryId": 2,
+      "productId": 13
+    },
+    {
+      "id": 14,
+      "categoryId": 2,
+      "productId": 14
+    },
+    {
+      "id": 15,
+      "categoryId": 2,
+      "productId": 15
+    },
+    {
+      "id": 16,
+      "categoryId": 2,
+      "productId": 16
+    },
+    {
+      "id": 17,
+      "categoryId": 2,
+      "productId": 17
+    },
+    {
+      "id": 18,
+      "categoryId": 2,
+      "productId": 18
+    },
+    {
+      "id": 19,
+      "categoryId": 2,
+      "productId": 19
+    },
+    {
+      "id": 20,
+      "categoryId": 2,
+      "productId": 20
+    },
+    {
+      "id": 21,
+      "categoryId": 2,
+      "productId": 21
+    },
+    {
+      "id": 22,
+      "categoryId": 2,
+      "productId": 22
+    },
+    {
+      "id": 23,
+      "categoryId": 2,
+      "productId": 23
+    },
+    {
+      "id": 24,
+      "categoryId": 2,
+      "productId": 24
+    },
+    {
+      "id": 25,
+      "categoryId": 2,
+      "productId": 25
+    },
+    {
+      "id": 26,
+      "categoryId": 2,
+      "productId": 26
+    },
+    {
+      "id": 27,
+      "categoryId": 2,
+      "productId": 27
+    },
+    {
+      "id": 28,
+      "categoryId": 2,
+      "productId": 28
+    },
+    {
+      "id": 29,
+      "categoryId": 2,
+      "productId": 29
+    },
+    {
+      "id": 30,
+      "categoryId": 2,
+      "productId": 30
+    },
+    {
+      "id": 31,
+      "categoryId": 2,
+      "productId": 31
+    },
+    {
+      "id": 32,
+      "categoryId": 2,
+      "productId": 32
+    },
+    {
+      "id": 33,
+      "categoryId": 2,
+      "productId": 33
+    },
+    {
+      "id": 34,
+      "categoryId": 2,
+      "productId": 34
+    },
+    {
+      "id": 35,
+      "categoryId": 2,
+      "productId": 35
+    },
+    {
+      "id": 36,
+      "categoryId": 2,
+      "productId": 36
+    },
+    {
+      "id": 37,
+      "categoryId": 2,
+      "productId": 37
+    },
+    {
+      "id": 38,
+      "categoryId": 2,
+      "productId": 38
+    },
+    {
+      "id": 39,
+      "categoryId": 2,
+      "productId": 39
+    },
+    {
+      "id": 40,
+      "categoryId": 2,
+      "productId": 40
+    },
+    {
+      "id": 41,
+      "categoryId": 2,
+      "productId": 41
+    },
+    {
+      "id": 42,
+      "categoryId": 2,
+      "productId": 42
+    },
+    {
+      "id": 43,
+      "categoryId": 2,
+      "productId": 43
+    },
+    {
+      "id": 44,
+      "categoryId": 2,
+      "productId": 44
+    },
+    {
+      "id": 45,
+      "categoryId": 2,
+      "productId": 45
+    },
+    {
+      "id": 46,
+      "categoryId": 2,
+      "productId": 46
+    },
+    {
+      "id": 47,
+      "categoryId": 2,
+      "productId": 47
+    },
+    {
+      "id": 48,
+      "categoryId": 2,
+      "productId": 48
+    },
+    {
+      "id": 49,
+      "categoryId": 2,
+      "productId": 49
+    },
+    {
+      "id": 50,
+      "categoryId": 2,
+      "productId": 50
+    },
+    {
+      "id": 51,
+      "categoryId": 2,
+      "productId": 51
+    },
+    {
+      "id": 52,
+      "categoryId": 2,
+      "productId": 52
+    },
+    {
+      "id": 53,
+      "categoryId": 2,
+      "productId": 53
+    },
+    {
+      "id": 54,
+      "categoryId": 2,
+      "productId": 54
+    },
+    {
+      "id": 55,
+      "categoryId": 2,
+      "productId": 55
+    },
+    {
+      "id": 56,
+      "categoryId": 2,
+      "productId": 56
+    },
+    {
+      "id": 57,
+      "categoryId": 2,
+      "productId": 57
+    },
+    {
+      "id": 58,
+      "categoryId": 2,
+      "productId": 58
+    },
+    {
+      "id": 59,
+      "categoryId": 2,
+      "productId": 59
+    },
+    {
+      "id": 60,
+      "categoryId": 2,
+      "productId": 60
+    },
+    {
+      "id": 61,
+      "categoryId": 2,
+      "productId": 61
+    },
+    {
+      "id": 62,
+      "categoryId": 2,
+      "productId": 62
+    },
+    {
+      "id": 63,
+      "categoryId": 2,
+      "productId": 63
+    },
+    {
+      "id": 64,
+      "categoryId": 2,
+      "productId": 64
+    },
+    {
+      "id": 65,
+      "categoryId": 2,
+      "productId": 65
+    },
+    {
+      "id": 66,
+      "categoryId": 2,
+      "productId": 66
+    },
+    {
+      "id": 67,
+      "categoryId": 2,
+      "productId": 67
+    },
+    {
+      "id": 68,
+      "categoryId": 2,
+      "productId": 68
+    },
+    {
+      "id": 69,
+      "categoryId": 2,
+      "productId": 69
+    },
+    {
+      "id": 70,
+      "categoryId": 2,
+      "productId": 70
+    },
+    {
+      "id": 71,
+      "categoryId": 2,
+      "productId": 71
+    },
+    {
+      "id": 72,
+      "categoryId": 2,
+      "productId": 72
+    },
+    {
+      "id": 73,
+      "categoryId": 2,
+      "productId": 73
+    },
+    {
+      "id": 74,
+      "categoryId": 2,
+      "productId": 74
+    },
+    {
+      "id": 75,
+      "categoryId": 2,
+      "productId": 75
+    },
+    {
+      "id": 76,
+      "categoryId": 2,
+      "productId": 76
+    },
+    {
+      "id": 77,
+      "categoryId": 3,
+      "productId": 77
+    },
+    {
+      "id": 78,
+      "categoryId": 3,
+      "productId": 78
+    },
+    {
+      "id": 79,
+      "categoryId": 3,
+      "productId": 79
+    },
+    {
+      "id": 80,
+      "categoryId": 3,
+      "productId": 80
+    },
+    {
+      "id": 81,
+      "categoryId": 3,
+      "productId": 81
+    },
+    {
+      "id": 82,
+      "categoryId": 3,
+      "productId": 82
+    },
+    {
+      "id": 83,
+      "categoryId": 3,
+      "productId": 83
+    },
+    {
+      "id": 84,
+      "categoryId": 3,
+      "productId": 84
+    },
+    {
+      "id": 85,
+      "categoryId": 3,
+      "productId": 85
+    },
+    {
+      "id": 86,
+      "categoryId": 3,
+      "productId": 86
+    },
+    {
+      "id": 87,
+      "categoryId": 3,
+      "productId": 87
+    },
+    {
+      "id": 88,
+      "categoryId": 3,
+      "productId": 88
+    },
+    {
+      "id": 89,
+      "categoryId": 3,
+      "productId": 89
+    },
+    {
+      "id": 90,
+      "categoryId": 3,
+      "productId": 90
+    },
+    {
+      "id": 91,
+      "categoryId": 3,
+      "productId": 91
+    },
+    {
+      "id": 92,
+      "categoryId": 3,
+      "productId": 92
+    },
+    {
+      "id": 93,
+      "categoryId": 3,
+      "productId": 93
+    },
+    {
+      "id": 94,
+      "categoryId": 3,
+      "productId": 94
+    },
+    {
+      "id": 95,
+      "categoryId": 3,
+      "productId": 95
+    },
+    {
+      "id": 96,
+      "categoryId": 3,
+      "productId": 96
+    },
+    {
+      "id": 97,
+      "categoryId": 3,
+      "productId": 97
+    },
+    {
+      "id": 98,
+      "categoryId": 3,
+      "productId": 98
+    },
+    {
+      "id": 99,
+      "categoryId": 3,
+      "productId": 99
+    },
+    {
+      "id": 100,
+      "categoryId": 3,
+      "productId": 100
+    },
+    {
+      "id": 101,
+      "categoryId": 3,
+      "productId": 101
+    },
+    {
+      "id": 102,
+      "categoryId": 3,
+      "productId": 102
+    },
+    {
+      "id": 103,
+      "categoryId": 3,
+      "productId": 103
+    },
+    {
+      "id": 104,
+      "categoryId": 3,
+      "productId": 104
+    },
+    {
+      "id": 105,
+      "categoryId": 3,
+      "productId": 105
+    },
+    {
+      "id": 106,
+      "categoryId": 4,
+      "productId": 106
+    },
+    {
+      "id": 107,
+      "categoryId": 4,
+      "productId": 107
+    },
+    {
+      "id": 108,
+      "categoryId": 4,
+      "productId": 108
+    },
+    {
+      "id": 109,
+      "categoryId": 4,
+      "productId": 109
+    },
+    {
+      "id": 110,
+      "categoryId": 4,
+      "productId": 110
+    },
+    {
+      "id": 111,
+      "categoryId": 4,
+      "productId": 111
+    },
+    {
+      "id": 112,
+      "categoryId": 4,
+      "productId": 112
+    },
+    {
+      "id": 113,
+      "categoryId": 4,
+      "productId": 113
+    },
+    {
+      "id": 114,
+      "categoryId": 4,
+      "productId": 114
+    },
+    {
+      "id": 115,
+      "categoryId": 4,
+      "productId": 115
+    },
+    {
+      "id": 116,
+      "categoryId": 4,
+      "productId": 116
+    },
+    {
+      "id": 117,
+      "categoryId": 4,
+      "productId": 117
+    },
+    {
+      "id": 118,
+      "categoryId": 4,
+      "productId": 118
+    },
+    {
+      "id": 119,
+      "categoryId": 4,
+      "productId": 119
+    },
+    {
+      "id": 120,
+      "categoryId": 4,
+      "productId": 120
+    },
+    {
+      "id": 121,
+      "categoryId": 4,
+      "productId": 121
+    },
+    {
+      "id": 122,
+      "categoryId": 4,
+      "productId": 122
+    },
+    {
+      "id": 123,
+      "categoryId": 4,
+      "productId": 123
+    },
+    {
+      "id": 124,
+      "categoryId": 4,
+      "productId": 124
+    },
+    {
+      "id": 125,
+      "categoryId": 4,
+      "productId": 125
+    },
+    {
+      "id": 126,
+      "categoryId": 4,
+      "productId": 126
+    },
+    {
+      "id": 127,
+      "categoryId": 4,
+      "productId": 127
+    },
+    {
+      "id": 128,
+      "categoryId": 4,
+      "productId": 128
+    },
+    {
+      "id": 129,
+      "categoryId": 4,
+      "productId": 129
+    },
+    {
+      "id": 130,
+      "categoryId": 4,
+      "productId": 130
+    },
+    {
+      "id": 131,
+      "categoryId": 4,
+      "productId": 131
+    },
+    {
+      "id": 132,
+      "categoryId": 5,
+      "productId": 132
+    },
+    {
+      "id": 133,
+      "categoryId": 5,
+      "productId": 133
+    },
+    {
+      "id": 134,
+      "categoryId": 5,
+      "productId": 134
+    },
+    {
+      "id": 135,
+      "categoryId": 5,
+      "productId": 135
+    },
+    {
+      "id": 136,
+      "categoryId": 5,
+      "productId": 136
+    },
+    {
+      "id": 137,
+      "categoryId": 5,
+      "productId": 137
+    },
+    {
+      "id": 138,
+      "categoryId": 5,
+      "productId": 138
+    },
+    {
+      "id": 139,
+      "categoryId": 5,
+      "productId": 139
+    },
+    {
+      "id": 140,
+      "categoryId": 5,
+      "productId": 140
+    },
+    {
+      "id": 141,
+      "categoryId": 5,
+      "productId": 141
+    },
+    {
+      "id": 142,
+      "categoryId": 5,
+      "productId": 142
+    },
+    {
+      "id": 143,
+      "categoryId": 5,
+      "productId": 143
+    },
+    {
+      "id": 144,
+      "categoryId": 5,
+      "productId": 144
+    },
+    {
+      "id": 145,
+      "categoryId": 6,
+      "productId": 145
+    },
+    {
+      "id": 146,
+      "categoryId": 6,
+      "productId": 146
+    },
+    {
+      "id": 147,
+      "categoryId": 6,
+      "productId": 147
+    },
+    {
+      "id": 148,
+      "categoryId": 6,
+      "productId": 148
+    },
+    {
+      "id": 149,
+      "categoryId": 6,
+      "productId": 149
+    },
+    {
+      "id": 150,
+      "categoryId": 6,
+      "productId": 150
+    },
+    {
+      "id": 151,
+      "categoryId": 6,
+      "productId": 151
+    },
+    {
+      "id": 152,
+      "categoryId": 6,
+      "productId": 152
+    },
+    {
+      "id": 153,
+      "categoryId": 6,
+      "productId": 153
+    },
+    {
+      "id": 154,
+      "categoryId": 6,
+      "productId": 154
+    }
+  ]
+}

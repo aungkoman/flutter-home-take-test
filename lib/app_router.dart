@@ -1,4 +1,7 @@
 import 'package:go_router/go_router.dart';
+
+import 'features/product/presentation/screens/catalog_page.dart';
+
 import 'package:hometake/features/auth/presentation/screens/onboarding_page.dart';
 import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart';
 import 'package:hometake/features/auth/presentation/screens/regiser_page.dart';
@@ -16,7 +19,6 @@ GoRouter createAppRouter() {
         path: '/',
         builder: (context, state) => const OnboardingPage(),
         routes: [
-
           // its' all about entering phone number
           GoRoute(
             path: 'login',
@@ -32,10 +34,13 @@ GoRouter createAppRouter() {
           ),
 
           GoRoute(
+            path: 'catalog',
+            builder: (context, state) => const CatalogPage(),
+          ),
+          GoRoute(
             path: 'products/:id',
-            builder: (context, state) => ProductDetailPage(
-              id: state.pathParameters['id']!,
-            ),
+            builder: (context, state) =>
+                ProductDetailPage(id: state.pathParameters['id']!),
           ),
 
           // Bottom-nav shell
@@ -61,7 +66,6 @@ GoRouter createAppRouter() {
               ),
             ],
           ),
-
         ],
       ),
     ],

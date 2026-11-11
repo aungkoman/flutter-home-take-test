@@ -6,10 +6,23 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/services.dart';
 
 import 'tables.dart';
+import '../../../product/data/database/product_tables.dart';
+import '../../../product/data/database/product_seeder.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Users, Members])
+@DriftDatabase(
+  tables: [
+    Users,
+    Members,
+    ProductTypes,
+    Products,
+    Banners,
+    Shops,
+    Categories,
+    CategoryProducts,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : _seedOnCreate = true, super(_openConnection());
 
@@ -19,7 +32,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -27,11 +40,36 @@ class AppDatabase extends _$AppDatabase {
       await m.createAll();
       if (_seedOnCreate) {
         await _seedAuthData();
+        await seedProductCatalog(this);
       }
     }),
     onUpgrade: (m, from, to) async {
       if (from < 2) {
         await m.alterTable(TableMigration(users));
+      }
+      if (from < 3) {
+        await transaction(() async {
+          await m.createTable(productTypes);
+          await m.createTable(products);
+          await m.createTable(banners);
+          await m.createTable(shops);
+          await m.createTable(categories);
+          await m.createTable(categoryProducts);
+          if (_seedOnCreate) {
+            await seedProductCatalog(this);
+          }
+        });
+      }
+      if (from == 3) {
+        await transaction(() async {
+          await m.alterTable(TableMigration(products));
+          if (_seedOnCreate) {
+            await seedProductCatalog(this);
+          }
+        });
+      }
+      if (from == 4 && _seedOnCreate) {
+        await transaction(() => seedProductPrices(this));
       }
     },
     beforeOpen: (details) async {

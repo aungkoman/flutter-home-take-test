@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'app_router.dart';
+import 'features/product/presentation/providers/catalog_provider.dart';
 import 'features/auth/domain/usecases/user_login_use_case.dart';
 import 'features/auth/presentation/providers/login_provider.dart';
 import 'features/auth/domain/usecases/user_register.dart';
@@ -20,6 +21,9 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
+        catalogProvider.overrideWith(
+          () => CatalogNotifier(di.sl<GetProductCatalog>()),
+        ),
         loginProvider.overrideWith(
           () => LoginNotifier(di.sl<UserLoginUseCase>()),
         ),
