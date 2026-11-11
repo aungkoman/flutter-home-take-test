@@ -7,7 +7,7 @@ import '../../domain/entities/params/user_otp_verify_params.dart';
 import '../../domain/entities/params/user_register_params.dart';
 import '../database/app_database.dart';
 
-abstract class AuthRemoteDatasource{
+abstract class AuthLocalDatasource{
   Future< UserEntity > loginUser({required UserLoginParams userLoginParams});
   Future< UserEntity> registerUser({required UserRegisterParams userRegisterParams});
   Future< UserEntity> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams});
@@ -15,9 +15,9 @@ abstract class AuthRemoteDatasource{
 
 // TODO: implement this data source  using Database ( drift ) , not API
 
-class AuthRemoteDatasourceImpl implements AuthRemoteDatasource{
+class AuthLocalDatasourceImpl implements AuthLocalDatasource{
   final AppDatabase db;
-  AuthRemoteDatasourceImpl({required this.db});
+  AuthLocalDatasourceImpl({required this.db});
 
   @override
   Future<UserEntity> loginUser({required UserLoginParams userLoginParams}) async{

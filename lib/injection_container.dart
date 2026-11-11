@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import 'features/auth/data/database/app_database.dart';
-import 'features/auth/data/datasources/auth_remote_datasource.dart';
+import 'features/auth/data/datasources/auth_local_datasource.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/domain/usecases/user_login_use_case.dart';
@@ -18,13 +18,13 @@ Future<void> init() async {
   );
 
   // remote data sources
-  sl.registerLazySingleton<AuthRemoteDatasource>(
-    () => AuthRemoteDatasourceImpl(db: sl<AppDatabase>()),
+  sl.registerLazySingleton<AuthLocalDatasource>(
+    () => AuthLocalDatasourceImpl(db: sl<AppDatabase>()),
   );
 
   // repositories
   sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(authRemoteDatasource: sl<AuthRemoteDatasource>()),
+    () => AuthRepositoryImpl(authLocalDatasource: sl<AuthLocalDatasource>()),
   );
 
   // Use cases

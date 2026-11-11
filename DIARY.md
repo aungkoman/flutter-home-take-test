@@ -8,6 +8,14 @@
 - [ ] clean architecture
 - [ ] feature by feature
 
+## 2026-11-11 Wed
+
+- [ ] otp verify usecase
+- [ ] login usecase 
+- [ ] register usecase
+- [ ] home page listing
+- [ ] product detail
+- [ ] reward , earn and gift listing 
 
 ## What we do first.
 
