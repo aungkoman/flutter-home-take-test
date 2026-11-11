@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import 'loading_effects.dart';
 import '../providers/product_collection_provider.dart';
 import 'product_hero_tags.dart';
@@ -68,6 +69,9 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    final TextTheme textTheme = context.textTheme;
     final int id = int.tryParse(widget.id) ?? -1;
     final AsyncValue<ProductCollection> collection =
         widget.kind == ProductCollectionKind.category
@@ -129,15 +133,15 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
             .toList();
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: colorScheme.surface,
           body: CustomScrollView(
             key: ValueKey('${widget.kind.name}/${widget.id}'),
             slivers: [
               SliverAppBar(
                 pinned: true,
                 expandedHeight: 180,
-                backgroundColor: const Color(0xFFC7703D),
-                foregroundColor: Colors.white,
+                backgroundColor: appColors.categoryAppBar,
+                foregroundColor: colorScheme.onPrimary,
                 leading: IconButton(
                   tooltip: 'Back',
                   onPressed: _back,
@@ -153,18 +157,16 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                         title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: colorScheme.onPrimary,
                         ),
                       ),
                     ),
                   ),
                   background: ColoredBox(
                     color: widget.kind == ProductCollectionKind.category
-                        ? const Color(0xFFDB8C4B)
-                        : const Color(0xFF72BFD2),
+                        ? appColors.categoryHeader
+                        : appColors.productTypeHeader,
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: FractionallySizedBox(
@@ -178,10 +180,10 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                               fit: BoxFit.contain,
                               excludeFromSemantics: true,
                               errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
+                                  Icon(
                                     Icons.bakery_dining_outlined,
                                     size: 72,
-                                    color: Colors.white,
+                                    color: colorScheme.onPrimary,
                                   ),
                             ),
                           ),
@@ -193,7 +195,7 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
               ),
               SliverToBoxAdapter(
                 child: ColoredBox(
-                  color: const Color(0xFFF0F1F3),
+                  color: appColors.pageBackground,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
                     child: StaggeredEntrance(
@@ -216,14 +218,8 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                   },
                                   icon: const Icon(Icons.close_rounded),
                                 ),
-                          filled: true,
-                          fillColor: Colors.white,
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 18,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide.none,
                           ),
                         ),
                       ),
@@ -236,7 +232,7 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                   hasScrollBody: false,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(AppSpacing.xl),
                       child: Text(
                         query.isEmpty
                             ? 'No products yet.'
@@ -276,7 +272,9 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                           return StaggeredEntrance(
                             index: index,
                             child: InkWell(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(
+                                AppRadii.card,
+                              ),
                               onTap: () => context.push(
                                 '/home/products/${product.id}',
                                 extra: ProductHeroRouteData(
@@ -289,12 +287,16 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                 children: [
                                   Container(
                                     height: imageHeight,
-                                    padding: const EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(
+                                      AppSpacing.md,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(16),
+                                      color: colorScheme.surface,
+                                      borderRadius: BorderRadius.circular(
+                                        AppRadii.card,
+                                      ),
                                       border: Border.all(
-                                        color: const Color(0xFFDFE2E2),
+                                        color: appColors.border,
                                       ),
                                     ),
                                     child: Hero(
@@ -318,7 +320,7 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                   const SizedBox(height: 10),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
+                                      horizontal: AppSpacing.sm,
                                     ),
                                     child: SizedBox(
                                       height: nameHeight,
@@ -333,30 +335,22 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                             product.name,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              height: 1.25,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                            style: textTheme.titleSmall,
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  const SizedBox(height: AppSpacing.xs),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
+                                      horizontal: AppSpacing.sm,
                                     ),
                                     child: Text(
                                       _priceLabel(product),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        height: 1.4,
-                                        color: Color(0xFF454B4F),
-                                      ),
+                                      style: textTheme.bodyMedium,
                                     ),
                                   ),
                                 ],

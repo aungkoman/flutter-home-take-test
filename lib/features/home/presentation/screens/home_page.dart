@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../auth/presentation/providers/login_provider.dart';
 import '../../../auth/presentation/providers/otp_verify_provider.dart';
 import '../../../auth/presentation/providers/register_provider.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../product/presentation/providers/catalog_provider.dart';
 import '../../../product/presentation/widgets/loading_effects.dart';
 import '../widgets/home_account_header.dart';
@@ -16,6 +17,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AppColors appColors = context.appColors;
     final AsyncValue<ProductCatalog> catalog = ref.watch(catalogProvider);
     final UserEntity? loginUser = ref.watch(loginProvider).value;
     final UserEntity? verifiedUser = ref.watch(otpVerifyProvider).value;
@@ -26,7 +28,7 @@ class HomePage extends ConsumerWidget {
         loginUser;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F1F3),
+      backgroundColor: appColors.pageBackground,
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(catalogProvider);
@@ -37,7 +39,7 @@ class HomePage extends ConsumerWidget {
           slivers: [
             SliverToBoxAdapter(
               child: ColoredBox(
-                color: const Color(0xFFC7E7EF),
+                color: appColors.headerCyan,
                 child: HomeAccountHeader(user: user),
               ),
             ),
@@ -135,10 +137,10 @@ class HomePage extends ConsumerWidget {
                   SliverToBoxAdapter(
                     child: StaggeredEntrance(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFC7E7EF),
-                          borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(30),
+                        decoration: BoxDecoration(
+                          color: appColors.headerCyan,
+                          borderRadius: const BorderRadius.vertical(
+                            bottom: Radius.circular(AppRadii.pill),
                           ),
                         ),
                         child: HomeBannerCarousel(

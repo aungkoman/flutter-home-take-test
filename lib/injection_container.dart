@@ -1,3 +1,16 @@
+import 'features/cart/domain/usecases/get_cart_items.dart';
+import 'features/cart/domain/usecases/add_cart_item.dart';
+import 'features/cart/domain/usecases/set_cart_item_quantity.dart';
+import 'features/cart/domain/usecases/remove_cart_item.dart';
+import 'features/cart/domain/repositories/cart_repository.dart';
+import 'features/cart/data/repositories/cart_repository_impl.dart';
+import 'features/cart/data/datasources/cart_local_datasource.dart';
+import 'features/cart/data/datasources/selected_shop_local_datasource.dart';
+import 'features/cart/data/repositories/selected_shop_repository_impl.dart';
+import 'features/cart/domain/repositories/selected_shop_repository.dart';
+import 'features/cart/domain/usecases/get_selected_shop_id.dart';
+import 'features/cart/domain/usecases/set_selected_shop_id.dart';
+
 import 'features/rewards/domain/usecases/get_earn_progress.dart';
 import 'features/rewards/domain/usecases/get_gifts.dart';
 import 'features/rewards/domain/usecases/get_earns.dart';
@@ -45,6 +58,42 @@ Future<void> init() async {
 
   sl.registerLazySingleton<ProductLocalDatasource>(
     () => ProductLocalDatasourceImpl(db: sl<AppDatabase>()),
+  );
+  sl.registerLazySingleton<CartLocalDatasource>(
+    () => CartLocalDatasource(
+      db: sl<AppDatabase>(),
+      productDatasource: sl<ProductLocalDatasource>(),
+      authDatasource: sl<AuthLocalDatasource>(),
+    ),
+  );
+  sl.registerLazySingleton<CartRepository>(
+    () => CartRepositoryImpl(localDatasource: sl<CartLocalDatasource>()),
+  );
+  sl.registerLazySingleton<GetCartItems>(
+    () => GetCartItems(repository: sl<CartRepository>()),
+  );
+  sl.registerLazySingleton<AddCartItem>(
+    () => AddCartItem(repository: sl<CartRepository>()),
+  );
+  sl.registerLazySingleton<SetCartItemQuantity>(
+    () => SetCartItemQuantity(repository: sl<CartRepository>()),
+  );
+  sl.registerLazySingleton<RemoveCartItem>(
+    () => RemoveCartItem(repository: sl<CartRepository>()),
+  );
+  sl.registerLazySingleton<SelectedShopLocalDatasource>(
+    () => SelectedShopLocalDatasource(db: sl<AppDatabase>()),
+  );
+  sl.registerLazySingleton<SelectedShopRepository>(
+    () => SelectedShopRepositoryImpl(
+      localDatasource: sl<SelectedShopLocalDatasource>(),
+    ),
+  );
+  sl.registerLazySingleton<GetSelectedShopId>(
+    () => GetSelectedShopId(repository: sl<SelectedShopRepository>()),
+  );
+  sl.registerLazySingleton<SetSelectedShopId>(
+    () => SetSelectedShopId(repository: sl<SelectedShopRepository>()),
   );
   sl.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(localDatasource: sl<ProductLocalDatasource>()),

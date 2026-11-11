@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import '../../../product/domain/entities/banner_entity.dart';
 
 class HomeBannerCarousel extends StatefulWidget {
@@ -50,15 +51,14 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
   @override
   Widget build(BuildContext context) {
     if (widget.banners.isEmpty) return const SizedBox.shrink();
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    final TextTheme textTheme = context.textTheme;
     final double textScaleExtra =
         (MediaQuery.textScalerOf(context).scale(24) - 24)
             .clamp(0.0, 48.0)
             .toDouble();
-    const List<Color> colors = [
-      Color(0xFFFFF0DE),
-      Color(0xFFF7DEEA),
-      Color(0xFFE6EFF9),
-    ];
+    final List<Color> colors = appColors.bannerPalette;
     return Padding(
       padding: const EdgeInsets.only(bottom: 2),
       child: Stack(
@@ -76,7 +76,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                   padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: Material(
                     color: colors[index % colors.length],
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(AppRadii.cardXl),
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
                       onTap: () => context.push('/home/catalog'),
@@ -89,13 +89,13 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "J' DONUTS",
-                                    style: TextStyle(
+                                    style: textTheme.labelSmall?.copyWith(
                                       fontSize: 10,
                                       letterSpacing: 1.5,
                                       fontWeight: FontWeight.w800,
-                                      color: Color(0xFF9F3D6C),
+                                      color: appColors.pinkDeep,
                                     ),
                                   ),
                                   const SizedBox(height: 10),
@@ -103,29 +103,26 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                                     banner.name,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 24,
+                                    style: textTheme.headlineMedium?.copyWith(
                                       height: 1.05,
-                                      fontWeight: FontWeight.w800,
-                                      color: Color(0xFF29292F),
                                     ),
                                   ),
                                   const SizedBox(height: 10),
-                                  const Row(
+                                  Row(
                                     children: [
                                       Flexible(
                                         child: Text(
                                           'Explore treats',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 11,
+                                          style: textTheme.labelSmall?.copyWith(
                                             fontWeight: FontWeight.w600,
+                                            color: colorScheme.onSurface,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 4),
-                                      Icon(
+                                      const SizedBox(width: AppSpacing.xs),
+                                      const Icon(
                                         Icons.arrow_forward_rounded,
                                         size: 15,
                                       ),
@@ -134,7 +131,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: AppSpacing.sm),
                             Expanded(
                               child: Image.asset(
                                 banner.imageUrl,
@@ -170,15 +167,15 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                       curve: Curves.easeOutCubic,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(AppSpacing.sm),
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
                         width: index == _page ? 20 : 6,
                         height: 6,
                         decoration: BoxDecoration(
                           color: index == _page
-                              ? const Color(0xFFD85F9C)
-                              : Colors.white,
+                              ? colorScheme.secondary
+                              : colorScheme.surface,
                           borderRadius: BorderRadius.circular(6),
                         ),
                       ),

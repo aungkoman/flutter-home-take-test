@@ -13,6 +13,7 @@ import '../database/app_database.dart';
 
 abstract class AuthLocalDatasource{
   Future< UserEntity > loginUser({required UserLoginParams userLoginParams});
+  Future<UserEntity?> getUserById({required int userId});
   Future< UserEntity> registerUser({required UserRegisterParams userRegisterParams});
   Future< UserEntity> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams});
 }
@@ -22,6 +23,14 @@ abstract class AuthLocalDatasource{
 class AuthLocalDatasourceImpl implements AuthLocalDatasource{
   final AppDatabase db;
   AuthLocalDatasourceImpl({required this.db});
+
+  @override
+  Future<UserEntity?> getUserById({required int userId}) async {
+    final row = await (db.select(db.users)
+      ..where((user) => user.id.equals(userId)))
+        .getSingleOrNull();
+    return row == null ? null : _toEntity(row);
+  }
 
   @override
   Future<UserEntity> loginUser({required UserLoginParams userLoginParams}) async{
@@ -86,7 +95,12 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
           return _toEntity(row);
         });
       } catch(error, stackTrace){
-        print(stackTrace);
+        log(
+          'AuthLocalDatasourceImpl.loginUser failed to create user',
+          name: 'auth.login',
+          error: error,
+          stackTrace: stackTrace,
+        );
 
         rethrow;
       }

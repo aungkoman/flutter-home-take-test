@@ -9,6 +9,7 @@ import 'tables.dart';
 import '../../../product/data/database/product_tables.dart';
 import '../../../product/data/database/product_seeder.dart';
 
+import '../../../cart/data/database/cart_tables.dart';
 import '../../../rewards/data/database/reward_tables.dart';
 import '../../../rewards/data/database/reward_seeder.dart';
 
@@ -24,6 +25,8 @@ part 'app_database.g.dart';
     Shops,
     Categories,
     CategoryProducts,
+    CartItems,
+    SelectedShops,
     Rewards,
     Earns,
     Gifts,
@@ -38,7 +41,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 10;
+  int get schemaVersion => 12;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -99,6 +102,18 @@ class AppDatabase extends _$AppDatabase {
       if (from < 10 && _seedOnCreate) {
         await transaction(() => seedProductDescriptions(this));
       }
+      if (from < 11) {
+        await m.createTable(cartItems);
+      } else if (from < 12) {
+        await customStatement('ALTER TABLE cart_items RENAME TO cart_items_v11');
+        await m.createTable(cartItems);
+        await customStatement(
+          'INSERT INTO cart_items (user_id, shop_id, product_id, quantity) '
+          'SELECT NULL, NULL, product_id, quantity FROM cart_items_v11',
+        );
+        await customStatement('DROP TABLE cart_items_v11');
+      }
+      if (from < 12) await m.createTable(selectedShops);
     },
     beforeOpen: (details) async {
       // Foreign keys are enforced only if enabled per connection.

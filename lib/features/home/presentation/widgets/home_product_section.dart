@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import '../../../product/domain/entities/product_entity.dart';
 import '../../../product/presentation/widgets/product_hero_tags.dart';
 
@@ -26,6 +27,9 @@ class HomeProductSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    final TextTheme textTheme = context.textTheme;
     final bool isPopular = title.toLowerCase().contains('popular');
     final bool isSeasonal = title.toLowerCase().contains('season');
     final double cardWidth =
@@ -35,12 +39,12 @@ class HomeProductSection extends StatelessWidget {
     final double imageHeight =
         cardWidth * (isSeasonal ? 0.67 : (isPopular ? 1.4 : 1.05));
     return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      padding: const EdgeInsets.only(top: AppSpacing.sm, bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
             child: Row(
               children: [
                 Expanded(
@@ -84,22 +88,11 @@ class HomeProductSection extends StatelessWidget {
                                   color: Colors.transparent,
                                   child: Text(
                                     title,
-                                    style: const TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w800,
-                                      color: Color(0xFF292F33),
-                                    ),
+                                    style: textTheme.headlineSmall,
                                   ),
                                 ),
                               )
-                            : Text(
-                                title,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color(0xFF292F33),
-                                ),
-                              ),
+                            : Text(title, style: textTheme.headlineSmall),
                       ),
                       if (isPopular || isSeasonal) ...[
                         const SizedBox(width: 7),
@@ -108,8 +101,8 @@ class HomeProductSection extends StatelessWidget {
                               ? Icons.local_fire_department_rounded
                               : Icons.favorite_rounded,
                           color: isPopular
-                              ? const Color(0xFFF6A44D)
-                              : const Color(0xFFDC629F),
+                              ? appColors.orangeBadge
+                              : colorScheme.secondary,
                           size: 24,
                         ),
                       ],
@@ -120,8 +113,8 @@ class HomeProductSection extends StatelessWidget {
                   tooltip: 'View all $title',
                   onPressed: onViewAll,
                   style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF292F33),
+                    backgroundColor: colorScheme.surface,
+                    foregroundColor: colorScheme.onSurface,
                   ),
                   icon: const Icon(Icons.chevron_right_rounded),
                 ),
@@ -135,7 +128,7 @@ class HomeProductSection extends StatelessWidget {
                     (isSeasonal ? 1.25 : 2.5) +
                 20,
             child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               separatorBuilder: (context, index) => const SizedBox(width: 14),
@@ -145,7 +138,7 @@ class HomeProductSection extends StatelessWidget {
                 return SizedBox(
                   width: cardWidth,
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(22),
+                    borderRadius: BorderRadius.circular(AppRadii.cardLg),
                     onTap: () => context.push(
                       '/home/products/${product.id}',
                       extra: ProductHeroRouteData(
@@ -161,8 +154,10 @@ class HomeProductSection extends StatelessWidget {
                           width: cardWidth,
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(24),
+                            color: colorScheme.surface,
+                            borderRadius: BorderRadius.circular(
+                              AppRadii.cardXl,
+                            ),
                           ),
                           child: Hero(
                             tag: ProductHeroTags.image(
@@ -192,12 +187,7 @@ class HomeProductSection extends StatelessWidget {
                                 product.name,
                                 maxLines: isSeasonal ? 1 : 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  height: 1.25,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF202529),
-                                ),
+                                style: textTheme.titleSmall,
                               ),
                             ),
                           ),

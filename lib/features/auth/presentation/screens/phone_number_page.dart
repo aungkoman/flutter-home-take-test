@@ -3,8 +3,11 @@ import 'dart:developer' show log;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../core/theme/app_theme.dart';
 import '../providers/login_provider.dart';
 import '../providers/otp_verify_provider.dart';
+import '../../domain/validators/auth_validators.dart';
 
 class PhoneNumberPage extends ConsumerStatefulWidget {
   const PhoneNumberPage({super.key});
@@ -66,30 +69,24 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
     final String? errorMessage = ref.read(loginProvider.notifier).errorMessage;
     final bool isLoading = loginState.isLoading;
 
-    // Define brand colors matching the UI
-    const Color bgColor = Color(0xFFFDF4F6); // Light pink background
-    const Color primaryBlue = Color(0xFF67D1F2); // Cyan button
-    const Color textColor = Color(0xFF1C1B1F); // Dark grey text
-    const Color hintColor = Color(0xFF8E8E93); // Grey hint text
-    const Color linkColor = Color(0xFFF88DAE); // Pink links
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    final TextTheme textTheme = context.textTheme;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: appColors.blushBackground,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        scrolledUnderElevation: 0,
         leadingWidth: 72,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 24.0),
+          padding: const EdgeInsets.only(left: AppSpacing.xl),
           child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 12),
+            margin: const EdgeInsets.symmetric(vertical: AppSpacing.md),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              color: colorScheme.surface,
+              borderRadius: BorderRadius.circular(AppRadii.md),
             ),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
               onPressed: () {
                 if (context.canPop()) {
                   context.pop();
@@ -100,69 +97,65 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 24.0),
+            padding: const EdgeInsets.only(right: AppSpacing.xl),
             child: Center(
               child: isLoading
-                  ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                  color: primaryBlue,
-                  backgroundColor: linkColor,
-                ),
-              )
+                  ? SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: colorScheme.primary,
+                        backgroundColor: colorScheme.secondary,
+                      ),
+                    )
                   : Container(
-                width: 28,
-                height: 28,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: primaryBlue, width: 4),
-                  color: linkColor,
-                ),
-              ),
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: colorScheme.primary,
+                          width: 4,
+                        ),
+                        color: colorScheme.secondary,
+                      ),
+                    ),
             ),
           ),
         ],
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.xl),
                 // Header Text
-                const Text(
+                Text(
                   'Enter your phone\nnumber',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: textColor,
-                    height: 1.2,
-                    letterSpacing: -0.5,
-                  ),
+                  style: textTheme.displaySmall,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxl),
 
                 // Input Field Container
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
+                    color: colorScheme.surface,
+                    borderRadius: BorderRadius.circular(AppRadii.card),
                   ),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20.0, right: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, right: 16.0),
                         child: Text(
                           '+95',
-                          style: TextStyle(
+                          style: textTheme.bodyLarge?.copyWith(
                             fontSize: 18,
-                            color: hintColor,
-                            fontWeight: FontWeight.w400,
+                            color: appColors.textMuted,
                           ),
                         ),
                       ),
@@ -173,21 +166,16 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                           keyboardType: TextInputType.phone,
                           textInputAction: TextInputAction.done,
                           autofillHints: const [AutofillHints.telephoneNumber],
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: textColor,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: textTheme.bodyLarge?.copyWith(fontSize: 18),
                           decoration: const InputDecoration(
                             hintText: '09254135592',
-                            hintStyle: TextStyle(color: hintColor),
+                            filled: false,
                             border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(vertical: 20),
                           ),
-                          validator: (value) =>
-                          value == null || value.trim().isEmpty
-                              ? 'Enter your phone number.'
-                              : null,
+                          validator: AuthValidators.phone,
                           onFieldSubmitted: (_) => _submit(),
                         ),
                       ),
@@ -198,37 +186,48 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
 
                 // Error Message / User Card Display
                 if (!isLoading && errorMessage != null) ...[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.lg),
                   Text(
                     errorMessage,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.error,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ] else if (!isLoading && user != null) ...[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.lg),
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(AppSpacing.lg),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
+                      color: colorScheme.surface,
+                      borderRadius: BorderRadius.circular(AppRadii.card),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '${user.firstName} ${user.lastName}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: textColor,
+                          style: textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
+                          'Phone: ${user.phone}',
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: appColors.textMuted,
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        Text('Phone: ${user.phone}', style: const TextStyle(color: hintColor)),
-                        Text('Membership: ${user.member.name}', style: const TextStyle(color: hintColor)),
-                        Text('Points: ${user.currentPoints}', style: const TextStyle(color: hintColor)),
+                        Text(
+                          'Membership: ${user.member.name}',
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: appColors.textMuted,
+                          ),
+                        ),
+                        Text(
+                          'Points: ${user.currentPoints}',
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: appColors.textMuted,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -240,62 +239,49 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                 SizedBox(
                   height: 56,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryBlue,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                    ),
                     onPressed: isLoading ? null : _submit,
                     child: Text(
                       isLoading ? 'CHECKING…' : 'CONTINUE',
-                      style: const TextStyle(
+                      style: textTheme.labelLarge?.copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
+                        color: colorScheme.onPrimary,
                       ),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.xl),
 
                 // Footer Text
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: hintColor,
-                      height: 1.4,
-                    ),
+                    style: textTheme.labelSmall?.copyWith(fontSize: 12),
                     children: [
                       const TextSpan(
-                        text: 'By continuing, you acknowledge that you have read and agree to our ',
+                        text:
+                            'By continuing, you acknowledge that you have read and agree to our ',
                       ),
                       TextSpan(
                         text: 'Terms of Use',
-                        style: const TextStyle(
-                          color: linkColor,
+                        style: TextStyle(
+                          color: colorScheme.secondary,
                           fontWeight: FontWeight.w500,
                         ),
-                        // Add recognizer here if you need it clickable
                       ),
                       const TextSpan(text: ' and '),
                       TextSpan(
                         text: 'Privacy Policy.',
-                        style: const TextStyle(
-                          color: linkColor,
+                        style: TextStyle(
+                          color: colorScheme.secondary,
                           fontWeight: FontWeight.w500,
                         ),
-                        // Add recognizer here if you need it clickable
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxl),
               ],
             ),
           ),

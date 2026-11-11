@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    final TextTheme textTheme = context.textTheme;
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF0F5), // Soft pink background
+      backgroundColor: appColors.blushBackground,
       body: Stack(
         children: [
           // Background Assets Placeholder
@@ -18,8 +23,8 @@ class OnboardingPage extends StatelessWidget {
             child: Container(
               width: 150,
               height: 150,
-              decoration: const BoxDecoration(
-                color: Colors.blueAccent,
+              decoration: BoxDecoration(
+                color: appColors.cyanLight,
                 shape: BoxShape.circle,
               ),
             ),
@@ -31,12 +36,11 @@ class OnboardingPage extends StatelessWidget {
             child: Container(
               height: 250,
               decoration: BoxDecoration(
-                color: Colors.pink.shade100,
+                color: appColors.pinkSoft,
                 shape: BoxShape.circle,
               ),
             ),
           ),
-          // ... add other donut images using Positioned ...
 
           // Foreground Content
           SafeArea(
@@ -44,20 +48,20 @@ class OnboardingPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // Title
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xl,
+                  ),
                   child: Text(
                     'Round food for\nevery mood',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: textTheme.displaySmall?.copyWith(
                       fontSize: 36,
                       fontWeight: FontWeight.w900,
-                      color: Color(0xFF1E212B),
-                      height: 1.2,
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxl),
 
                 // Primary Action Button
                 Padding(
@@ -68,40 +72,32 @@ class OnboardingPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         context.go('/login');
-                      }, // No business logic
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF5AD4EE),
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
+                      },
+                      child: Text(
                         'LET\'S GET STARTED',
-                        style: TextStyle(
+                        style: textTheme.labelLarge?.copyWith(
                           fontSize: 16,
-                          fontWeight: FontWeight.w800,
                           letterSpacing: 1.2,
+                          color: colorScheme.onPrimary,
                         ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.xl),
 
                 // Secondary Login Text
                 GestureDetector(
                   onTap: () => context.go('/login'),
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: 'Already have an account? ',
-                      style: TextStyle(color: Colors.black54, fontSize: 15),
+                      style: textTheme.bodyMedium?.copyWith(fontSize: 15),
                       children: [
                         TextSpan(
                           text: 'Log In',
                           style: TextStyle(
-                            color: Color(0xFFE94E8C), // Pink highlight
+                            color: colorScheme.secondary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -109,42 +105,56 @@ class OnboardingPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxl),
 
                 // Social Icons Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildSocialIcon(Icons.g_mobiledata, Colors.red),
-                    const SizedBox(width: 24),
-                    _buildSocialIcon(Icons.apple, Colors.black),
-                    const SizedBox(width: 24),
-                    _buildSocialIcon(Icons.facebook, Colors.blue.shade700),
+                    _buildSocialIcon(
+                      context,
+                      Icons.g_mobiledata,
+                      appColors.socialGoogle,
+                    ),
+                    const SizedBox(width: AppSpacing.xl),
+                    _buildSocialIcon(
+                      context,
+                      Icons.apple,
+                      appColors.socialApple,
+                    ),
+                    const SizedBox(width: AppSpacing.xl),
+                    _buildSocialIcon(
+                      context,
+                      Icons.facebook,
+                      appColors.socialFacebook,
+                    ),
                   ],
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxl),
 
                 // Footer Terms
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
                   child: RichText(
                     textAlign: TextAlign.center,
-                    text: const TextSpan(
-                      text: 'By continuing, you acknowledge that you have read and\nagree to our ',
-                      style: TextStyle(
-                        color: Colors.black45,
+                    text: TextSpan(
+                      text:
+                          'By continuing, you acknowledge that you have read and\nagree to our ',
+                      style: textTheme.labelSmall?.copyWith(
                         fontSize: 12,
                         height: 1.5,
                       ),
                       children: [
                         TextSpan(
                           text: 'Terms of Use',
-                          style: TextStyle(color: Color(0xFFE94E8C)),
+                          style: TextStyle(color: colorScheme.secondary),
                         ),
-                        TextSpan(text: ' and '),
+                        const TextSpan(text: ' and '),
                         TextSpan(
                           text: 'Privacy Policy.',
-                          style: TextStyle(color: Color(0xFFE94E8C)),
+                          style: TextStyle(color: colorScheme.secondary),
                         ),
                       ],
                     ),
@@ -160,23 +170,22 @@ class OnboardingPage extends StatelessWidget {
   }
 
   // Helper widget to generate consistent social icons
-  Widget _buildSocialIcon(IconData icon, Color color) {
+  Widget _buildSocialIcon(BuildContext context, IconData icon, Color color) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: appColors.shadow,
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      child: IconButton(
-        icon: Icon(icon, color: color, size: 28),
-        onPressed: () {}, // No business logic
-      ),
+      child: IconButton(icon: Icon(icon, color: color, size: 28), onPressed: () {}),
     );
   }
 }

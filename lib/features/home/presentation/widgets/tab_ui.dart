@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color tabBlue = Color(0xFF60C1DE);
-const Color tabPink = Color(0xFFDC629F);
-const Color tabGray = Color(0xFFF0F1F3);
+import '../../../../core/theme/app_theme.dart';
 
 class TabPills extends StatelessWidget {
   const TabPills({
@@ -15,29 +13,38 @@ class TabPills extends StatelessWidget {
   final int selected;
   final ValueChanged<int> onSelected;
   @override
-  Widget build(BuildContext context) => Wrap(
-    spacing: 8,
-    runSpacing: 8,
-    alignment: WrapAlignment.center,
-    children: List<Widget>.generate(
-      labels.length,
-      (int index) => ChoiceChip(
-        label: Text(labels[index]),
-        selected: selected == index,
-        onSelected: (_) => onSelected(index),
-        showCheckmark: false,
-        selectedColor: tabBlue,
-        backgroundColor: tabGray,
-        side: const BorderSide(color: Colors.white, width: 2),
-        shape: const StadiumBorder(),
-        labelStyle: TextStyle(
-          color: selected == index ? Colors.white : const Color(0xFF7C848B),
-          fontWeight: selected == index ? FontWeight.w700 : FontWeight.w400,
+  Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    return Wrap(
+      spacing: AppSpacing.sm,
+      runSpacing: AppSpacing.sm,
+      alignment: WrapAlignment.center,
+      children: List<Widget>.generate(
+        labels.length,
+        (int index) => ChoiceChip(
+          label: Text(labels[index]),
+          selected: selected == index,
+          onSelected: (_) => onSelected(index),
+          showCheckmark: false,
+          selectedColor: colorScheme.primary,
+          backgroundColor: appColors.pageBackground,
+          side: BorderSide(color: colorScheme.surface, width: 2),
+          shape: const StadiumBorder(),
+          labelStyle: context.textTheme.bodyMedium?.copyWith(
+            color: selected == index
+                ? colorScheme.onPrimary
+                : appColors.textMuted,
+            fontWeight: selected == index ? FontWeight.w700 : FontWeight.w400,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: 10,
+          ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       ),
-    ),
-  );
+    );
+  }
 }
 
 void showTabSheet(BuildContext context, String title, String message) {

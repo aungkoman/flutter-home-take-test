@@ -1,36 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    final TextTheme textTheme = context.textTheme;
     return Scaffold(
-      backgroundColor: const Color(0xFFFDEEF4), // Light pink background matching reference
+      backgroundColor: appColors.blushBackground,
       body: Stack(
         children: [
           // Background layout with donuts (placeholders used here as we don't have the assets)
-          // In a real app, you would use Image.asset with the actual donut images
           Positioned(
             top: -20,
             left: -20,
-            child: _buildPlaceholderDonut(const Color(0xFFB3E5FC), Colors.deepPurpleAccent), // Top left donut
+            child: _buildPlaceholderDonut(
+              context,
+              appColors.placeholderSky,
+              colorScheme.primary,
+            ),
           ),
           Positioned(
             top: 40,
             right: -40,
-            child: _buildPlaceholderDonut(const Color(0xFFFFCDD2), Colors.pink[300]!), // Top right donut
+            child: _buildPlaceholderDonut(
+              context,
+              appColors.pinkSoft,
+              colorScheme.secondary,
+            ),
           ),
           Positioned(
             top: 250,
             left: -30,
-            child: _buildPlaceholderDonut(const Color(0xFFF8BBD0), Colors.pinkAccent), // Bottom left donut
+            child: _buildPlaceholderDonut(
+              context,
+              appColors.pinkSoft,
+              appColors.pinkDeep,
+            ),
           ),
           Positioned(
             top: 350,
             right: -20,
-            child: _buildPlaceholderDonut(const Color(0xFFFFCC80), Colors.brown), // Bottom right donut
+            child: _buildPlaceholderDonut(
+              context,
+              appColors.placeholderPeach,
+              appColors.placeholderCocoa,
+            ),
           ),
 
           // Gradient overlay for bottom section text
@@ -41,9 +61,9 @@ class WelcomePage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.white.withOpacity(0.0),
-                    const Color(0xFFFDEEF4).withOpacity(0.8),
-                    const Color(0xFFFDEEF4),
+                    colorScheme.surface.withValues(alpha: 0.0),
+                    appColors.blushBackground.withValues(alpha: 0.8),
+                    appColors.blushBackground,
                   ],
                   stops: const [0.5, 0.7, 1.0],
                 ),
@@ -57,38 +77,29 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const Spacer(),
-                const Text(
+                Text(
                   'Welcome to the\nworld of J\'donuts',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2C3E50),
-                    height: 1.2,
-                  ),
+                  style: textTheme.headlineLarge,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxl),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 32.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: AppSpacing.xxl,
+                  ),
                   child: SizedBox(
                     width: double.infinity,
                     height: 55,
                     child: ElevatedButton(
                       onPressed: () => context.go('/home'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4FC3F7), // Light blue button
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: const Text(
+                      child: Text(
                         'LET\'S EXPLORE',
-                        style: TextStyle(
+                        style: textTheme.labelLarge?.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 1.5,
+                          color: colorScheme.onPrimary,
                         ),
                       ),
                     ),
@@ -103,22 +114,29 @@ class WelcomePage extends StatelessWidget {
   }
 
   // Helper method to create placeholder colored squares for the donuts
-  Widget _buildPlaceholderDonut(Color bgColor, Color donutColor) {
+  Widget _buildPlaceholderDonut(
+    BuildContext context,
+    Color bgColor,
+    Color donutColor,
+  ) {
     return Container(
       width: 220,
       height: 280,
       decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(30)
+        color: bgColor,
+        borderRadius: BorderRadius.circular(AppRadii.pill),
       ),
       child: Center(
         child: Container(
           width: 140,
           height: 140,
           decoration: BoxDecoration(
-              color: donutColor,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white30, width: 20)
+            color: donutColor,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: context.colorScheme.surface.withValues(alpha: 0.3),
+              width: 20,
+            ),
           ),
         ),
       ),

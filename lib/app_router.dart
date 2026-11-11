@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hometake/features/auth/presentation/screens/welcome_page.dart';
 
 import 'features/product/presentation/screens/catalog_page.dart';
+import 'features/cart/presentation/screens/cart_page.dart';
 
 import 'package:hometake/features/auth/presentation/screens/onboarding_page.dart';
 import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart';
@@ -77,6 +78,10 @@ GoRouter createAppRouter() {
             branches: [
               StatefulShellBranch(
                 routes: [
+                  GoRoute(
+                    path: 'cart',
+                    builder: (context, state) => const CartPage(),
+                  ),
                   GoRoute(
                     path: '/home',
                     builder: (context, state) => const HomePage(),

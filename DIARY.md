@@ -257,6 +257,16 @@ so basic data flow is completed.
 
 
 
+--
+
+let's add validator
+
+in domain layer?
+in usecase or somewhere?
+
+
+first clean up
+
 ### Packages
 
 get_it

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import 'product_hero_tags.dart';
 
 class StaggeredEntrance extends StatefulWidget {
@@ -75,7 +76,7 @@ class SkeletonBlock extends StatefulWidget {
     super.key,
     required this.width,
     required this.height,
-    this.borderRadius = 12,
+    this.borderRadius = AppRadii.md,
   });
 
   final double width;
@@ -117,28 +118,31 @@ class _SkeletonBlockState extends State<SkeletonBlock>
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-    animation: _controller,
-    builder: (context, child) {
-      final double shift = _controller.value * 2 - 1;
-      return Container(
-        width: widget.width,
-        height: widget.height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.borderRadius),
-          gradient: LinearGradient(
-            begin: Alignment(-1.5 + shift, -0.2),
-            end: Alignment(1.5 + shift, 0.2),
-            colors: const [
-              Color(0xFFE6E8E9),
-              Color(0xFFF5F6F6),
-              Color(0xFFE6E8E9),
-            ],
+  Widget build(BuildContext context) {
+    final AppColors appColors = context.appColors;
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        final double shift = _controller.value * 2 - 1;
+        return Container(
+          width: widget.width,
+          height: widget.height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            gradient: LinearGradient(
+              begin: Alignment(-1.5 + shift, -0.2),
+              end: Alignment(1.5 + shift, 0.2),
+              colors: [
+                appColors.shimmerBase,
+                appColors.shimmerHighlight,
+                appColors.shimmerBase,
+              ],
+            ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }
 
 class HomeCatalogSkeleton extends StatelessWidget {
@@ -147,17 +151,17 @@ class HomeCatalogSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SliverList(
     delegate: SliverChildListDelegate([
-      Padding(
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+      const Padding(
+        padding: EdgeInsets.fromLTRB(20, 12, 20, 24),
         child: SkeletonBlock(
           width: double.infinity,
           height: 176,
-          borderRadius: 24,
+          borderRadius: AppRadii.cardXl,
         ),
       ),
       for (int section = 0; section < 3; section++)
         Padding(
-          padding: const EdgeInsets.only(bottom: 24),
+          padding: const EdgeInsets.only(bottom: AppSpacing.xl),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -168,7 +172,7 @@ class HomeCatalogSkeleton extends StatelessWidget {
               SizedBox(
                 height: 200,
                 child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
                   separatorBuilder: (context, index) =>
@@ -176,7 +180,11 @@ class HomeCatalogSkeleton extends StatelessWidget {
                   itemBuilder: (context, index) => const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SkeletonBlock(width: 152, height: 152, borderRadius: 22),
+                      SkeletonBlock(
+                        width: 152,
+                        height: 152,
+                        borderRadius: AppRadii.cardLg,
+                      ),
                       SizedBox(height: 10),
                       SkeletonBlock(width: 120, height: 15),
                     ],
@@ -205,112 +213,114 @@ class ProductCollectionSkeleton extends StatelessWidget {
   final String? imageUrl;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.white,
-    body: CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          pinned: true,
-          expandedHeight: 180,
-          backgroundColor: const Color(0xFFC7703D),
-          foregroundColor: Colors.white,
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: const EdgeInsets.fromLTRB(24, 0, 20, 18),
-            title: Hero(
-              tag: ProductHeroTags.collectionTitle(kind, id),
-              child: Material(
-                color: Colors.transparent,
-                child: Text(
-                  title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            background: ColoredBox(
-              color: kind == 'category'
-                  ? const Color(0xFFDB8C4B)
-                  : const Color(0xFF72BFD2),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: FractionallySizedBox(
-                  widthFactor: 0.58,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 32, 20, 20),
-                    child: imageUrl == null || imageUrl!.isEmpty
-                        ? const SkeletonBlock(
-                            width: 130,
-                            height: 120,
-                            borderRadius: 18,
-                          )
-                        : Hero(
-                            tag: ProductHeroTags.collectionImage(kind, id),
-                            child: Image.asset(
-                              imageUrl!,
-                              fit: BoxFit.contain,
-                              excludeFromSemantics: true,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
-                                    Icons.bakery_dining_outlined,
-                                    size: 72,
-                                    color: Colors.white,
-                                  ),
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-            child: SkeletonBlock(
-              width: double.infinity,
-              height: 54,
-              borderRadius: 14,
-            ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.all(24),
-          sliver: SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 14,
-              mainAxisSpacing: 20,
-              childAspectRatio: 0.72,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: SkeletonBlock(
-                      width: double.infinity,
-                      height: double.infinity,
-                      borderRadius: 16,
+  Widget build(BuildContext context) {
+    final ColorScheme colorScheme = context.colorScheme;
+    final AppColors appColors = context.appColors;
+    return Scaffold(
+      backgroundColor: colorScheme.surface,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 180,
+            backgroundColor: appColors.categoryAppBar,
+            foregroundColor: colorScheme.onPrimary,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: const EdgeInsets.fromLTRB(24, 0, 20, 18),
+              title: Hero(
+                tag: ProductHeroTags.collectionTitle(kind, id),
+                child: Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      color: colorScheme.onPrimary,
                     ),
                   ),
-                  SizedBox(height: 10),
-                  SkeletonBlock(width: 130, height: 14),
-                  SizedBox(height: 8),
-                  SkeletonBlock(width: 75, height: 14),
-                ],
+                ),
               ),
-              childCount: 6,
+              background: ColoredBox(
+                color: kind == 'category'
+                    ? appColors.categoryHeader
+                    : appColors.productTypeHeader,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: FractionallySizedBox(
+                    widthFactor: 0.58,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 32, 20, 20),
+                      child: imageUrl == null || imageUrl!.isEmpty
+                          ? const SkeletonBlock(
+                              width: 130,
+                              height: 120,
+                              borderRadius: 18,
+                            )
+                          : Hero(
+                              tag: ProductHeroTags.collectionImage(kind, id),
+                              child: Image.asset(
+                                imageUrl!,
+                                fit: BoxFit.contain,
+                                excludeFromSemantics: true,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Icon(
+                                      Icons.bakery_dining_outlined,
+                                      size: 72,
+                                      color: colorScheme.onPrimary,
+                                    ),
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(24, 16, 24, 24),
+              child: SkeletonBlock(
+                width: double.infinity,
+                height: 54,
+                borderRadius: AppRadii.input,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.72,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SkeletonBlock(
+                        width: double.infinity,
+                        height: double.infinity,
+                        borderRadius: AppRadii.card,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    SkeletonBlock(width: 130, height: 14),
+                    SizedBox(height: 8),
+                    SkeletonBlock(width: 75, height: 14),
+                  ],
+                ),
+                childCount: 6,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class ProductDetailSkeleton extends StatelessWidget {
@@ -337,10 +347,10 @@ class ProductDetailSkeleton extends StatelessWidget {
             children: [
               Container(
                 height: 400,
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(AppSpacing.lg),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(17),
+                  color: context.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(AppRadii.detailCard),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,7 +366,7 @@ class ProductDetailSkeleton extends StatelessWidget {
                           color: Colors.transparent,
                           child: Text(
                             productName!,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: context.textTheme.headlineSmall,
                           ),
                         ),
                       )
@@ -383,14 +393,14 @@ class ProductDetailSkeleton extends StatelessWidget {
                                       const SkeletonBlock(
                                         width: 240,
                                         height: 240,
-                                        borderRadius: 24,
+                                        borderRadius: AppRadii.cardXl,
                                       ),
                                 ),
                               )
                             : const SkeletonBlock(
                                 width: 240,
                                 height: 240,
-                                borderRadius: 24,
+                                borderRadius: AppRadii.cardXl,
                               ),
                       ),
                     ),
@@ -428,7 +438,7 @@ class ProductDetailSkeleton extends StatelessWidget {
         child: SkeletonBlock(
           width: double.infinity,
           height: 56,
-          borderRadius: 30,
+          borderRadius: AppRadii.pill,
         ),
       ),
     ],

@@ -1,4 +1,8 @@
 import 'features/rewards/presentation/providers/rewards_provider.dart';
+import 'features/cart/presentation/providers/cart_provider.dart';
+import 'features/cart/presentation/providers/selected_shop_provider.dart';
+import 'features/cart/domain/usecases/get_selected_shop_id.dart';
+import 'features/cart/domain/usecases/set_selected_shop_id.dart';
 import 'features/product/presentation/providers/product_collection_provider.dart';
 import 'features/product/presentation/providers/product_detail_provider.dart';
 
@@ -7,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'app_router.dart';
+import 'core/theme/app_theme.dart';
 import 'features/product/presentation/providers/catalog_provider.dart';
 import 'features/auth/domain/usecases/user_login_use_case.dart';
 import 'features/auth/presentation/providers/login_provider.dart';
@@ -25,6 +30,20 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
+        cartProvider.overrideWith(
+          () => CartNotifier(
+            getCartItems: di.sl<GetCartItems>(),
+            addCartItem: di.sl<AddCartItem>(),
+            setCartItemQuantity: di.sl<SetCartItemQuantity>(),
+            removeCartItem: di.sl<RemoveCartItem>(),
+          ),
+        ),
+        selectedShopProvider.overrideWith(
+          () => SelectedShopNotifier(
+            getSelectedShopId: di.sl<GetSelectedShopId>(),
+            setSelectedShopId: di.sl<SetSelectedShopId>(),
+          ),
+        ),
         rewardsProvider.overrideWith2(
           (userId) => RewardsNotifier(
             getRewards: di.sl<GetRewards>(),
@@ -72,9 +91,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "J' Donuts",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: AppTheme.light,
       routerConfig: router,
     );
   }
