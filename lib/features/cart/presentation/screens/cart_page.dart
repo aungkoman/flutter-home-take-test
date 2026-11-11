@@ -1,3 +1,5 @@
+import '../../../../core/utils/price_formatter.dart';
+
 import 'dart:developer' show log;
 
 import 'package:flutter/material.dart';
@@ -13,17 +15,6 @@ import '../widgets/shop_selector_dialog.dart';
 
 class CartPage extends ConsumerWidget {
   const CartPage({super.key});
-
-  String _priceLabel(double? value, String? currency) {
-    if (value == null) return 'Price unavailable';
-    final String amount = value
-        .toStringAsFixed(value == value.truncateToDouble() ? 0 : 2)
-        .replaceAllMapped(
-          RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-          (match) => '${match[1]},',
-        );
-    return '$amount ${currency ?? ''}'.trim();
-  }
 
   void _showFailure(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -148,13 +139,6 @@ class CartPage extends ConsumerWidget {
                           0,
                           (sum, item) => sum + (item.subtotal ?? 0),
                         );
-                        final String currency =
-                            items
-                                .map((item) => item.product.currency)
-                                .whereType<String>()
-                                .firstOrNull ??
-                            '';
-
                         return Column(
                           children: [
                             Expanded(
@@ -228,10 +212,7 @@ class CartPage extends ConsumerWidget {
                                                 ),
                                                 const SizedBox(height: 6),
                                                 Text(
-                                                  _priceLabel(
-                                                    item.product.price,
-                                                    item.product.currency,
-                                                  ),
+                                                  formatMmk(item.product.price),
                                                   style: textTheme.bodyMedium,
                                                 ),
                                                 const SizedBox(height: 10),
@@ -361,7 +342,7 @@ class CartPage extends ConsumerWidget {
                                               ),
                                         ),
                                         Text(
-                                          _priceLabel(total, currency),
+                                          formatMmk(total),
                                           style: textTheme.titleLarge?.copyWith(
                                             fontWeight: FontWeight.w800,
                                           ),

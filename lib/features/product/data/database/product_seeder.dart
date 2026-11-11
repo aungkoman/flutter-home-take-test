@@ -180,3 +180,10 @@ Future<void> seedHomeCatalog(AppDatabase db) async {
     );
   });
 }
+
+/// Backfills currency for products already stored on existing installations.
+Future<void> seedProductCurrency(AppDatabase db) async {
+  await db
+      .update(db.products)
+      .write(const ProductsCompanion(currency: Value('MMK')));
+}

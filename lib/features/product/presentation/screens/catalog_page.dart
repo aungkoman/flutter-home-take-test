@@ -1,3 +1,5 @@
+import '../../../../core/utils/price_formatter.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -86,8 +88,7 @@ class CatalogPage extends ConsumerWidget {
                           ),
                         ),
                         subtitle: Text(
-                          '${product.price?.toStringAsFixed(2) ?? "Price unavailable"} '
-                          '${product.currency ?? ""} · '
+                          '${formatMmk(product.price)} · '
                           '${product.productType.name}\n'
                           '${product.productCode ?? "No product code"} · ID ${product.id}',
                         ),

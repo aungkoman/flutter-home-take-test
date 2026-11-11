@@ -1,3 +1,5 @@
+import '../../../../core/utils/price_formatter.dart';
+
 import 'dart:developer' show log;
 
 import 'package:flutter/material.dart';
@@ -198,18 +200,6 @@ class _ProductDetailContent extends StatefulWidget {
 class _ProductDetailContentState extends State<_ProductDetailContent> {
   int _quantity = 1;
 
-  String _priceLabel(double? value) {
-    if (value == null) return 'Price unavailable';
-    final double rounded = value;
-    final String amount = rounded
-        .toStringAsFixed(rounded == rounded.truncateToDouble() ? 0 : 2)
-        .replaceAllMapped(
-          RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-          (match) => '${match[1]},',
-        );
-    return '$amount ${widget.product.currency ?? ''}'.trim();
-  }
-
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = context.colorScheme;
@@ -289,7 +279,7 @@ class _ProductDetailContentState extends State<_ProductDetailContent> {
                                       ),
                                       const SizedBox(height: 7),
                                       Text(
-                                        _priceLabel(product.price),
+                                        formatMmk(product.price),
                                         style: textTheme.titleSmall,
                                       ),
                                     ],
@@ -514,9 +504,7 @@ class _ProductDetailContentState extends State<_ProductDetailContent> {
                   ),
                   Expanded(
                     child: Text(
-                      totalPrice == null
-                          ? 'PRICE N/A'
-                          : _priceLabel(totalPrice),
+                      totalPrice == null ? 'PRICE N/A' : formatMmk(totalPrice),
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

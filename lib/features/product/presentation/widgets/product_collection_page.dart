@@ -1,3 +1,5 @@
+import '../../../../core/utils/price_formatter.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -53,18 +55,6 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
     } else {
       context.go('/home');
     }
-  }
-
-  String _priceLabel(ProductEntity product) {
-    final double? price = product.price;
-    if (price == null) return 'Price unavailable';
-    final String amount = price
-        .toStringAsFixed(price == price.truncateToDouble() ? 0 : 2)
-        .replaceAllMapped(
-          RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-          (match) => '${match[1]},',
-        );
-    return '$amount ${product.currency ?? ""}'.trim();
   }
 
   @override
@@ -347,7 +337,7 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                                       horizontal: AppSpacing.sm,
                                     ),
                                     child: Text(
-                                      _priceLabel(product),
+                                      formatMmk(product.price),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: textTheme.bodyMedium,

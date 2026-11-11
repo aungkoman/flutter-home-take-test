@@ -172,48 +172,64 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                 Text('Enter your phone\nnumber', style: textTheme.displaySmall),
                 const SizedBox(height: AppSpacing.xxl),
 
-                // Input Field Container
-                Container(
-                  decoration: BoxDecoration(
-                    color: colorScheme.surface,
-                    borderRadius: BorderRadius.circular(AppRadii.card),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 16.0),
-                        child: Text(
-                          '+95',
-                          style: textTheme.bodyLarge?.copyWith(
-                            fontSize: 18,
-                            color: appColors.textMuted,
-                          ),
+                TextFormField(
+                  key: const ValueKey('auth-phone'),
+                  controller: _phoneController,
+                  enabled: !isLoading,
+                  keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.done,
+                  autofillHints: const [AutofillHints.telephoneNumber],
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  style: textTheme.bodyLarge?.copyWith(fontSize: 18),
+                  decoration: InputDecoration(
+                    hintText: '09254135592',
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 16),
+                      child: Text(
+                        '+95',
+                        style: textTheme.bodyLarge?.copyWith(
+                          fontSize: 18,
+                          color: appColors.textMuted,
                         ),
                       ),
-                      Expanded(
-                        child: TextFormField(
-                          key: const ValueKey('auth-phone'),
-                          controller: _phoneController,
-                          enabled: !isLoading,
-                          keyboardType: TextInputType.phone,
-                          textInputAction: TextInputAction.done,
-                          autofillHints: const [AutofillHints.telephoneNumber],
-                          style: textTheme.bodyLarge?.copyWith(fontSize: 18),
-                          decoration: const InputDecoration(
-                            hintText: '09254135592',
-                            filled: false,
-                            border: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(vertical: 20),
-                          ),
-                          validator: AuthValidators.phone,
-                          onFieldSubmitted: (_) => _submit(),
-                        ),
-                      ),
-                      const SizedBox(width: 20), // Right padding for input
-                    ],
+                    ),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 0,
+                      minHeight: 0,
+                    ),
+                    filled: true,
+                    fillColor: colorScheme.surface,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppRadii.card),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppRadii.card),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppRadii.card),
+                      borderSide: BorderSide(color: colorScheme.primary),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppRadii.card),
+                      borderSide: BorderSide(color: colorScheme.error),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppRadii.card),
+                      borderSide: BorderSide(color: colorScheme.error),
+                    ),
+                    errorMaxLines: 3,
+                    errorStyle: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.error,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 20,
+                    ),
                   ),
+                  validator: AuthValidators.phone,
+                  onFieldSubmitted: (_) => _submit(),
                 ),
 
                 // Error Message / User Card Display

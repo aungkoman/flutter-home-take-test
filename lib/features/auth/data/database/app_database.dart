@@ -41,7 +41,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 13;
+  int get schemaVersion => 14;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -118,6 +118,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 12) await m.createTable(selectedShops);
       if (from < 13 && _seedOnCreate) {
         await transaction(() => _seedAuthData());
+      }
+      if (from < 14 && _seedOnCreate) {
+        await transaction(() => seedProductCurrency(this));
       }
     },
     beforeOpen: (details) async {

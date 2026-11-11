@@ -1,6 +1,7 @@
 import '../providers/session_provider.dart';
 
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,8 +22,10 @@ class OtpVerifyPage extends ConsumerStatefulWidget {
   ConsumerState<OtpVerifyPage> createState() => _OtpVerifyPageState();
 }
 
-class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
+class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage>
+    with SingleTickerProviderStateMixin {
   static const int _otpLength = 6;
+  late final AnimationController _shakeController;
 
   final List<String> _digits = List<String>.filled(_otpLength, '');
 
@@ -58,6 +61,10 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   @override
   void initState() {
     super.initState();
+    _shakeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 420),
+    );
     _attachBackspaceHandlers();
     _startCountdown();
   }
@@ -65,6 +72,7 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
   @override
   void dispose() {
     _countdownTimer?.cancel();
+    _shakeController.dispose();
     for (int i = 0; i < _otpLength; i++) {
       _controllers[i].dispose();
       _focusNodes[i].dispose();
@@ -141,6 +149,21 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
     }
   }
 
+  void _resetFailedOtp() {
+    setState(() {
+      _digits.fillRange(0, _otpLength, '');
+      for (final controller in _controllers) {
+        controller.clear();
+      }
+    });
+    if (!MediaQuery.disableAnimationsOf(context)) {
+      _shakeController.forward(from: 0);
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _focusNodes.first.requestFocus();
+    });
+  }
+
   // ── Actions ───────────────────────────────────────────────────────────────
 
   Future<void> _verify() async {
@@ -175,6 +198,10 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
       previous,
       next,
     ) async {
+      if (previous?.isLoading == true && next is AsyncError<UserEntity?>) {
+        _resetFailedOtp();
+        return;
+      }
       if (previous?.isLoading != true || next is! AsyncData<UserEntity?>) {
         return;
       }
@@ -187,7 +214,7 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
       final bool saved = await ref
           .read(sessionProvider.notifier)
           .authenticate(user);
-      if (mounted && saved) context.go('/home');
+      if (context.mounted && saved) context.go('/home');
     });
 
     final AsyncValue<UserEntity?> otpState = ref.watch(otpVerifyProvider);
@@ -259,7 +286,23 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
                           const SizedBox(height: 36),
 
                           // OTP INPUT BOXES
-                          _buildOtpFields(context, isLoading),
+                          AnimatedBuilder(
+                            animation: _shakeController,
+                            child: _buildOtpFields(context, isLoading),
+                            builder: (context, child) {
+                              final progress = _shakeController.value;
+                              return Transform.translate(
+                                key: const ValueKey('otp-shake'),
+                                offset: Offset(
+                                  math.sin(progress * math.pi * 8) *
+                                      12 *
+                                      (1 - progress),
+                                  0,
+                                ),
+                                child: child,
+                              );
+                            },
+                          ),
 
                           const SizedBox(height: AppSpacing.xl),
 

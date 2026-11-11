@@ -1,3 +1,5 @@
+import '../../../../core/utils/price_formatter.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -124,6 +126,7 @@ class HomeProductSection extends StatelessWidget {
           SizedBox(
             height:
                 imageHeight +
+                30 +
                 MediaQuery.textScalerOf(context).scale(14) *
                     (isSeasonal ? 1.25 : 2.5) +
                 20,
@@ -190,6 +193,16 @@ class HomeProductSection extends StatelessWidget {
                                 style: textTheme.titleSmall,
                               ),
                             ),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: Text(
+                            formatMmk(product.price),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: textTheme.labelLarge,
                           ),
                         ),
                       ],
