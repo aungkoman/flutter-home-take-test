@@ -58,9 +58,36 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
 
       // insert new user and return user (id, and empty other data )
 
-      throw SingleMessageReturnException(
-        message: 'Phone number not registered',
-      );
+      try{
+        return await db.transaction(() async {
+          final DateTime timestamp = DateTime.now().toUtc();
+          await db.customStatement(
+            'INSERT INTO users '
+                '(first_name, last_name, phone, dob, member_id,current_points, created_at, updated_at) '
+                'VALUES (?, ?, ?, ?, ?, ?,?, ?)',
+            [
+              "",
+              "",
+              phone,
+              null,
+              1, // silver as default
+              0, // zero as default
+              db.typeMapping.mapToSqlVariable(timestamp),
+              db.typeMapping.mapToSqlVariable(timestamp),
+            ],
+          );
+          db.markTablesUpdated({db.users});
+
+          final User row = await (db.select(db.users)
+            ..where((u) => u.phone.equals(phone)))
+              .getSingle();
+          return _toEntity(row);
+        });
+      } catch(error, stackTrace){
+        print(stackTrace);
+
+        rethrow;
+      }
     }
 
     log('AuthLocalDatasourceImpl.loginUser -> _toEntity(User)',
