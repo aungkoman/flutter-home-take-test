@@ -13,8 +13,10 @@
 
 ### Submission Check List
 
-- [ ] up and running
-- [ ] android , ios release , apk - ios app
+- [x] up and running
+- [x] android , ios release , apk - ios app
+- [ ] screen recording
+
 
 
 
@@ -24,6 +26,16 @@
 - [x] home page listing
 - [x] product detail
 - [x] reward , earn and gift listing 
+
+
+phone no : +959123456781
+points : 100
+
+phone no : +959123456782
+point : 650
+
+phone no : +959123456783
+point : 1200
 
 
 as think of page flows,
