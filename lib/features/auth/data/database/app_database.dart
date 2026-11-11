@@ -41,7 +41,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 12;
+  int get schemaVersion => 13;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -116,6 +116,9 @@ class AppDatabase extends _$AppDatabase {
         await customStatement('DROP TABLE cart_items_v11');
       }
       if (from < 12) await m.createTable(selectedShops);
+      if (from < 13 && _seedOnCreate) {
+        await transaction(() => _seedAuthData());
+      }
     },
     beforeOpen: (details) async {
       // Foreign keys are enforced only if enabled per connection.
@@ -127,6 +130,9 @@ class AppDatabase extends _$AppDatabase {
     final source = await rootBundle.loadString('assets/seeds/auth_seed.json');
     final seed = jsonDecode(source) as Map<String, dynamic>;
     final timestamp = DateTime.now().toUtc();
+    final existingPhones = (await select(
+      users,
+    ).get()).map((user) => user.phone).toSet();
 
     await batch((batch) {
       final tierRows = (seed['members'] as List)
@@ -140,19 +146,22 @@ class AppDatabase extends _$AppDatabase {
               updatedAt: timestamp,
             ),
           );
-      final userRows = (seed['users'] as List).cast<Map<String, dynamic>>().map(
-        (row) => UsersCompanion.insert(
-          firstName: Value(row['firstName'] as String),
-          lastName: Value(row['lastName'] as String),
-          phone: Value(row['phone'] as String),
-          currentPoints: Value(row['currentPoints'] as int),
-          memberId: Value(row['memberId'] as int),
-          createdAt: timestamp,
-          updatedAt: timestamp,
-        ),
-      );
+      final userRows = (seed['users'] as List)
+          .cast<Map<String, dynamic>>()
+          .where((row) => !existingPhones.contains(row['phone']))
+          .map(
+            (row) => UsersCompanion.insert(
+              firstName: Value(row['firstName'] as String),
+              lastName: Value(row['lastName'] as String),
+              phone: Value(row['phone'] as String),
+              currentPoints: Value(row['currentPoints'] as int),
+              memberId: Value(row['memberId'] as int),
+              createdAt: timestamp,
+              updatedAt: timestamp,
+            ),
+          );
 
-      batch.insertAll(members, tierRows);
+      batch.insertAll(members, tierRows, mode: InsertMode.insertOrIgnore);
       batch.insertAll(users, userRows);
     });
   }

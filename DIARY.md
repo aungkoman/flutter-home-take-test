@@ -99,6 +99,8 @@ for presentation purpose
 
 with different 
 - member tier
+- current points
+
 - purchase history
 - cart 
 - reward

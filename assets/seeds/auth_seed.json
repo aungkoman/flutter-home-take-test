@@ -8,21 +8,21 @@
     {
       "firstName": "Maya",
       "lastName": "Lin",
-      "phone": "+959123456781",
+      "phone": "+95912345678",
       "currentPoints": 100,
       "memberId": 1
     },
     {
       "firstName": "Theo",
       "lastName": "Win",
-      "phone": "+959123456782",
+      "phone": "+95912345679",
       "currentPoints": 650,
       "memberId": 2
     },
     {
       "firstName": "Nora",
       "lastName": "Min",
-      "phone": "+959123456783",
+      "phone": "+95912345670",
       "currentPoints": 1200,
       "memberId": 3
     }

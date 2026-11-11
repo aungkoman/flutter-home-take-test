@@ -32,3 +32,17 @@ samples, guidance on mobile development, and a full API reference.
 
 [√] Flutter (Channel stable, 3.47.9, on Microsoft Windows [Version 10.0.19045.6466], locale en-US)
 [√] Windows Version (10 Pro 64-bit, 22H2, 2009)
+
+## Presentation accounts
+
+The auth seeder creates these accounts on first launch. Existing installations
+receive missing demo accounts when upgrading to database version 13. Existing
+accounts and their points are preserved.
+
+| Phone number | Member tier | Current points |
+| --- | --- | --- |
+| +959 12345678 | Silver | 100 |
+| +959 12345679 | Gold | 650 |
+| +959 12345670 | Platinum | 1,200 |
+
+Log in using any of these phone numbers and OTP `123456`.
