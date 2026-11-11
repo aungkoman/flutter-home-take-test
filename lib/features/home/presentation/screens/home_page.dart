@@ -102,18 +102,16 @@ class HomePage extends ConsumerWidget {
                           products: category.categoryProducts
                               .map((link) => link.product)
                               .toList(),
-                          onViewAll: () => context.push(
-                            '/catalog?categoryId=${category.id}',
-                          ),
+                          onViewAll: () =>
+                              context.push('/categories/${category.id}'),
                         ),
                       for (final ProductTypeEntity type in data.productTypes)
                         if (type.products.isNotEmpty)
                           HomeProductSection(
                             title: type.name,
                             products: type.products,
-                            onViewAll: () => context.push(
-                              '/catalog?productTypeId=${type.id}',
-                            ),
+                            onViewAll: () =>
+                                context.push('/product-types/${type.id}'),
                           ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(24, 20, 24, 140),

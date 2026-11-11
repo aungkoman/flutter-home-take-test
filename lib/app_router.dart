@@ -10,7 +10,9 @@ import 'package:hometake/features/auth/presentation/screens/regiser_page.dart';
 import 'features/auth/presentation/screens/phone_number_page.dart';
 import 'features/home/presentation/main_shell.dart';
 import 'features/home/presentation/screens/home_page.dart';
+import 'features/product/presentation/screens/category_detail_page.dart';
 import 'features/product/presentation/screens/product_detail_page.dart';
+import 'features/product/presentation/screens/product_type_detail_page.dart';
 import 'features/rewards/presentation/screens/reward_page.dart';
 
 GoRouter createAppRouter() {
@@ -48,6 +50,16 @@ GoRouter createAppRouter() {
                 state.uri.queryParameters['productTypeId'] ?? '',
               ),
             ),
+          ),
+          GoRoute(
+            path: 'categories/:id',
+            builder: (context, state) =>
+                CategoryDetailPage(id: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: 'product-types/:id',
+            builder: (context, state) =>
+                ProductTypeDetailPage(id: state.pathParameters['id']!),
           ),
           GoRoute(
             path: 'products/:id',

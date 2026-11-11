@@ -11,3 +11,10 @@ The final checks passed at 369-pixel width and 320-pixel width with 1.4× text. 
 Rendered previews are stored at:
 - C:/Users/aungk/.codex/visualizations/2026/11/10/01a1c5f2-a937-73c3-a9d2-da998091b86c/home-preview.png
 - C:/Users/aungk/.codex/visualizations/2026/11/10/01a1c5f2-a937-73c3-a9d2-da998091b86c/home-products-preview.png
+Category and product-type detail pages: passed.
+
+The collection screen was compared with the supplied Seasonal specials reference and rendered at 369 pixels wide. It follows the colored collection header, search area, and bordered two-column product grid using existing catalog artwork and seeded prices. The header uses the available product image rather than reproducing the reference promotion artwork.
+
+Checks passed at 369 pixels and 320 pixels with 1.4x text: category filtering, product-type filtering, search by name and code, clear search, empty results, product-detail navigation and return, and invalid collection IDs. The Dart analyzer reported no issues. No blocking layout findings were observed.
+
+Preview: C:/Users/aungk/.codex/visualizations/2026/11/10/01a1c5f2-a937-73c3-a9d2-da998091b86c/category-detail-preview.png

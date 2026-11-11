@@ -116,6 +116,8 @@ class CatalogPage extends ConsumerWidget {
                       ListTile(
                         leading: _CatalogImage(path: type.imageUrl),
                         title: Text(type.name),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => context.push('/product-types/${type.id}'),
                         subtitle: Text(
                           '${type.products.length} products · Priority ${type.priorityNo}',
                         ),
@@ -128,6 +130,8 @@ class CatalogPage extends ConsumerWidget {
                       ListTile(
                         leading: _CatalogImage(path: category.imageUrl),
                         title: Text(category.name),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => context.push('/categories/${category.id}'),
                         subtitle: Text(
                           '${category.categoryProducts.length} products · '
                           '${category.isActive ? "Active" : "Inactive"}',
