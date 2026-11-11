@@ -38,7 +38,7 @@ class AppDatabase extends _$AppDatabase {
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 9;
+  int get schemaVersion => 10;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -95,6 +95,9 @@ class AppDatabase extends _$AppDatabase {
           await m.createTable(earnProgress);
           if (_seedOnCreate) await seedRewards(this);
         });
+      }
+      if (from < 10 && _seedOnCreate) {
+        await transaction(() => seedProductDescriptions(this));
       }
     },
     beforeOpen: (details) async {

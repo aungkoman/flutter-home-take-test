@@ -92,6 +92,22 @@ Future<void> seedProductCodes(AppDatabase db) async {
   }
 }
 
+Future<void> seedProductDescriptions(AppDatabase db) async {
+  final String source = await rootBundle.loadString(
+    'assets/seeds/product_seed.json',
+  );
+  final Map<String, dynamic> seed = jsonDecode(source) as Map<String, dynamic>;
+
+  for (final Map<String, dynamic> row
+      in (seed['products'] as List).cast<Map<String, dynamic>>()) {
+    await (db.update(
+      db.products,
+    )..where((product) => product.id.equals(row['id'] as int))).write(
+      ProductsCompanion(description: Value(row['description'] as String?)),
+    );
+  }
+}
+
 Iterable<ShopsCompanion> _shopRows(Map<String, dynamic> seed) {
   return (seed['shops'] as List).cast<Map<String, dynamic>>().map(
     (row) => ShopsCompanion.insert(
