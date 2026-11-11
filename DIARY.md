@@ -32,6 +32,28 @@ so use cases should be
 - home page listing
 - reward page listing
 
+we need to think as normal api integration.
+
+what we can get back from posting phone number?
+
+user_id , that's all.
+
+on otp verification, we can send user_id and otp_code
+what we can get from otp verification,
+full user data (name, dob) or empty , since there is no data about user, 
+so ask user to enter 
+and then register,
+register but with user id is already generated , or use phone as key indicator to update, not insert 
+
+great, let's implement this flow.
+
+so usecase should be
+
+- enter_phone
+- otp_verify
+- enter_user_date
+- home_listing
+- reward_listing
 
 ## What we do first.
 

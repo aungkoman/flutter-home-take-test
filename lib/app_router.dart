@@ -16,10 +16,6 @@ GoRouter createAppRouter() {
         builder: (context, state) => const OnboardingPage(),
         routes: [
           GoRoute(
-            path: 'home',
-            builder: (context, state) => const HomePage(),
-          ),
-          GoRoute(
             path: 'register',
             builder: (context, state) => const RegisterPage(),
           ),
