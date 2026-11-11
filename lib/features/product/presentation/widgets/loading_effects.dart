@@ -328,67 +328,109 @@ class ProductDetailSkeleton extends StatelessWidget {
   final String? heroScope;
 
   @override
-  Widget build(BuildContext context) => Center(
-    child: SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 520),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (productId != null &&
-                imageUrl != null &&
-                imageUrl!.isNotEmpty &&
-                heroScope != null)
-              Hero(
-                tag: ProductHeroTags.image(productId!, heroScope!),
-                child: Image.asset(
-                  imageUrl!,
-                  height: 240,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const SkeletonBlock(
-                        width: double.infinity,
-                        height: 240,
-                        borderRadius: 24,
+  Widget build(BuildContext context) => Column(
+    children: [
+      Expanded(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
+          child: Column(
+            children: [
+              Container(
+                height: 400,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(17),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SkeletonBlock(width: 100, height: 14),
+                    const SizedBox(height: 10),
+                    if (productId != null &&
+                        productName != null &&
+                        heroScope != null)
+                      Hero(
+                        tag: ProductHeroTags.name(productId!, heroScope!),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Text(
+                            productName!,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ),
+                      )
+                    else
+                      const SkeletonBlock(width: 220, height: 30),
+                    const SizedBox(height: 10),
+                    const SkeletonBlock(width: 105, height: 16),
+                    Expanded(
+                      child: Center(
+                        child:
+                            productId != null &&
+                                imageUrl != null &&
+                                imageUrl!.isNotEmpty &&
+                                heroScope != null
+                            ? Hero(
+                                tag: ProductHeroTags.image(
+                                  productId!,
+                                  heroScope!,
+                                ),
+                                child: Image.asset(
+                                  imageUrl!,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const SkeletonBlock(
+                                        width: 240,
+                                        height: 240,
+                                        borderRadius: 24,
+                                      ),
+                                ),
+                              )
+                            : const SkeletonBlock(
+                                width: 240,
+                                height: 240,
+                                borderRadius: 24,
+                              ),
                       ),
+                    ),
+                  ],
                 ),
-              )
-            else
-              const SkeletonBlock(
-                width: double.infinity,
-                height: 240,
-                borderRadius: 24,
               ),
-            const SizedBox(height: 24),
-            if (productId != null && productName != null && heroScope != null)
-              Hero(
-                tag: ProductHeroTags.name(productId!, heroScope!),
-                child: Material(
-                  color: Colors.transparent,
-                  child: Text(
-                    productName!,
-                    style: Theme.of(context).textTheme.headlineSmall,
+              const SizedBox(height: 28),
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SkeletonBlock(width: 66, height: 54),
+                  SizedBox(width: 12),
+                  SkeletonBlock(width: 1, height: 88),
+                  SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SkeletonBlock(width: double.infinity, height: 15),
+                        SizedBox(height: 9),
+                        SkeletonBlock(width: double.infinity, height: 15),
+                        SizedBox(height: 9),
+                        SkeletonBlock(width: 180, height: 15),
+                      ],
+                    ),
                   ),
-                ),
-              )
-            else
-              const SkeletonBlock(width: 230, height: 28),
-            const SizedBox(height: 12),
-            const SkeletonBlock(width: 110, height: 16),
-            const SizedBox(height: 22),
-            const SkeletonBlock(width: 150, height: 24),
-            const SizedBox(height: 22),
-            const SkeletonBlock(width: 180, height: 16),
-            const SizedBox(height: 14),
-            const SkeletonBlock(width: double.infinity, height: 16),
-            const SizedBox(height: 8),
-            const SkeletonBlock(width: double.infinity, height: 16),
-            const SizedBox(height: 8),
-            const SkeletonBlock(width: 210, height: 16),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    ),
+      const Padding(
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 12),
+        child: SkeletonBlock(
+          width: double.infinity,
+          height: 56,
+          borderRadius: 30,
+        ),
+      ),
+    ],
   );
 }
