@@ -113,6 +113,36 @@ String? validateLastName(String? raw) {
 // Date of birth
 // ---------------------------------------------------------------------------
 
+/// Parses YYYY-MM-DD without accepting Dart's calendar overflow normalization.
+/// For example, 31 April and non-leap-year 29 February return null.
+DateTime? parseDateOfBirth(String? raw) {
+  final RegExpMatch? match = RegExp(r'^(\d{4})-(\d{2})-(\d{2})$')
+      .firstMatch(raw?.trim() ?? '');
+  if (match == null) return null;
+  final int year = int.parse(match[1]!);
+  final int month = int.parse(match[2]!);
+  final int day = int.parse(match[3]!);
+  if (year < 1) return null;
+  final DateTime date = DateTime(year, month, day);
+  return date.year == year && date.month == month && date.day == day
+      ? date
+      : null;
+}
+
+/// Shared validation for use-case callers and direct local persistence callers.
+String? validateRegistrationData({
+  required String firstName,
+  required String lastName,
+  required String dob,
+}) {
+  final String? nameError =
+      validateFirstName(firstName) ?? validateLastName(lastName);
+  if (nameError != null) return nameError;
+  final DateTime? date = parseDateOfBirth(dob);
+  if (date == null) return 'Date of birth is not valid.';
+  return validateDob(date);
+}
+
 /// Validates the date-of-birth selection.
 ///
 /// Rules (from spec):

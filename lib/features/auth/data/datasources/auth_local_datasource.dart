@@ -99,25 +99,21 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
   Future<UserEntity> registerUser({
     required UserRegisterParams userRegisterParams,
   }) async {
-    await Future.delayed(Duration(seconds: 2));
-
     final String firstName = userRegisterParams.firstName.trim();
     final String lastName = userRegisterParams.lastName.trim();
     final String? phone = canonicalizePhone(userRegisterParams.phone);
-    final DateTime? dob = DateTime.tryParse(userRegisterParams.dob.trim());
-    if (firstName.isEmpty || lastName.isEmpty) {
-      throw SingleMessageReturnException(
-        message: 'First name and last name are required.',
-      );
+    final String? error =
+        validateRegistrationData(
+          firstName: firstName,
+          lastName: lastName,
+          dob: userRegisterParams.dob,
+        ) ??
+        validatePhone(userRegisterParams.phone);
+    if (error != null) {
+      throw SingleMessageReturnException(message: error);
     }
-    if (phone == null) {
-      throw SingleMessageReturnException(message: 'Phone number is required.');
-    }
-    if (dob == null || dob.isAfter(DateTime.now())) {
-      throw SingleMessageReturnException(
-        message: 'Date of birth is not valid.',
-      );
-    }
+    final DateTime dob = parseDateOfBirth(userRegisterParams.dob)!;
+    await Future<void>.delayed(const Duration(seconds: 1));
 
     return db.transaction(() async {
       final User? existingUser =
@@ -135,7 +131,7 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
         db.users,
       )..where((u) => u.id.equals(existingUser.id))).write(
         UsersCompanion(
-          phone: Value(phone),
+          phone: Value(phone!),
           firstName: Value(firstName),
           lastName: Value(lastName),
           dob: Value(dob),
