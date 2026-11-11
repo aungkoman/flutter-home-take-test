@@ -40,19 +40,41 @@ void main() {
     await tester.pumpWidget(
       MaterialApp.router(theme: AppTheme.light, routerConfig: router),
     );
-    expect(find.byType(ListTile), findsNWidgets(4));
+    expect(find.byType(InkWell), findsNWidgets(4));
+    final horizontalScroll = find.byWidgetPredicate(
+      (widget) =>
+          widget is SingleChildScrollView &&
+          widget.scrollDirection == Axis.horizontal,
+    );
+    expect(horizontalScroll, findsOneWidget);
+    await tester.drag(horizontalScroll, const Offset(-300, 0));
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .state<ScrollableState>(
+            find.descendant(
+              of: horizontalScroll,
+              matching: find.byType(Scrollable),
+            ),
+          )
+          .position
+          .pixels,
+      greaterThan(0),
+    );
+    await tester.drag(horizontalScroll, const Offset(1000, 0));
+    await tester.pumpAndSettle();
     final firstTitle = tester
         .widget<Text>(
           find
               .descendant(
-                of: find.byType(ListTile).first,
+                of: find.byType(InkWell).first,
                 matching: find.byType(Text),
               )
               .first,
         )
         .data!;
     final id = firstTitle.split(' ').last;
-    await tester.tap(find.byType(ListTile).first);
+    await tester.tap(find.byType(InkWell).first);
     await tester.pumpAndSettle();
     expect(find.text('Shop detail $id'), findsOneWidget);
   });

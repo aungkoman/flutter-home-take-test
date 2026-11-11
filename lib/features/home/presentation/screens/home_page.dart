@@ -69,9 +69,7 @@ class HomePage extends ConsumerWidget {
                           !typeNames.contains(category.name.toLowerCase()),
                     )
                     .toList();
-                final List<Widget> sections = [
-                  HomeShopsSection(shops: data.shops),
-                ];
+                final List<Widget> sections = [];
                 for (final (int index, CategoryEntity category)
                     in featured.indexed) {
                   sections.add(
@@ -116,17 +114,23 @@ class HomePage extends ConsumerWidget {
                     );
                   }
                 }
+                // sections.add(
+                //   StaggeredEntrance(
+                //     index: sections.length,
+                //     child: Padding(
+                //       padding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
+                //       child: OutlinedButton.icon(
+                //         onPressed: () => context.push('/home/catalog'),
+                //         icon: const Icon(Icons.grid_view_rounded),
+                //         label: const Text('View full catalog'),
+                //       ),
+                //     ),
+                //   ),
+                // );
                 sections.add(
-                  StaggeredEntrance(
-                    index: sections.length,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 20, 24, 140),
-                      child: OutlinedButton.icon(
-                        onPressed: () => context.push('/home/catalog'),
-                        icon: const Icon(Icons.grid_view_rounded),
-                        label: const Text('View full catalog'),
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 140),
+                    child: HomeShopsSection(shops: data.shops),
                   ),
                 );
                 return [

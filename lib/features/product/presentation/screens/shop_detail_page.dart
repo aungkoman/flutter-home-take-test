@@ -97,8 +97,25 @@ class _ShopDetailPageState extends ConsumerState<ShopDetailPage> {
                               await ref
                                   .read(selectedShopProvider.notifier)
                                   .selectShop(shop);
+                              if (!context.mounted) return;
+                              await showDialog<void>(
+                                context: context,
+                                builder: (dialogContext) => AlertDialog(
+                                  title: const Text('Selected shop changed'),
+                                  content: Text(
+                                    '${shop.name} is now your selected shop.',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(dialogContext).pop(),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
                               if (context.mounted) {
-                                context.push('/home/catalog');
+                                context.go('/home');
                               }
                             } catch (_) {
                               if (context.mounted) {
