@@ -63,6 +63,10 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
             });
       if (matches.isNotEmpty) {
         final User existing = matches.first;
+        if (userLoginParams.mode == AuthEntryMode.login &&
+            existing.firstName.trim().isEmpty) {
+          throw PhoneNotRegisteredException();
+        }
         if (matches.length == 1 && existing.phone != phone) {
           await (db.update(db.users)
                 ..where((row) => row.id.equals(existing.id)))
@@ -72,6 +76,9 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
           db.users,
         )..where((row) => row.id.equals(existing.id))).getSingle();
         return _toEntity(row);
+      }
+      if (userLoginParams.mode == AuthEntryMode.login) {
+        throw PhoneNotRegisteredException();
       }
       final DateTime timestamp = DateTime.now().toUtc();
       final int id = await db

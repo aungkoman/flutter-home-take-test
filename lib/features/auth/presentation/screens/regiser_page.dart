@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../providers/login_provider.dart';
+import '../providers/auth_draft_provider.dart';
 import '../providers/register_provider.dart';
 import '../../domain/validators/auth_validators.dart';
 
@@ -42,6 +43,29 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   DateTime? _dob;
   String? _dobError; // inline error driven by AuthValidators.dob
   int _currentStep = 0; // 0 for Name, 1 for DOB
+
+  @override
+  void initState() {
+    super.initState();
+    final AuthDraft draft = ref.read(authDraftProvider);
+    _firstNameController.text = draft.firstName;
+    _lastNameController.text = draft.lastName;
+    _dob = draft.dob;
+    if (_dob != null) _dobController.text = _formatDob(_dob!);
+    _firstNameController.addListener(_saveNames);
+    _lastNameController.addListener(_saveNames);
+  }
+
+  String _formatDob(DateTime date) =>
+      '${date.year.toString().padLeft(4, '0')}-'
+      '${date.month.toString().padLeft(2, '0')}-'
+      '${date.day.toString().padLeft(2, '0')}';
+
+  void _saveNames() {
+    ref
+        .read(authDraftProvider.notifier)
+        .setNames(_firstNameController.text, _lastNameController.text);
+  }
 
   @override
   void dispose() {
@@ -85,10 +109,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     setState(() {
       _dob = selected;
       _dobError = AuthValidators.dob(selected); // validate immediately on pick
-      _dobController.text =
-          '${selected.year.toString().padLeft(4, '0')}-'
-          '${selected.month.toString().padLeft(2, '0')}-'
-          '${selected.day.toString().padLeft(2, '0')}';
+      _dobController.text = _formatDob(selected);
+      ref.read(authDraftProvider.notifier).setDob(selected);
     });
   }
 
@@ -119,6 +141,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     String hintText,
   ) {
     return TextFormField(
+      key: ValueKey(
+        hintText == 'First Name' ? 'register-first-name' : 'register-last-name',
+      ),
       controller: controller,
       enabled: !ref.read(registerProvider).isLoading,
       textCapitalization: TextCapitalization.words,
@@ -258,6 +283,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       )
                     // STEP 2: DOB FORM
                     : GestureDetector(
+                        key: const ValueKey('register-dob'),
                         onTap: isLoading ? null : _pickDob,
                         child: Column(
                           children: [

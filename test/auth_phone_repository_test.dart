@@ -130,10 +130,16 @@ void main() {
     () async {
       final List<Either<Failure, UserEntity>> results = await Future.wait([
         repository.loginUser(
-          userLoginParams: UserLoginParams(phone: '09123456781'),
+          userLoginParams: UserLoginParams(
+            phone: '09123456781',
+            mode: AuthEntryMode.register,
+          ),
         ),
         repository.loginUser(
-          userLoginParams: UserLoginParams(phone: '+959123456781'),
+          userLoginParams: UserLoginParams(
+            phone: '+959123456781',
+            mode: AuthEntryMode.register,
+          ),
         ),
       ]);
       final List<int> ids = results

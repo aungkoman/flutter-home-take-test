@@ -119,7 +119,7 @@ class OnboardingPage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        context.go('/login');
+                        context.go('/login?mode=register');
                       },
                       child: Text(
                         'LET\'S GET STARTED',

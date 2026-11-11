@@ -1,5 +1,5 @@
-
 import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/entities/member_entity.dart';
 part 'member_model.g.dart';
 

@@ -1,5 +1,4 @@
-
-class MemberEntity{
+class MemberEntity {
   int id;
   String name;
   String description;
@@ -15,14 +14,14 @@ class MemberEntity{
     required this.imageUrl,
     required this.memberPoints,
     required this.createdAt,
-    required this.updatedAt
+    required this.updatedAt,
   });
 
-  static MemberEntity get sample{
+  static MemberEntity get sample {
     return MemberEntity(
       id: 1,
-      name:"name",
-      description:"description",
+      name: "name",
+      description: "description",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       imageUrl: '',

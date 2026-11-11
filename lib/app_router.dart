@@ -22,6 +22,7 @@ import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart
 import 'package:hometake/features/auth/presentation/screens/regiser_page.dart';
 
 import 'features/auth/presentation/screens/phone_number_page.dart';
+import 'features/auth/domain/entities/params/user_login_params.dart';
 import 'features/home/presentation/main_shell.dart';
 import 'features/home/presentation/screens/home_page.dart';
 import 'features/product/presentation/screens/category_detail_page.dart';
@@ -53,7 +54,11 @@ GoRouter createAppRouter({
           // its' all about entering phone number
           GoRoute(
             path: 'login',
-            builder: (context, state) => const PhoneNumberPage(),
+            builder: (context, state) => PhoneNumberPage(
+              mode: state.uri.queryParameters['mode'] == 'register'
+                  ? AuthEntryMode.register
+                  : AuthEntryMode.login,
+            ),
           ),
           GoRoute(
             path: 'register',

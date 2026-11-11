@@ -181,7 +181,7 @@ class _OtpVerifyPageState extends ConsumerState<OtpVerifyPage> {
       final UserEntity? user = next.value;
       if (user == null) return;
       if (user.firstName.trim().isEmpty) {
-        context.go('/register');
+        context.push('/register');
         return;
       }
       final bool saved = await ref

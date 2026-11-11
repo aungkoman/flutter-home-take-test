@@ -6,11 +6,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../providers/login_provider.dart';
+import '../providers/auth_draft_provider.dart';
 import '../providers/otp_verify_provider.dart';
 import '../../domain/validators/auth_validators.dart';
 
 class PhoneNumberPage extends ConsumerStatefulWidget {
-  const PhoneNumberPage({super.key});
+  const PhoneNumberPage({super.key, this.mode = AuthEntryMode.login});
+  final AuthEntryMode mode;
 
   @override
   ConsumerState<PhoneNumberPage> createState() => _LoginPageState();
@@ -21,6 +23,30 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
   final TextEditingController _phoneController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _phoneController.text = ref.read(authDraftProvider).phone;
+    _phoneController.addListener(() {
+      ref.read(authDraftProvider.notifier).setPhone(_phoneController.text);
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant PhoneNumberPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.mode != widget.mode) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) ref.invalidate(loginProvider);
+      });
+    }
+  }
+
+  void _registerThisPhone() {
+    ref.invalidate(loginProvider);
+    context.go('/login?mode=register');
+  }
+
+  @override
   void dispose() {
     _phoneController.dispose();
     super.dispose();
@@ -28,17 +54,24 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
 
   Future<void> _submit() async {
     if (_formKey.currentState?.validate() != true) {
-      log('PhoneNumberPage._submit: form validation failed; no login call',
-          name: 'auth.login');
+      log(
+        'PhoneNumberPage._submit: form validation failed; no login call',
+        name: 'auth.login',
+      );
       return;
     }
     log(
       'PhoneNumberPage._submit -> LoginNotifier.login '
-          '| input String phone=${_phoneController.text}',
+      '| input String phone=${_phoneController.text}',
       name: 'auth.login',
     );
-    await ref.read(loginProvider.notifier).login(_phoneController.text);
-    log('PhoneNumberPage._submit <- Future<void> completed', name: 'auth.login');
+    await ref
+        .read(loginProvider.notifier)
+        .login(_phoneController.text, mode: widget.mode);
+    log(
+      'PhoneNumberPage._submit <- Future<void> completed',
+      name: 'auth.login',
+    );
   }
 
   @override
@@ -48,19 +81,20 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
       final UserEntity? returnedUser = next.value;
       log(
         'PhoneNumberPage.ref.listen <- AsyncValue<UserEntity?> '
-            '| runtime=${next.runtimeType}, loading=${next.isLoading}, '
-            'error=${next.error}, userId=${returnedUser?.id}, '
-            'name=${returnedUser?.firstName} ${returnedUser?.lastName}, '
-            'phone=${returnedUser?.phone}, points=${returnedUser?.currentPoints}, '
-            'tier=${returnedUser?.member.name}',
+        '| runtime=${next.runtimeType}, loading=${next.isLoading}, '
+        'error=${next.error}, userId=${returnedUser?.id}, '
+        'name=${returnedUser?.firstName} ${returnedUser?.lastName}, '
+        'phone=${returnedUser?.phone}, points=${returnedUser?.currentPoints}, '
+        'tier=${returnedUser?.member.name}',
         name: 'auth.login',
       );
       // Check if we just finished loading and successfully got a user
       if (previous?.isLoading == true &&
           next is AsyncData<UserEntity?> &&
-          next.value != null) {
+          next.value != null &&
+          ref.read(loginProvider.notifier).requestedMode == widget.mode) {
         ref.invalidate(otpVerifyProvider);
-        context.go('/otp');
+        context.push('/otp');
       }
     });
 
@@ -135,10 +169,7 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
               children: [
                 const SizedBox(height: AppSpacing.xl),
                 // Header Text
-                Text(
-                  'Enter your phone\nnumber',
-                  style: textTheme.displaySmall,
-                ),
+                Text('Enter your phone\nnumber', style: textTheme.displaySmall),
                 const SizedBox(height: AppSpacing.xxl),
 
                 // Input Field Container
@@ -161,6 +192,7 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                       ),
                       Expanded(
                         child: TextFormField(
+                          key: const ValueKey('auth-phone'),
                           controller: _phoneController,
                           enabled: !isLoading,
                           keyboardType: TextInputType.phone,
@@ -195,9 +227,18 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                     ),
                   ),
                 ] else if (!isLoading && user != null) ...[
-                  const SizedBox(height: AppSpacing.lg)
+                  const SizedBox(height: AppSpacing.lg),
                 ],
 
+                if (!isLoading &&
+                    ref.read(loginProvider.notifier).isUnregisteredPhone)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: _registerThisPhone,
+                      child: const Text('Register this number'),
+                    ),
+                  ),
                 const Spacer(),
 
                 // Continue Button
@@ -225,8 +266,7 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
                     style: textTheme.labelSmall?.copyWith(fontSize: 12),
                     children: [
                       const TextSpan(
-                        text:
-                            'By continuing, you acknowledge that you have read and agree to our ',
+                        text: 'By continuing, you acknowledge that you have read and agree to our ',
                       ),
                       TextSpan(
                         text: 'Terms of Use',

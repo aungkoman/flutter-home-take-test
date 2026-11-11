@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../auth/presentation/providers/session_provider.dart';
+import '../../../auth/presentation/providers/auth_draft_provider.dart';
 import '../../../auth/presentation/providers/login_provider.dart';
 import '../../../auth/presentation/providers/otp_verify_provider.dart';
 import '../../../auth/presentation/providers/register_provider.dart';
@@ -150,6 +151,7 @@ class SettingsPage extends ConsumerWidget {
                 final bool cleared = await ref
                     .read(sessionProvider.notifier)
                     .signOut();
+                if (cleared) ref.invalidate(authDraftProvider);
                 if (!context.mounted) return;
                 if (!cleared) {
                   ScaffoldMessenger.of(context).showSnackBar(

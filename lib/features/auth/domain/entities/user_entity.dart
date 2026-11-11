@@ -1,6 +1,6 @@
 import 'member_entity.dart';
 
-class UserEntity{
+class UserEntity {
   int id;
   String firstName;
   String lastName;

@@ -11,23 +11,24 @@ import 'package:hometake/features/auth/domain/repositories/auth_repository.dart'
 
 import '../../../../core/error/exceptions.dart';
 
-class AuthRepositoryImpl implements AuthRepository{
-
+class AuthRepositoryImpl implements AuthRepository {
   AuthLocalDatasource authLocalDatasource;
 
-  AuthRepositoryImpl({
-    required this.authLocalDatasource
-  });
+  AuthRepositoryImpl({required this.authLocalDatasource});
 
   @override
-  Future<Either<Failure, UserEntity>> loginUser({required UserLoginParams userLoginParams}) async{
+  Future<Either<Failure, UserEntity>> loginUser({
+    required UserLoginParams userLoginParams,
+  }) async {
     log(
       'AuthRepositoryImpl.loginUser -> ${authLocalDatasource.runtimeType}.loginUser '
       '| input UserLoginParams phone=${userLoginParams.phone}',
       name: 'auth.login',
     );
-    try{
-      UserEntity user = await authLocalDatasource.loginUser(userLoginParams: userLoginParams);
+    try {
+      UserEntity user = await authLocalDatasource.loginUser(
+        userLoginParams: userLoginParams,
+      );
       log(
         'AuthRepositoryImpl.loginUser <- UserEntity '
         '| runtime=${user.runtimeType}, id=${user.id}, '
@@ -37,8 +38,7 @@ class AuthRepositoryImpl implements AuthRepository{
         name: 'auth.login',
       );
       return Right(user);
-    }
-    catch(exp, stackTrace){
+    } catch (exp, stackTrace) {
       log(
         'AuthRepositoryImpl.loginUser <- exception ${exp.runtimeType}; '
         'return Left<Failure, UserEntity> containing '
@@ -47,7 +47,10 @@ class AuthRepositoryImpl implements AuthRepository{
         error: exp is SingleMessageReturnException ? exp.message : exp,
         stackTrace: stackTrace,
       );
-      if(exp is SingleMessageReturnException){
+      if (exp is PhoneNotRegisteredException) {
+        return Left(PhoneNotRegisteredFailure());
+      }
+      if (exp is SingleMessageReturnException) {
         return Left(SingleMessageReturnFailure(message: exp.message));
       }
       return left(ServerFailure());
@@ -55,13 +58,16 @@ class AuthRepositoryImpl implements AuthRepository{
   }
 
   @override
-  Future<Either<Failure, UserEntity>> registerUser({required UserRegisterParams userRegisterParams}) async{
-    try{
-      UserEntity user = await authLocalDatasource.registerUser(userRegisterParams: userRegisterParams);
+  Future<Either<Failure, UserEntity>> registerUser({
+    required UserRegisterParams userRegisterParams,
+  }) async {
+    try {
+      UserEntity user = await authLocalDatasource.registerUser(
+        userRegisterParams: userRegisterParams,
+      );
       return Right(user);
-    }
-    catch(exp){
-      if(exp is SingleMessageReturnException){
+    } catch (exp) {
+      if (exp is SingleMessageReturnException) {
         return Left(SingleMessageReturnFailure(message: exp.message));
       }
       return left(ServerFailure());
@@ -69,17 +75,19 @@ class AuthRepositoryImpl implements AuthRepository{
   }
 
   @override
-  Future<Either<Failure, UserEntity>> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams}) async{
-    try{
-      UserEntity user = await authLocalDatasource.verifyOtp(userOtpVerifyParams: userOtpVerifyParams);
+  Future<Either<Failure, UserEntity>> verifyOtp({
+    required UserOtpVerifyParams userOtpVerifyParams,
+  }) async {
+    try {
+      UserEntity user = await authLocalDatasource.verifyOtp(
+        userOtpVerifyParams: userOtpVerifyParams,
+      );
       return Right(user);
-    }
-    catch(exp){
-      if(exp is SingleMessageReturnException){
+    } catch (exp) {
+      if (exp is SingleMessageReturnException) {
         return Left(SingleMessageReturnFailure(message: exp.message));
       }
       return left(ServerFailure());
     }
   }
-
 }

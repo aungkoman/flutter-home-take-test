@@ -1,18 +1,11 @@
+enum AuthEntryMode { login, register }
 
-class UserLoginParams{
-  String phone;
+class UserLoginParams {
+  UserLoginParams({required this.phone, this.mode = AuthEntryMode.login});
+  final String phone;
+  final AuthEntryMode mode;
 
-  UserLoginParams({
-    required this.phone,
-  });
+  static UserLoginParams get sample => UserLoginParams(phone: '+959123456781');
 
-  static UserLoginParams get sample{
-    return UserLoginParams(phone: "test@email.com");
-  }
-
-  Map<String,dynamic> toJson(){
-    return {
-      "phone" : phone
-    };
-  }
+  Map<String, dynamic> toJson() => {'phone': phone};
 }

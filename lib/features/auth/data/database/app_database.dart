@@ -105,7 +105,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 11) {
         await m.createTable(cartItems);
       } else if (from < 12) {
-        await customStatement('ALTER TABLE cart_items RENAME TO cart_items_v11');
+        await customStatement(
+          'ALTER TABLE cart_items RENAME TO cart_items_v11',
+        );
         await m.createTable(cartItems);
         await customStatement(
           'INSERT INTO cart_items (user_id, shop_id, product_id, quantity) '

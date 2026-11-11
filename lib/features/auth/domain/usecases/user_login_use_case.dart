@@ -12,8 +12,9 @@ import '../validators/auth_validators.dart';
 export 'package:dartz/dartz.dart' show Either;
 
 export '../../../../core/error/failures.dart'
-    show Failure, SingleMessageReturnFailure;
-export '../entities/params/user_login_params.dart' show UserLoginParams;
+    show Failure, SingleMessageReturnFailure, PhoneNotRegisteredFailure;
+export '../entities/params/user_login_params.dart'
+    show UserLoginParams, AuthEntryMode;
 export '../entities/user_entity.dart' show UserEntity;
 
 class UserLoginUseCase implements UseCase<UserEntity, UserLoginParams> {
@@ -39,7 +40,10 @@ class UserLoginUseCase implements UseCase<UserEntity, UserLoginParams> {
       name: 'auth.login',
     );
     final Either<Failure, UserEntity> result = await authRepository.loginUser(
-      userLoginParams: UserLoginParams(phone: phone),
+      userLoginParams: UserLoginParams(
+        phone: phone,
+        mode: userRegisterParams.mode,
+      ),
     );
     log(
       'UserLoginUseCase.call <- Either<Failure, UserEntity> '
