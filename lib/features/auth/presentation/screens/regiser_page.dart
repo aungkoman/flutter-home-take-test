@@ -4,6 +4,10 @@ import 'package:hometake/features/auth/presentation/screens/otp_verify_page.dart
 
 import '../providers/login_provider.dart';
 
+
+// let's ask first name, last name
+// and dob
+// and submit
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
 

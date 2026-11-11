@@ -34,7 +34,7 @@ class _LoginPageState extends ConsumerState<PhoneNumberPage> {
     ref.listen<AsyncValue<UserEntity?>>(loginProvider, (previous, next) {
       // Check if we just finished loading and successfully got a user
       if (previous?.isLoading == true && !next.isLoading && next.value != null) {
-        context.go('/home');
+        context.go('/otp');
       }
     });
 

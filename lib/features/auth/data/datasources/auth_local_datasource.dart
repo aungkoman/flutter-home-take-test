@@ -32,6 +32,9 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
         .getSingleOrNull();
 
     if (row == null) {
+
+      // insert new user and return user (id, and empty other data )
+
       throw SingleMessageReturnException(
         message: 'Phone number not registered',
       );
@@ -91,6 +94,7 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
         return _toEntity(row);
       });
     } catch(error, stackTrace){
+      print(stackTrace);
       rethrow;
     }
   }
