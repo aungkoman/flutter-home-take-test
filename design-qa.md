@@ -28,3 +28,9 @@ The screens adapt the supplied references with sample balances, empty states, lo
 An enlarged-text check found an Order city-selector overflow at 320 pixels. The selector now expands within its available width. Repeated checks passed at 369 pixels and at 320 pixels with 1.4x text, covering all tabs, reward and shop filters, wallet balance visibility, the history sheet and retained wallet state.
 
 Previews: reward-tab-preview.png, order-tab-preview.png, wallet-tab-preview.png and settings-tab-preview.png in the existing visualization output directory.
+
+Review issue #41: passed for Rewards motion and presentation.
+Compared the supplied PDF Rewards reference with refreshed seeded-fixture previews. The ring is painted with sprinkles and sweeps while points count up; tier/card/badge entrances are finite; the tab and navigation indicators move; donut artwork reveals earned quarters and coffee uses a painted arc. The actual shared member data supplies the displayed values rather than hardcoding the mockup's inconsistent totals.
+The first visual check found cyan disabled Earn buttons. They now use the gray progress-track surface and muted foreground. Refreshed previews confirm the enabled/disabled states and readable labels.
+Validation: 19 retained Rewards/artwork/navigation tests plus one temporary seeded-data rendering check passed; 320px/1.3x text and Reduce Motion are covered. Native profile-mode frame pacing has not been measured.
+Updated previews: rewards-motion-preview.png, rewards-challenges-preview.png and rewards-motion-gifts-preview.png in the existing visualization directory.
