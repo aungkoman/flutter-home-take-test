@@ -59,6 +59,21 @@ so usecase should be
 context.go replaces the stack
 let's push 
 
+
+let's move to home
+
+what we want to show in Home Page
+
+User Info along with member tier
+Banners
+Categories (Seasonal Specials, Popular )
+Product Types ( Donuts, Bread, Cookies , Cake, Beverages , ) \
+
+
+where we start?
+
+start with entity
+
 ## What we do first.
 
 - [ ] data structure
