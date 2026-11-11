@@ -44,7 +44,7 @@ class OnboardingPage extends StatelessWidget {
             top: 8,
             left: 10,
             child: DonutSticker(
-              asset: 'assets/images/donut-red.png',
+              asset: 'assets/images/1767595065373-Strawberry Frost.png',
               size: 112,
               rotation: -0.22,
             ),
@@ -53,7 +53,7 @@ class OnboardingPage extends StatelessWidget {
             top: 122,
             left: 0,
             child: DonutSticker(
-              asset: 'assets/images/donut-yellow.png',
+              asset: 'assets/images/1767595029116-Honey Dipped.png',
               size: 118,
               backgroundColor: appColors.pinkSoft,
               rotation: 0.18,
@@ -63,7 +63,7 @@ class OnboardingPage extends StatelessWidget {
             top: 174,
             right: 18,
             child: DonutSticker(
-              asset: 'assets/images/donut-brown.png',
+              asset: 'assets/images/1766888913939-Mirror Glazing Blue.png',
               size: 104,
               rotation: -0.35,
             ),
@@ -72,9 +72,21 @@ class OnboardingPage extends StatelessWidget {
             top: 270,
             right: 48,
             child: DonutSticker(
-              asset: 'assets/images/donut-red.png',
+              asset: 'assets/images/1767596518249-Plain Ring Donut.png',
               size: 68,
               rotation: 0.3,
+            ),
+          ),
+          const Positioned(
+            top: 145,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: DonutSticker(
+                asset: 'assets/images/1767596335106-Monster Flake Colorful.png',
+                size: 150,
+                rotation: -0.18,
+              ),
             ),
           ),
 
@@ -176,8 +188,7 @@ class OnboardingPage extends StatelessWidget {
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text:
-                          'By continuing, you acknowledge that you have read and\nagree to our ',
+                      text: 'By continuing, you acknowledge that you have read and\nagree to our ',
                       style: textTheme.labelSmall?.copyWith(
                         fontSize: 12,
                         height: 1.5,
@@ -221,7 +232,10 @@ class OnboardingPage extends StatelessWidget {
           ),
         ],
       ),
-      child: IconButton(icon: Icon(icon, color: color, size: 28), onPressed: () {}),
+      child: IconButton(
+        icon: Icon(icon, color: color, size: 28),
+        onPressed: () {},
+      ),
     );
   }
 }
