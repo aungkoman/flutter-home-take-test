@@ -41,15 +41,77 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
   }
 
   @override
-  Future<UserEntity> registerUser({required UserRegisterParams userRegisterParams}) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
+  Future<UserEntity> registerUser({
+    required UserRegisterParams userRegisterParams,
+  }) async {
+    final String phone = userRegisterParams.phone.trim();
+    final DateTime? dob = DateTime.tryParse(userRegisterParams.dob.trim());
+    if (phone.isEmpty) {
+      throw SingleMessageReturnException(message: 'Phone number is required.');
+    }
+    if (dob == null) {
+      throw SingleMessageReturnException(message: 'Date of birth is not valid.');
+    }
+
+    return db.transaction(() async {
+      final User? existingUser = await (db.select(db.users)
+            ..where((u) => u.phone.equals(phone))
+            ..limit(1))
+          .getSingleOrNull();
+      if (existingUser != null) {
+        throw SingleMessageReturnException(
+          message: 'Phone number is already registered.',
+        );
+      }
+
+
+
+      final DateTime timestamp = DateTime.now().toUtc();
+      await db.customStatement(
+        'INSERT INTO users '
+        '(first_name, last_name, phone, dob, member_id,current_points, created_at, updated_at) '
+        'VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [
+          userRegisterParams.firstName.trim(),
+          userRegisterParams.lastName.trim(),
+          phone,
+          db.typeMapping.mapToSqlVariable(dob),
+          1, // silver as default
+          0, // zero as default
+          db.typeMapping.mapToSqlVariable(timestamp),
+          db.typeMapping.mapToSqlVariable(timestamp),
+        ],
+      );
+      db.markTablesUpdated({db.users});
+
+      final User row = await (db.select(db.users)
+            ..where((u) => u.phone.equals(phone)))
+          .getSingle();
+      return _toEntity(row);
+    });
   }
 
   @override
-  Future<UserEntity> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams}) {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
+  Future<UserEntity> verifyOtp({required UserOtpVerifyParams userOtpVerifyParams}) async{
+    await Future.delayed(Duration(seconds: 1));
+    if (userOtpVerifyParams.otpCode.trim() != "123456"){
+      throw SingleMessageReturnException(message: "OTP Code is not valid.");
+    }
+    final int userId = userOtpVerifyParams.userId;
+
+    final row = await (db.select(db.users)
+      ..where((u) => u.id.equals(userId))
+      ..limit(1))
+        .getSingleOrNull();
+
+    if (row == null) {
+      throw SingleMessageReturnException(
+        message: 'User id number not registered',
+      );
+    }
+
+
+    return _toEntity(row);
   }
   Future<UserEntity> _toEntity(User row) async {
     final m = await (db.select(db.members)
