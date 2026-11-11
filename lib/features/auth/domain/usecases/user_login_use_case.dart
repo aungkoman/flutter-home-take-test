@@ -1,3 +1,5 @@
+import 'dart:developer' show log;
+
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -20,8 +22,20 @@ class UserLoginUseCase implements UseCase<UserEntity, UserLoginParams>{
   final AuthRepository authRepository;
   UserLoginUseCase({required this.authRepository});
   @override
-  Future<Either<Failure, UserEntity>> call(UserLoginParams userRegisterParams) {
-    return authRepository.loginUser(userLoginParams: userRegisterParams);
+  Future<Either<Failure, UserEntity>> call(UserLoginParams userRegisterParams) async {
+    log(
+      'UserLoginUseCase.call -> ${authRepository.runtimeType}.loginUser '
+      '| input UserLoginParams phone=${userRegisterParams.phone}',
+      name: 'auth.login',
+    );
+    final Either<Failure, UserEntity> result =
+        await authRepository.loginUser(userLoginParams: userRegisterParams);
+    log(
+      'UserLoginUseCase.call <- Either<Failure, UserEntity> '
+      '| runtime=${result.runtimeType}',
+      name: 'auth.login',
+    );
+    return result;
   }
 }
 

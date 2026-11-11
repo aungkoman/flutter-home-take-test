@@ -27,16 +27,34 @@ class LoginNotifier extends AsyncNotifier<UserEntity?> {
 
   // 2. state modifier methods တွေ။
   Future<void> login(String phone) async {
-    if (state.isLoading) return;
+    if (state.isLoading) {
+      log('LoginNotifier.login: ignored duplicate submit while loading',
+          name: 'auth.login');
+      return;
+    }
+    log('LoginNotifier.login | input String phone=$phone', name: 'auth.login');
 
     final Ref loginRef = ref;
     state = const AsyncLoading();
+    log('LoginNotifier.login -> state AsyncLoading<UserEntity?>',
+        name: 'auth.login');
 
     try {
+      log('LoginNotifier.login -> UserLoginUseCase.call | input UserLoginParams',
+          name: 'auth.login');
       final Either<Failure, UserEntity> userEither = await _userLogin(
         UserLoginParams(phone: phone.trim()),
       );
-      if (!loginRef.mounted) return;
+      log(
+        'LoginNotifier.login <- Either<Failure, UserEntity> '
+        '| runtime=${userEither.runtimeType}',
+        name: 'auth.login',
+      );
+      if (!loginRef.mounted) {
+        log('LoginNotifier.login: result received after disposal; state skipped',
+            name: 'auth.login');
+        return;
+      }
 
       state = userEither.fold<AsyncValue<UserEntity?>>((failure) {
         log(
@@ -47,7 +65,15 @@ class LoginNotifier extends AsyncNotifier<UserEntity?> {
               : failure,
         );
         return AsyncError(failure, StackTrace.current);
-      }, (user) => AsyncData(user));
+      }, (user) {
+        log(
+          'LoginNotifier.login -> AsyncData<UserEntity?> '
+          '| userId=${user.id}, phone=${user.phone}, '
+          'tier=${user.member.name}, points=${user.currentPoints}',
+          name: 'auth.login',
+        );
+        return AsyncData(user);
+      });
     } catch (error, stackTrace) {
       log(
         'Login threw an unexpected exception',
