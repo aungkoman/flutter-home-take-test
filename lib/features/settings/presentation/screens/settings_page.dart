@@ -144,6 +144,8 @@ class SettingsPage extends ConsumerWidget {
               'Privacy policy will appear here.',
             ),
             ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 28),
+              minVerticalPadding: 12,
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               trailing: const Icon(Icons.chevron_right),
