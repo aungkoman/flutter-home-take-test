@@ -9,6 +9,9 @@ import 'tables.dart';
 import '../../../product/data/database/product_tables.dart';
 import '../../../product/data/database/product_seeder.dart';
 
+import '../../../rewards/data/database/reward_tables.dart';
+import '../../../rewards/data/database/reward_seeder.dart';
+
 part 'app_database.g.dart';
 
 @DriftDatabase(
@@ -21,18 +24,21 @@ part 'app_database.g.dart';
     Shops,
     Categories,
     CategoryProducts,
+    Rewards,
+    Earns,
+    Gifts,
+    EarnProgress,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : _seedOnCreate = true, super(_openConnection());
 
-  AppDatabase.forTesting(super.e, {bool seedOnCreate = false})
-    : _seedOnCreate = seedOnCreate;
+  AppDatabase.forTesting(super.e, {this._seedOnCreate = false});
 
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -41,6 +47,7 @@ class AppDatabase extends _$AppDatabase {
       if (_seedOnCreate) {
         await _seedAuthData();
         await seedProductCatalog(this);
+        await seedRewards(this);
       }
     }),
     onUpgrade: (m, from, to) async {
@@ -79,6 +86,15 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from >= 4 && from < 8 && _seedOnCreate) {
         await transaction(() => seedHomeCatalog(this));
+      }
+      if (from < 9) {
+        await transaction(() async {
+          await m.createTable(rewards);
+          await m.createTable(earns);
+          await m.createTable(gifts);
+          await m.createTable(earnProgress);
+          if (_seedOnCreate) await seedRewards(this);
+        });
       }
     },
     beforeOpen: (details) async {

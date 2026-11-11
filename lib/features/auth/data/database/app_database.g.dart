@@ -3384,6 +3384,1350 @@ class CategoryProductsCompanion extends UpdateCompanion<CategoryProduct> {
   }
 }
 
+class $RewardsTable extends Rewards with TableInfo<$RewardsTable, RewardRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RewardsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _imageUrlMeta = const VerificationMeta(
+    'imageUrl',
+  );
+  @override
+  late final GeneratedColumn<String> imageUrl = GeneratedColumn<String>(
+    'image_url',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _colorCodeMeta = const VerificationMeta(
+    'colorCode',
+  );
+  @override
+  late final GeneratedColumn<String> colorCode = GeneratedColumn<String>(
+    'color_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rewardPointsMeta = const VerificationMeta(
+    'rewardPoints',
+  );
+  @override
+  late final GeneratedColumn<int> rewardPoints = GeneratedColumn<int>(
+    'reward_points',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (reward_points >= 0)',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    description,
+    imageUrl,
+    colorCode,
+    rewardPoints,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'rewards';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RewardRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('image_url')) {
+      context.handle(
+        _imageUrlMeta,
+        imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_imageUrlMeta);
+    }
+    if (data.containsKey('color_code')) {
+      context.handle(
+        _colorCodeMeta,
+        colorCode.isAcceptableOrUnknown(data['color_code']!, _colorCodeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_colorCodeMeta);
+    }
+    if (data.containsKey('reward_points')) {
+      context.handle(
+        _rewardPointsMeta,
+        rewardPoints.isAcceptableOrUnknown(
+          data['reward_points']!,
+          _rewardPointsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_rewardPointsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RewardRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RewardRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      imageUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_url'],
+      )!,
+      colorCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}color_code'],
+      )!,
+      rewardPoints: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reward_points'],
+      )!,
+    );
+  }
+
+  @override
+  $RewardsTable createAlias(String alias) {
+    return $RewardsTable(attachedDatabase, alias);
+  }
+}
+
+class RewardRow extends DataClass implements Insertable<RewardRow> {
+  final int id;
+  final String name;
+  final String description;
+  final String imageUrl;
+  final String colorCode;
+  final int rewardPoints;
+  const RewardRow({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.imageUrl,
+    required this.colorCode,
+    required this.rewardPoints,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['description'] = Variable<String>(description);
+    map['image_url'] = Variable<String>(imageUrl);
+    map['color_code'] = Variable<String>(colorCode);
+    map['reward_points'] = Variable<int>(rewardPoints);
+    return map;
+  }
+
+  RewardsCompanion toCompanion(bool nullToAbsent) {
+    return RewardsCompanion(
+      id: Value(id),
+      name: Value(name),
+      description: Value(description),
+      imageUrl: Value(imageUrl),
+      colorCode: Value(colorCode),
+      rewardPoints: Value(rewardPoints),
+    );
+  }
+
+  factory RewardRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RewardRow(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      description: serializer.fromJson<String>(json['description']),
+      imageUrl: serializer.fromJson<String>(json['imageUrl']),
+      colorCode: serializer.fromJson<String>(json['colorCode']),
+      rewardPoints: serializer.fromJson<int>(json['rewardPoints']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'description': serializer.toJson<String>(description),
+      'imageUrl': serializer.toJson<String>(imageUrl),
+      'colorCode': serializer.toJson<String>(colorCode),
+      'rewardPoints': serializer.toJson<int>(rewardPoints),
+    };
+  }
+
+  RewardRow copyWith({
+    int? id,
+    String? name,
+    String? description,
+    String? imageUrl,
+    String? colorCode,
+    int? rewardPoints,
+  }) => RewardRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    description: description ?? this.description,
+    imageUrl: imageUrl ?? this.imageUrl,
+    colorCode: colorCode ?? this.colorCode,
+    rewardPoints: rewardPoints ?? this.rewardPoints,
+  );
+  RewardRow copyWithCompanion(RewardsCompanion data) {
+    return RewardRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
+      colorCode: data.colorCode.present ? data.colorCode.value : this.colorCode,
+      rewardPoints: data.rewardPoints.present
+          ? data.rewardPoints.value
+          : this.rewardPoints,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RewardRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('colorCode: $colorCode, ')
+          ..write('rewardPoints: $rewardPoints')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, name, description, imageUrl, colorCode, rewardPoints);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RewardRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.description == this.description &&
+          other.imageUrl == this.imageUrl &&
+          other.colorCode == this.colorCode &&
+          other.rewardPoints == this.rewardPoints);
+}
+
+class RewardsCompanion extends UpdateCompanion<RewardRow> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> description;
+  final Value<String> imageUrl;
+  final Value<String> colorCode;
+  final Value<int> rewardPoints;
+  const RewardsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.description = const Value.absent(),
+    this.imageUrl = const Value.absent(),
+    this.colorCode = const Value.absent(),
+    this.rewardPoints = const Value.absent(),
+  });
+  RewardsCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String description,
+    required String imageUrl,
+    required String colorCode,
+    required int rewardPoints,
+  }) : name = Value(name),
+       description = Value(description),
+       imageUrl = Value(imageUrl),
+       colorCode = Value(colorCode),
+       rewardPoints = Value(rewardPoints);
+  static Insertable<RewardRow> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? description,
+    Expression<String>? imageUrl,
+    Expression<String>? colorCode,
+    Expression<int>? rewardPoints,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (imageUrl != null) 'image_url': imageUrl,
+      if (colorCode != null) 'color_code': colorCode,
+      if (rewardPoints != null) 'reward_points': rewardPoints,
+    });
+  }
+
+  RewardsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? description,
+    Value<String>? imageUrl,
+    Value<String>? colorCode,
+    Value<int>? rewardPoints,
+  }) {
+    return RewardsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      imageUrl: imageUrl ?? this.imageUrl,
+      colorCode: colorCode ?? this.colorCode,
+      rewardPoints: rewardPoints ?? this.rewardPoints,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (imageUrl.present) {
+      map['image_url'] = Variable<String>(imageUrl.value);
+    }
+    if (colorCode.present) {
+      map['color_code'] = Variable<String>(colorCode.value);
+    }
+    if (rewardPoints.present) {
+      map['reward_points'] = Variable<int>(rewardPoints.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RewardsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('colorCode: $colorCode, ')
+          ..write('rewardPoints: $rewardPoints')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EarnsTable extends Earns with TableInfo<$EarnsTable, EarnRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EarnsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<int> productId = GeneratedColumn<int>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _quantityMeta = const VerificationMeta(
+    'quantity',
+  );
+  @override
+  late final GeneratedColumn<int> quantity = GeneratedColumn<int>(
+    'quantity',
+    aliasedName,
+    false,
+    check: () => ComparableExpr(quantity).isBiggerThanValue(0),
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _earnPointsMeta = const VerificationMeta(
+    'earnPoints',
+  );
+  @override
+  late final GeneratedColumn<int> earnPoints = GeneratedColumn<int>(
+    'earn_points',
+    aliasedName,
+    false,
+    check: () => ComparableExpr(earnPoints).isBiggerThanValue(0),
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, productId, quantity, earnPoints];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'earns';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<EarnRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('quantity')) {
+      context.handle(
+        _quantityMeta,
+        quantity.isAcceptableOrUnknown(data['quantity']!, _quantityMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityMeta);
+    }
+    if (data.containsKey('earn_points')) {
+      context.handle(
+        _earnPointsMeta,
+        earnPoints.isAcceptableOrUnknown(data['earn_points']!, _earnPointsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_earnPointsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  EarnRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EarnRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}product_id'],
+      )!,
+      quantity: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity'],
+      )!,
+      earnPoints: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}earn_points'],
+      )!,
+    );
+  }
+
+  @override
+  $EarnsTable createAlias(String alias) {
+    return $EarnsTable(attachedDatabase, alias);
+  }
+}
+
+class EarnRow extends DataClass implements Insertable<EarnRow> {
+  final int id;
+  final int productId;
+  final int quantity;
+  final int earnPoints;
+  const EarnRow({
+    required this.id,
+    required this.productId,
+    required this.quantity,
+    required this.earnPoints,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['product_id'] = Variable<int>(productId);
+    map['quantity'] = Variable<int>(quantity);
+    map['earn_points'] = Variable<int>(earnPoints);
+    return map;
+  }
+
+  EarnsCompanion toCompanion(bool nullToAbsent) {
+    return EarnsCompanion(
+      id: Value(id),
+      productId: Value(productId),
+      quantity: Value(quantity),
+      earnPoints: Value(earnPoints),
+    );
+  }
+
+  factory EarnRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return EarnRow(
+      id: serializer.fromJson<int>(json['id']),
+      productId: serializer.fromJson<int>(json['productId']),
+      quantity: serializer.fromJson<int>(json['quantity']),
+      earnPoints: serializer.fromJson<int>(json['earnPoints']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'productId': serializer.toJson<int>(productId),
+      'quantity': serializer.toJson<int>(quantity),
+      'earnPoints': serializer.toJson<int>(earnPoints),
+    };
+  }
+
+  EarnRow copyWith({int? id, int? productId, int? quantity, int? earnPoints}) =>
+      EarnRow(
+        id: id ?? this.id,
+        productId: productId ?? this.productId,
+        quantity: quantity ?? this.quantity,
+        earnPoints: earnPoints ?? this.earnPoints,
+      );
+  EarnRow copyWithCompanion(EarnsCompanion data) {
+    return EarnRow(
+      id: data.id.present ? data.id.value : this.id,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      quantity: data.quantity.present ? data.quantity.value : this.quantity,
+      earnPoints: data.earnPoints.present
+          ? data.earnPoints.value
+          : this.earnPoints,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EarnRow(')
+          ..write('id: $id, ')
+          ..write('productId: $productId, ')
+          ..write('quantity: $quantity, ')
+          ..write('earnPoints: $earnPoints')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, productId, quantity, earnPoints);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EarnRow &&
+          other.id == this.id &&
+          other.productId == this.productId &&
+          other.quantity == this.quantity &&
+          other.earnPoints == this.earnPoints);
+}
+
+class EarnsCompanion extends UpdateCompanion<EarnRow> {
+  final Value<int> id;
+  final Value<int> productId;
+  final Value<int> quantity;
+  final Value<int> earnPoints;
+  const EarnsCompanion({
+    this.id = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.quantity = const Value.absent(),
+    this.earnPoints = const Value.absent(),
+  });
+  EarnsCompanion.insert({
+    this.id = const Value.absent(),
+    required int productId,
+    required int quantity,
+    required int earnPoints,
+  }) : productId = Value(productId),
+       quantity = Value(quantity),
+       earnPoints = Value(earnPoints);
+  static Insertable<EarnRow> custom({
+    Expression<int>? id,
+    Expression<int>? productId,
+    Expression<int>? quantity,
+    Expression<int>? earnPoints,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (productId != null) 'product_id': productId,
+      if (quantity != null) 'quantity': quantity,
+      if (earnPoints != null) 'earn_points': earnPoints,
+    });
+  }
+
+  EarnsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? productId,
+    Value<int>? quantity,
+    Value<int>? earnPoints,
+  }) {
+    return EarnsCompanion(
+      id: id ?? this.id,
+      productId: productId ?? this.productId,
+      quantity: quantity ?? this.quantity,
+      earnPoints: earnPoints ?? this.earnPoints,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<int>(productId.value);
+    }
+    if (quantity.present) {
+      map['quantity'] = Variable<int>(quantity.value);
+    }
+    if (earnPoints.present) {
+      map['earn_points'] = Variable<int>(earnPoints.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EarnsCompanion(')
+          ..write('id: $id, ')
+          ..write('productId: $productId, ')
+          ..write('quantity: $quantity, ')
+          ..write('earnPoints: $earnPoints')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $GiftsTable extends Gifts with TableInfo<$GiftsTable, GiftRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $GiftsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _imageUrlMeta = const VerificationMeta(
+    'imageUrl',
+  );
+  @override
+  late final GeneratedColumn<String> imageUrl = GeneratedColumn<String>(
+    'image_url',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _giftPointsMeta = const VerificationMeta(
+    'giftPoints',
+  );
+  @override
+  late final GeneratedColumn<int> giftPoints = GeneratedColumn<int>(
+    'gift_points',
+    aliasedName,
+    false,
+    check: () => ComparableExpr(giftPoints).isBiggerThanValue(0),
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    description,
+    imageUrl,
+    giftPoints,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'gifts';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<GiftRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('image_url')) {
+      context.handle(
+        _imageUrlMeta,
+        imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_imageUrlMeta);
+    }
+    if (data.containsKey('gift_points')) {
+      context.handle(
+        _giftPointsMeta,
+        giftPoints.isAcceptableOrUnknown(data['gift_points']!, _giftPointsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_giftPointsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  GiftRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return GiftRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      imageUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_url'],
+      )!,
+      giftPoints: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}gift_points'],
+      )!,
+    );
+  }
+
+  @override
+  $GiftsTable createAlias(String alias) {
+    return $GiftsTable(attachedDatabase, alias);
+  }
+}
+
+class GiftRow extends DataClass implements Insertable<GiftRow> {
+  final int id;
+  final String name;
+  final String description;
+  final String imageUrl;
+  final int giftPoints;
+  const GiftRow({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.imageUrl,
+    required this.giftPoints,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['description'] = Variable<String>(description);
+    map['image_url'] = Variable<String>(imageUrl);
+    map['gift_points'] = Variable<int>(giftPoints);
+    return map;
+  }
+
+  GiftsCompanion toCompanion(bool nullToAbsent) {
+    return GiftsCompanion(
+      id: Value(id),
+      name: Value(name),
+      description: Value(description),
+      imageUrl: Value(imageUrl),
+      giftPoints: Value(giftPoints),
+    );
+  }
+
+  factory GiftRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return GiftRow(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      description: serializer.fromJson<String>(json['description']),
+      imageUrl: serializer.fromJson<String>(json['imageUrl']),
+      giftPoints: serializer.fromJson<int>(json['giftPoints']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'description': serializer.toJson<String>(description),
+      'imageUrl': serializer.toJson<String>(imageUrl),
+      'giftPoints': serializer.toJson<int>(giftPoints),
+    };
+  }
+
+  GiftRow copyWith({
+    int? id,
+    String? name,
+    String? description,
+    String? imageUrl,
+    int? giftPoints,
+  }) => GiftRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    description: description ?? this.description,
+    imageUrl: imageUrl ?? this.imageUrl,
+    giftPoints: giftPoints ?? this.giftPoints,
+  );
+  GiftRow copyWithCompanion(GiftsCompanion data) {
+    return GiftRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
+      giftPoints: data.giftPoints.present
+          ? data.giftPoints.value
+          : this.giftPoints,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GiftRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('giftPoints: $giftPoints')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, description, imageUrl, giftPoints);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GiftRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.description == this.description &&
+          other.imageUrl == this.imageUrl &&
+          other.giftPoints == this.giftPoints);
+}
+
+class GiftsCompanion extends UpdateCompanion<GiftRow> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> description;
+  final Value<String> imageUrl;
+  final Value<int> giftPoints;
+  const GiftsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.description = const Value.absent(),
+    this.imageUrl = const Value.absent(),
+    this.giftPoints = const Value.absent(),
+  });
+  GiftsCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String description,
+    required String imageUrl,
+    required int giftPoints,
+  }) : name = Value(name),
+       description = Value(description),
+       imageUrl = Value(imageUrl),
+       giftPoints = Value(giftPoints);
+  static Insertable<GiftRow> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? description,
+    Expression<String>? imageUrl,
+    Expression<int>? giftPoints,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (imageUrl != null) 'image_url': imageUrl,
+      if (giftPoints != null) 'gift_points': giftPoints,
+    });
+  }
+
+  GiftsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? description,
+    Value<String>? imageUrl,
+    Value<int>? giftPoints,
+  }) {
+    return GiftsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      imageUrl: imageUrl ?? this.imageUrl,
+      giftPoints: giftPoints ?? this.giftPoints,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (imageUrl.present) {
+      map['image_url'] = Variable<String>(imageUrl.value);
+    }
+    if (giftPoints.present) {
+      map['gift_points'] = Variable<int>(giftPoints.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GiftsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('giftPoints: $giftPoints')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EarnProgressTable extends EarnProgress
+    with TableInfo<$EarnProgressTable, EarnProgressRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EarnProgressTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES users (id)',
+    ),
+  );
+  static const VerificationMeta _earnIdMeta = const VerificationMeta('earnId');
+  @override
+  late final GeneratedColumn<int> earnId = GeneratedColumn<int>(
+    'earn_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES earns (id)',
+    ),
+  );
+  static const VerificationMeta _completedQuantityMeta = const VerificationMeta(
+    'completedQuantity',
+  );
+  @override
+  late final GeneratedColumn<int> completedQuantity = GeneratedColumn<int>(
+    'completed_quantity',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (completed_quantity >= 0)',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [userId, earnId, completedQuantity];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'earn_progress';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<EarnProgressRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('earn_id')) {
+      context.handle(
+        _earnIdMeta,
+        earnId.isAcceptableOrUnknown(data['earn_id']!, _earnIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_earnIdMeta);
+    }
+    if (data.containsKey('completed_quantity')) {
+      context.handle(
+        _completedQuantityMeta,
+        completedQuantity.isAcceptableOrUnknown(
+          data['completed_quantity']!,
+          _completedQuantityMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_completedQuantityMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, earnId};
+  @override
+  EarnProgressRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EarnProgressRow(
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}user_id'],
+      )!,
+      earnId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}earn_id'],
+      )!,
+      completedQuantity: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}completed_quantity'],
+      )!,
+    );
+  }
+
+  @override
+  $EarnProgressTable createAlias(String alias) {
+    return $EarnProgressTable(attachedDatabase, alias);
+  }
+}
+
+class EarnProgressRow extends DataClass implements Insertable<EarnProgressRow> {
+  final int userId;
+  final int earnId;
+  final int completedQuantity;
+  const EarnProgressRow({
+    required this.userId,
+    required this.earnId,
+    required this.completedQuantity,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<int>(userId);
+    map['earn_id'] = Variable<int>(earnId);
+    map['completed_quantity'] = Variable<int>(completedQuantity);
+    return map;
+  }
+
+  EarnProgressCompanion toCompanion(bool nullToAbsent) {
+    return EarnProgressCompanion(
+      userId: Value(userId),
+      earnId: Value(earnId),
+      completedQuantity: Value(completedQuantity),
+    );
+  }
+
+  factory EarnProgressRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return EarnProgressRow(
+      userId: serializer.fromJson<int>(json['userId']),
+      earnId: serializer.fromJson<int>(json['earnId']),
+      completedQuantity: serializer.fromJson<int>(json['completedQuantity']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<int>(userId),
+      'earnId': serializer.toJson<int>(earnId),
+      'completedQuantity': serializer.toJson<int>(completedQuantity),
+    };
+  }
+
+  EarnProgressRow copyWith({
+    int? userId,
+    int? earnId,
+    int? completedQuantity,
+  }) => EarnProgressRow(
+    userId: userId ?? this.userId,
+    earnId: earnId ?? this.earnId,
+    completedQuantity: completedQuantity ?? this.completedQuantity,
+  );
+  EarnProgressRow copyWithCompanion(EarnProgressCompanion data) {
+    return EarnProgressRow(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      earnId: data.earnId.present ? data.earnId.value : this.earnId,
+      completedQuantity: data.completedQuantity.present
+          ? data.completedQuantity.value
+          : this.completedQuantity,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EarnProgressRow(')
+          ..write('userId: $userId, ')
+          ..write('earnId: $earnId, ')
+          ..write('completedQuantity: $completedQuantity')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(userId, earnId, completedQuantity);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EarnProgressRow &&
+          other.userId == this.userId &&
+          other.earnId == this.earnId &&
+          other.completedQuantity == this.completedQuantity);
+}
+
+class EarnProgressCompanion extends UpdateCompanion<EarnProgressRow> {
+  final Value<int> userId;
+  final Value<int> earnId;
+  final Value<int> completedQuantity;
+  final Value<int> rowid;
+  const EarnProgressCompanion({
+    this.userId = const Value.absent(),
+    this.earnId = const Value.absent(),
+    this.completedQuantity = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  EarnProgressCompanion.insert({
+    required int userId,
+    required int earnId,
+    required int completedQuantity,
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId),
+       earnId = Value(earnId),
+       completedQuantity = Value(completedQuantity);
+  static Insertable<EarnProgressRow> custom({
+    Expression<int>? userId,
+    Expression<int>? earnId,
+    Expression<int>? completedQuantity,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (earnId != null) 'earn_id': earnId,
+      if (completedQuantity != null) 'completed_quantity': completedQuantity,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  EarnProgressCompanion copyWith({
+    Value<int>? userId,
+    Value<int>? earnId,
+    Value<int>? completedQuantity,
+    Value<int>? rowid,
+  }) {
+    return EarnProgressCompanion(
+      userId: userId ?? this.userId,
+      earnId: earnId ?? this.earnId,
+      completedQuantity: completedQuantity ?? this.completedQuantity,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (earnId.present) {
+      map['earn_id'] = Variable<int>(earnId.value);
+    }
+    if (completedQuantity.present) {
+      map['completed_quantity'] = Variable<int>(completedQuantity.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EarnProgressCompanion(')
+          ..write('userId: $userId, ')
+          ..write('earnId: $earnId, ')
+          ..write('completedQuantity: $completedQuantity, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3397,6 +4741,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $CategoryProductsTable categoryProducts = $CategoryProductsTable(
     this,
   );
+  late final $RewardsTable rewards = $RewardsTable(this);
+  late final $EarnsTable earns = $EarnsTable(this);
+  late final $GiftsTable gifts = $GiftsTable(this);
+  late final $EarnProgressTable earnProgress = $EarnProgressTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3410,6 +4758,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     shops,
     categories,
     categoryProducts,
+    rewards,
+    earns,
+    gifts,
+    earnProgress,
   ];
 }
 
@@ -3437,6 +4789,29 @@ typedef $$UsersTableUpdateCompanionBuilder = UsersCompanion Function({
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
 });
+
+final class $$UsersTableReferences
+    extends BaseReferences<_$AppDatabase, $UsersTable, User> {
+  $$UsersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$EarnProgressTable, List<EarnProgressRow>>
+  _earnProgressRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.earnProgress,
+    aliasName: 'users__id__earn_progress__user_id',
+  );
+
+  $$EarnProgressTableProcessedTableManager get earnProgressRefs {
+    final manager = $$EarnProgressTableTableManager(
+      $_db,
+      $_db.earnProgress,
+    ).filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_earnProgressRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
   $$UsersTableFilterComposer({
@@ -3495,6 +4870,31 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
     column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> earnProgressRefs(
+    Expression<bool> Function($$EarnProgressTableFilterComposer f) f,
+  ) {
+    final $$EarnProgressTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.earnProgress,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnProgressTableFilterComposer(
+            $db: $db,
+            $table: $db.earnProgress,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$UsersTableOrderingComposer
@@ -3599,6 +4999,31 @@ class $$UsersTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  Expression<T> earnProgressRefs<T extends Object>(
+    Expression<T> Function($$EarnProgressTableAnnotationComposer a) f,
+  ) {
+    final $$EarnProgressTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.earnProgress,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnProgressTableAnnotationComposer(
+            $db: $db,
+            $table: $db.earnProgress,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$UsersTableTableManager
@@ -3612,9 +5037,9 @@ class $$UsersTableTableManager
           $$UsersTableAnnotationComposer,
           $$UsersTableCreateCompanionBuilder,
           $$UsersTableUpdateCompanionBuilder,
-          (User, BaseReferences<_$AppDatabase, $UsersTable, User>),
+          (User, $$UsersTableReferences),
           User,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool earnProgressRefs})
         > {
   $$UsersTableTableManager(_$AppDatabase db, $UsersTable table)
     : super(
@@ -3679,15 +5104,40 @@ class $$UsersTableTableManager
               .map(
                 (e) => (
                   e.readTable<$UsersTable, User>(table),
-                  BaseReferences<_$AppDatabase, $UsersTable, User>(
-                    db,
-                    table,
-                    e,
-                  ),
+                  $$UsersTableReferences(db, table, e),
                 ),
               )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({earnProgressRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (earnProgressRefs) db.earnProgress],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (earnProgressRefs)
+                    await $_getPrefetchedDataByColumns<
+                      User,
+                      $UsersTable,
+                      EarnProgressRow,
+                      $EarnProgressTable
+                    >(
+                      currentTable: table,
+                      referencedTable: $$UsersTableReferences
+                          ._earnProgressRefsTable(db),
+                      managerFromTypedResult: (p0) => $$UsersTableReferences(
+                        db,
+                        table,
+                        p0,
+                      ).earnProgressRefs,
+                      currentColumn: 'id',
+                      referencedColumn: 'user_id',
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -3702,9 +5152,9 @@ typedef $$UsersTableProcessedTableManager =
       $$UsersTableAnnotationComposer,
       $$UsersTableCreateCompanionBuilder,
       $$UsersTableUpdateCompanionBuilder,
-      (User, BaseReferences<_$AppDatabase, $UsersTable, User>),
+      (User, $$UsersTableReferences),
       User,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool earnProgressRefs})
     >;
 typedef $$MembersTableCreateCompanionBuilder = MembersCompanion Function({
   Value<int> id,
@@ -4293,6 +5743,25 @@ final class $$ProductsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$EarnsTable, List<EarnRow>> _earnsRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.earns,
+    aliasName: 'products__id__earns__product_id',
+  );
+
+  $$EarnsTableProcessedTableManager get earnsRefs {
+    final manager = $$EarnsTableTableManager(
+      $_db,
+      $_db.earns,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_earnsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ProductsTableFilterComposer
@@ -4398,6 +5867,31 @@ class $$ProductsTableFilterComposer
           }) => $$CategoryProductsTableFilterComposer(
             $db: $db,
             $table: $db.categoryProducts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> earnsRefs(
+    Expression<bool> Function($$EarnsTableFilterComposer f) f,
+  ) {
+    final $$EarnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.earns,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnsTableFilterComposer(
+            $db: $db,
+            $table: $db.earns,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -4595,6 +6089,31 @@ class $$ProductsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> earnsRefs<T extends Object>(
+    Expression<T> Function($$EarnsTableAnnotationComposer a) f,
+  ) {
+    final $$EarnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.earns,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.earns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ProductsTableTableManager
@@ -4613,6 +6132,7 @@ class $$ProductsTableTableManager
           PrefetchHooks Function({
             bool productTypeId,
             bool categoryProductsRefs,
+            bool earnsRefs,
           })
         > {
   $$ProductsTableTableManager(_$AppDatabase db, $ProductsTable table)
@@ -4691,11 +6211,16 @@ class $$ProductsTableTableManager
               )
               .toList(),
           prefetchHooksCallback:
-              ({productTypeId = false, categoryProductsRefs = false}) {
+              ({
+                productTypeId = false,
+                categoryProductsRefs = false,
+                earnsRefs = false,
+              }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (categoryProductsRefs) db.categoryProducts,
+                    if (earnsRefs) db.earns,
                   ],
                   addJoins:
                       <
@@ -4749,6 +6274,26 @@ class $$ProductsTableTableManager
                           referencedColumn: 'product_id',
                           typedResults: items,
                         ),
+                      if (earnsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          Product,
+                          $ProductsTable,
+                          EarnRow,
+                          $EarnsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._earnsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).earnsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -4769,7 +6314,11 @@ typedef $$ProductsTableProcessedTableManager =
       $$ProductsTableUpdateCompanionBuilder,
       (Product, $$ProductsTableReferences),
       Product,
-      PrefetchHooks Function({bool productTypeId, bool categoryProductsRefs})
+      PrefetchHooks Function({
+        bool productTypeId,
+        bool categoryProductsRefs,
+        bool earnsRefs,
+      })
     >;
 typedef $$BannersTableCreateCompanionBuilder = BannersCompanion Function({
   Value<int> id,
@@ -5814,6 +7363,1166 @@ typedef $$CategoryProductsTableProcessedTableManager =
       CategoryProduct,
       PrefetchHooks Function({bool categoryId, bool productId})
     >;
+typedef $$RewardsTableCreateCompanionBuilder = RewardsCompanion Function({
+  Value<int> id,
+  required String name,
+  required String description,
+  required String imageUrl,
+  required String colorCode,
+  required int rewardPoints,
+});
+typedef $$RewardsTableUpdateCompanionBuilder = RewardsCompanion Function({
+  Value<int> id,
+  Value<String> name,
+  Value<String> description,
+  Value<String> imageUrl,
+  Value<String> colorCode,
+  Value<int> rewardPoints,
+});
+
+class $$RewardsTableFilterComposer
+    extends Composer<_$AppDatabase, $RewardsTable> {
+  $$RewardsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get colorCode => $composableBuilder(
+    column: $table.colorCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get rewardPoints => $composableBuilder(
+    column: $table.rewardPoints,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$RewardsTableOrderingComposer
+    extends Composer<_$AppDatabase, $RewardsTable> {
+  $$RewardsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get colorCode => $composableBuilder(
+    column: $table.colorCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get rewardPoints => $composableBuilder(
+    column: $table.rewardPoints,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$RewardsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RewardsTable> {
+  $$RewardsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get imageUrl =>
+      $composableBuilder(column: $table.imageUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get colorCode =>
+      $composableBuilder(column: $table.colorCode, builder: (column) => column);
+
+  GeneratedColumn<int> get rewardPoints => $composableBuilder(
+    column: $table.rewardPoints,
+    builder: (column) => column,
+  );
+}
+
+class $$RewardsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $RewardsTable,
+          RewardRow,
+          $$RewardsTableFilterComposer,
+          $$RewardsTableOrderingComposer,
+          $$RewardsTableAnnotationComposer,
+          $$RewardsTableCreateCompanionBuilder,
+          $$RewardsTableUpdateCompanionBuilder,
+          (RewardRow, BaseReferences<_$AppDatabase, $RewardsTable, RewardRow>),
+          RewardRow,
+          PrefetchHooks Function()
+        > {
+  $$RewardsTableTableManager(_$AppDatabase db, $RewardsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RewardsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RewardsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RewardsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<String> imageUrl = const Value.absent(),
+                Value<String> colorCode = const Value.absent(),
+                Value<int> rewardPoints = const Value.absent(),
+              }) => RewardsCompanion(
+                id: id,
+                name: name,
+                description: description,
+                imageUrl: imageUrl,
+                colorCode: colorCode,
+                rewardPoints: rewardPoints,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required String description,
+                required String imageUrl,
+                required String colorCode,
+                required int rewardPoints,
+              }) => RewardsCompanion.insert(
+                id: id,
+                name: name,
+                description: description,
+                imageUrl: imageUrl,
+                colorCode: colorCode,
+                rewardPoints: rewardPoints,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$RewardsTable, RewardRow>(table),
+                  BaseReferences<_$AppDatabase, $RewardsTable, RewardRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$RewardsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $RewardsTable,
+      RewardRow,
+      $$RewardsTableFilterComposer,
+      $$RewardsTableOrderingComposer,
+      $$RewardsTableAnnotationComposer,
+      $$RewardsTableCreateCompanionBuilder,
+      $$RewardsTableUpdateCompanionBuilder,
+      (RewardRow, BaseReferences<_$AppDatabase, $RewardsTable, RewardRow>),
+      RewardRow,
+      PrefetchHooks Function()
+    >;
+typedef $$EarnsTableCreateCompanionBuilder = EarnsCompanion Function({
+  Value<int> id,
+  required int productId,
+  required int quantity,
+  required int earnPoints,
+});
+typedef $$EarnsTableUpdateCompanionBuilder = EarnsCompanion Function({
+  Value<int> id,
+  Value<int> productId,
+  Value<int> quantity,
+  Value<int> earnPoints,
+});
+
+final class $$EarnsTableReferences
+    extends BaseReferences<_$AppDatabase, $EarnsTable, EarnRow> {
+  $$EarnsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('earns__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<int>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$EarnProgressTable, List<EarnProgressRow>>
+  _earnProgressRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.earnProgress,
+    aliasName: 'earns__id__earn_progress__earn_id',
+  );
+
+  $$EarnProgressTableProcessedTableManager get earnProgressRefs {
+    final manager = $$EarnProgressTableTableManager(
+      $_db,
+      $_db.earnProgress,
+    ).filter((f) => f.earnId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_earnProgressRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$EarnsTableFilterComposer extends Composer<_$AppDatabase, $EarnsTable> {
+  $$EarnsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantity => $composableBuilder(
+    column: $table.quantity,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get earnPoints => $composableBuilder(
+    column: $table.earnPoints,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> earnProgressRefs(
+    Expression<bool> Function($$EarnProgressTableFilterComposer f) f,
+  ) {
+    final $$EarnProgressTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.earnProgress,
+      getReferencedColumn: (t) => t.earnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnProgressTableFilterComposer(
+            $db: $db,
+            $table: $db.earnProgress,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$EarnsTableOrderingComposer
+    extends Composer<_$AppDatabase, $EarnsTable> {
+  $$EarnsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantity => $composableBuilder(
+    column: $table.quantity,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get earnPoints => $composableBuilder(
+    column: $table.earnPoints,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EarnsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EarnsTable> {
+  $$EarnsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get quantity =>
+      $composableBuilder(column: $table.quantity, builder: (column) => column);
+
+  GeneratedColumn<int> get earnPoints => $composableBuilder(
+    column: $table.earnPoints,
+    builder: (column) => column,
+  );
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> earnProgressRefs<T extends Object>(
+    Expression<T> Function($$EarnProgressTableAnnotationComposer a) f,
+  ) {
+    final $$EarnProgressTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.earnProgress,
+      getReferencedColumn: (t) => t.earnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnProgressTableAnnotationComposer(
+            $db: $db,
+            $table: $db.earnProgress,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$EarnsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EarnsTable,
+          EarnRow,
+          $$EarnsTableFilterComposer,
+          $$EarnsTableOrderingComposer,
+          $$EarnsTableAnnotationComposer,
+          $$EarnsTableCreateCompanionBuilder,
+          $$EarnsTableUpdateCompanionBuilder,
+          (EarnRow, $$EarnsTableReferences),
+          EarnRow,
+          PrefetchHooks Function({bool productId, bool earnProgressRefs})
+        > {
+  $$EarnsTableTableManager(_$AppDatabase db, $EarnsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EarnsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EarnsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EarnsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> productId = const Value.absent(),
+                Value<int> quantity = const Value.absent(),
+                Value<int> earnPoints = const Value.absent(),
+              }) => EarnsCompanion(
+                id: id,
+                productId: productId,
+                quantity: quantity,
+                earnPoints: earnPoints,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int productId,
+                required int quantity,
+                required int earnPoints,
+              }) => EarnsCompanion.insert(
+                id: id,
+                productId: productId,
+                quantity: quantity,
+                earnPoints: earnPoints,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$EarnsTable, EarnRow>(table),
+                  $$EarnsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({productId = false, earnProgressRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (earnProgressRefs) db.earnProgress,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (productId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.productId,
+                            referencedTable: $$EarnsTableReferences
+                                ._productIdTable(db),
+                            referencedColumn: $$EarnsTableReferences
+                                ._productIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (earnProgressRefs)
+                        await $_getPrefetchedDataByColumns<
+                          EarnRow,
+                          $EarnsTable,
+                          EarnProgressRow,
+                          $EarnProgressTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$EarnsTableReferences
+                              ._earnProgressRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$EarnsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).earnProgressRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'earn_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$EarnsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EarnsTable,
+      EarnRow,
+      $$EarnsTableFilterComposer,
+      $$EarnsTableOrderingComposer,
+      $$EarnsTableAnnotationComposer,
+      $$EarnsTableCreateCompanionBuilder,
+      $$EarnsTableUpdateCompanionBuilder,
+      (EarnRow, $$EarnsTableReferences),
+      EarnRow,
+      PrefetchHooks Function({bool productId, bool earnProgressRefs})
+    >;
+typedef $$GiftsTableCreateCompanionBuilder = GiftsCompanion Function({
+  Value<int> id,
+  required String name,
+  required String description,
+  required String imageUrl,
+  required int giftPoints,
+});
+typedef $$GiftsTableUpdateCompanionBuilder = GiftsCompanion Function({
+  Value<int> id,
+  Value<String> name,
+  Value<String> description,
+  Value<String> imageUrl,
+  Value<int> giftPoints,
+});
+
+class $$GiftsTableFilterComposer extends Composer<_$AppDatabase, $GiftsTable> {
+  $$GiftsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get giftPoints => $composableBuilder(
+    column: $table.giftPoints,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$GiftsTableOrderingComposer
+    extends Composer<_$AppDatabase, $GiftsTable> {
+  $$GiftsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get giftPoints => $composableBuilder(
+    column: $table.giftPoints,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$GiftsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $GiftsTable> {
+  $$GiftsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get imageUrl =>
+      $composableBuilder(column: $table.imageUrl, builder: (column) => column);
+
+  GeneratedColumn<int> get giftPoints => $composableBuilder(
+    column: $table.giftPoints,
+    builder: (column) => column,
+  );
+}
+
+class $$GiftsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $GiftsTable,
+          GiftRow,
+          $$GiftsTableFilterComposer,
+          $$GiftsTableOrderingComposer,
+          $$GiftsTableAnnotationComposer,
+          $$GiftsTableCreateCompanionBuilder,
+          $$GiftsTableUpdateCompanionBuilder,
+          (GiftRow, BaseReferences<_$AppDatabase, $GiftsTable, GiftRow>),
+          GiftRow,
+          PrefetchHooks Function()
+        > {
+  $$GiftsTableTableManager(_$AppDatabase db, $GiftsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$GiftsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$GiftsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$GiftsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<String> imageUrl = const Value.absent(),
+                Value<int> giftPoints = const Value.absent(),
+              }) => GiftsCompanion(
+                id: id,
+                name: name,
+                description: description,
+                imageUrl: imageUrl,
+                giftPoints: giftPoints,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required String description,
+                required String imageUrl,
+                required int giftPoints,
+              }) => GiftsCompanion.insert(
+                id: id,
+                name: name,
+                description: description,
+                imageUrl: imageUrl,
+                giftPoints: giftPoints,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$GiftsTable, GiftRow>(table),
+                  BaseReferences<_$AppDatabase, $GiftsTable, GiftRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$GiftsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $GiftsTable,
+      GiftRow,
+      $$GiftsTableFilterComposer,
+      $$GiftsTableOrderingComposer,
+      $$GiftsTableAnnotationComposer,
+      $$GiftsTableCreateCompanionBuilder,
+      $$GiftsTableUpdateCompanionBuilder,
+      (GiftRow, BaseReferences<_$AppDatabase, $GiftsTable, GiftRow>),
+      GiftRow,
+      PrefetchHooks Function()
+    >;
+typedef $$EarnProgressTableCreateCompanionBuilder =
+    EarnProgressCompanion Function({
+      required int userId,
+      required int earnId,
+      required int completedQuantity,
+      Value<int> rowid,
+    });
+typedef $$EarnProgressTableUpdateCompanionBuilder =
+    EarnProgressCompanion Function({
+      Value<int> userId,
+      Value<int> earnId,
+      Value<int> completedQuantity,
+      Value<int> rowid,
+    });
+
+final class $$EarnProgressTableReferences
+    extends BaseReferences<_$AppDatabase, $EarnProgressTable, EarnProgressRow> {
+  $$EarnProgressTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $UsersTable _userIdTable(_$AppDatabase db) =>
+      db.users.createAlias('earn_progress__user_id__users__id');
+
+  $$UsersTableProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $$UsersTableTableManager(
+      $_db,
+      $_db.users,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $EarnsTable _earnIdTable(_$AppDatabase db) =>
+      db.earns.createAlias('earn_progress__earn_id__earns__id');
+
+  $$EarnsTableProcessedTableManager get earnId {
+    final $_column = $_itemColumn<int>('earn_id')!;
+
+    final manager = $$EarnsTableTableManager(
+      $_db,
+      $_db.earns,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_earnIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$EarnProgressTableFilterComposer
+    extends Composer<_$AppDatabase, $EarnProgressTable> {
+  $$EarnProgressTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get completedQuantity => $composableBuilder(
+    column: $table.completedQuantity,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$UsersTableFilterComposer get userId {
+    final $$UsersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableFilterComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$EarnsTableFilterComposer get earnId {
+    final $$EarnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.earnId,
+      referencedTable: $db.earns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnsTableFilterComposer(
+            $db: $db,
+            $table: $db.earns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EarnProgressTableOrderingComposer
+    extends Composer<_$AppDatabase, $EarnProgressTable> {
+  $$EarnProgressTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get completedQuantity => $composableBuilder(
+    column: $table.completedQuantity,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$UsersTableOrderingComposer get userId {
+    final $$UsersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableOrderingComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$EarnsTableOrderingComposer get earnId {
+    final $$EarnsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.earnId,
+      referencedTable: $db.earns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnsTableOrderingComposer(
+            $db: $db,
+            $table: $db.earns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EarnProgressTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EarnProgressTable> {
+  $$EarnProgressTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get completedQuantity => $composableBuilder(
+    column: $table.completedQuantity,
+    builder: (column) => column,
+  );
+
+  $$UsersTableAnnotationComposer get userId {
+    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$EarnsTableAnnotationComposer get earnId {
+    final $$EarnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.earnId,
+      referencedTable: $db.earns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EarnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.earns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EarnProgressTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EarnProgressTable,
+          EarnProgressRow,
+          $$EarnProgressTableFilterComposer,
+          $$EarnProgressTableOrderingComposer,
+          $$EarnProgressTableAnnotationComposer,
+          $$EarnProgressTableCreateCompanionBuilder,
+          $$EarnProgressTableUpdateCompanionBuilder,
+          (EarnProgressRow, $$EarnProgressTableReferences),
+          EarnProgressRow,
+          PrefetchHooks Function({bool userId, bool earnId})
+        > {
+  $$EarnProgressTableTableManager(_$AppDatabase db, $EarnProgressTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EarnProgressTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EarnProgressTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EarnProgressTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> userId = const Value.absent(),
+                Value<int> earnId = const Value.absent(),
+                Value<int> completedQuantity = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => EarnProgressCompanion(
+                userId: userId,
+                earnId: earnId,
+                completedQuantity: completedQuantity,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required int userId,
+                required int earnId,
+                required int completedQuantity,
+                Value<int> rowid = const Value.absent(),
+              }) => EarnProgressCompanion.insert(
+                userId: userId,
+                earnId: earnId,
+                completedQuantity: completedQuantity,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$EarnProgressTable, EarnProgressRow>(table),
+                  $$EarnProgressTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({userId = false, earnId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (userId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.userId,
+                        referencedTable: $$EarnProgressTableReferences
+                            ._userIdTable(db),
+                        referencedColumn: $$EarnProgressTableReferences
+                            ._userIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+                    if (earnId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.earnId,
+                        referencedTable: $$EarnProgressTableReferences
+                            ._earnIdTable(db),
+                        referencedColumn: $$EarnProgressTableReferences
+                            ._earnIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$EarnProgressTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EarnProgressTable,
+      EarnProgressRow,
+      $$EarnProgressTableFilterComposer,
+      $$EarnProgressTableOrderingComposer,
+      $$EarnProgressTableAnnotationComposer,
+      $$EarnProgressTableCreateCompanionBuilder,
+      $$EarnProgressTableUpdateCompanionBuilder,
+      (EarnProgressRow, $$EarnProgressTableReferences),
+      EarnProgressRow,
+      PrefetchHooks Function({bool userId, bool earnId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -5834,4 +8543,12 @@ class $AppDatabaseManager {
       $$CategoriesTableTableManager(_db, _db.categories);
   $$CategoryProductsTableTableManager get categoryProducts =>
       $$CategoryProductsTableTableManager(_db, _db.categoryProducts);
+  $$RewardsTableTableManager get rewards =>
+      $$RewardsTableTableManager(_db, _db.rewards);
+  $$EarnsTableTableManager get earns =>
+      $$EarnsTableTableManager(_db, _db.earns);
+  $$GiftsTableTableManager get gifts =>
+      $$GiftsTableTableManager(_db, _db.gifts);
+  $$EarnProgressTableTableManager get earnProgress =>
+      $$EarnProgressTableTableManager(_db, _db.earnProgress);
 }

@@ -1,3 +1,4 @@
+import 'features/rewards/presentation/providers/rewards_provider.dart';
 import 'features/product/presentation/providers/product_collection_provider.dart';
 import 'features/product/presentation/providers/product_detail_provider.dart';
 
@@ -24,6 +25,15 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
+        rewardsProvider.overrideWith2(
+          (userId) => RewardsNotifier(
+            getRewards: di.sl<GetRewards>(),
+            getEarns: di.sl<GetEarns>(),
+            getGifts: di.sl<GetGifts>(),
+            getEarnProgress: di.sl<GetEarnProgress>(),
+            userId: userId,
+          ),
+        ),
         categoryProductsProvider.overrideWith2(
           (id) => CategoryProductsNotifier(di.sl<GetCategoryProducts>(), id),
         ),

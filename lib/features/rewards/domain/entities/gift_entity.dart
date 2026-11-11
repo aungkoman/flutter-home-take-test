@@ -1,4 +1,3 @@
-
 class GiftEntity {
   int id;
   String name;

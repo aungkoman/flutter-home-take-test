@@ -1,3 +1,10 @@
+import 'features/rewards/domain/usecases/get_earn_progress.dart';
+import 'features/rewards/domain/usecases/get_gifts.dart';
+import 'features/rewards/domain/usecases/get_earns.dart';
+import 'features/rewards/domain/usecases/get_rewards.dart';
+import 'features/rewards/domain/repositories/reward_repository.dart';
+import 'features/rewards/data/repositories/reward_repository_impl.dart';
+import 'features/rewards/data/datasources/reward_local_datasource.dart';
 import 'features/product/domain/usecases/get_product_by_id.dart';
 import 'features/product/domain/usecases/get_product_type_products.dart';
 import 'features/product/domain/usecases/get_category_products.dart';
@@ -56,6 +63,28 @@ Future<void> init() async {
 
   sl.registerLazySingleton<GetProductById>(
     () => GetProductById(repository: sl<ProductRepository>()),
+  );
+
+  sl.registerLazySingleton<RewardLocalDatasource>(
+    () => RewardLocalDatasourceImpl(
+      db: sl<AppDatabase>(),
+      productLocalDatasource: sl<ProductLocalDatasource>(),
+    ),
+  );
+  sl.registerLazySingleton<RewardRepository>(
+    () => RewardRepositoryImpl(localDatasource: sl<RewardLocalDatasource>()),
+  );
+  sl.registerLazySingleton<GetRewards>(
+    () => GetRewards(repository: sl<RewardRepository>()),
+  );
+  sl.registerLazySingleton<GetEarns>(
+    () => GetEarns(repository: sl<RewardRepository>()),
+  );
+  sl.registerLazySingleton<GetGifts>(
+    () => GetGifts(repository: sl<RewardRepository>()),
+  );
+  sl.registerLazySingleton<GetEarnProgress>(
+    () => GetEarnProgress(repository: sl<RewardRepository>()),
   );
 
   // Use cases

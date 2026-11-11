@@ -6,6 +6,7 @@ import '../../../auth/presentation/providers/login_provider.dart';
 import '../../../auth/presentation/providers/otp_verify_provider.dart';
 import '../../../auth/presentation/providers/register_provider.dart';
 import '../../../product/presentation/providers/catalog_provider.dart';
+import '../../../product/presentation/widgets/loading_effects.dart';
 import '../widgets/home_account_header.dart';
 import '../widgets/home_banner_carousel.dart';
 import '../widgets/home_product_section.dart';
@@ -41,12 +42,7 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             ...catalog.when<List<Widget>>(
-              loading: () => [
-                const SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-              ],
+              loading: () => const [HomeCatalogSkeleton()],
               error: (error, stackTrace) => [
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -77,52 +73,82 @@ class HomePage extends ConsumerWidget {
                           !typeNames.contains(category.name.toLowerCase()),
                     )
                     .toList();
-                return [
-                  SliverToBoxAdapter(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFC7E7EF),
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(30),
+                final List<Widget> sections = [];
+                for (final (int index, CategoryEntity category)
+                    in featured.indexed) {
+                  sections.add(
+                    StaggeredEntrance(
+                      index: index,
+                      child: HomeProductSection(
+                        title: category.name,
+                        products: category.categoryProducts
+                            .map((link) => link.product)
+                            .toList(),
+                        collectionKind: 'category',
+                        collectionId: category.id,
+                        imageUrl: category.imageUrl,
+                        onViewAll: () => context.push(
+                          '/categories/${category.id}',
+                          extra: category,
                         ),
                       ),
-                      child: HomeBannerCarousel(
-                        key: ValueKey(
-                          data.banners.map((banner) => banner.id).join(','),
+                    ),
+                  );
+                }
+                for (final (int index, ProductTypeEntity type)
+                    in data.productTypes.indexed) {
+                  if (type.products.isNotEmpty) {
+                    sections.add(
+                      StaggeredEntrance(
+                        index: featured.length + index,
+                        child: HomeProductSection(
+                          title: type.name,
+                          products: type.products,
+                          collectionKind: 'product-type',
+                          collectionId: type.id,
+                          imageUrl: type.imageUrl,
+                          onViewAll: () => context.push(
+                            '/product-types/${type.id}',
+                            extra: type,
+                          ),
                         ),
-                        banners: data.banners,
+                      ),
+                    );
+                  }
+                }
+                sections.add(
+                  StaggeredEntrance(
+                    index: sections.length,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 20, 24, 140),
+                      child: OutlinedButton.icon(
+                        onPressed: () => context.push('/catalog'),
+                        icon: const Icon(Icons.grid_view_rounded),
+                        label: const Text('View full catalog'),
                       ),
                     ),
                   ),
-                  SliverList(
-                    delegate: SliverChildListDelegate([
-                      for (final CategoryEntity category in featured)
-                        HomeProductSection(
-                          title: category.name,
-                          products: category.categoryProducts
-                              .map((link) => link.product)
-                              .toList(),
-                          onViewAll: () =>
-                              context.push('/categories/${category.id}'),
-                        ),
-                      for (final ProductTypeEntity type in data.productTypes)
-                        if (type.products.isNotEmpty)
-                          HomeProductSection(
-                            title: type.name,
-                            products: type.products,
-                            onViewAll: () =>
-                                context.push('/product-types/${type.id}'),
+                );
+                return [
+                  SliverToBoxAdapter(
+                    child: StaggeredEntrance(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFC7E7EF),
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(30),
                           ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 20, 24, 140),
-                        child: OutlinedButton.icon(
-                          onPressed: () => context.push('/catalog'),
-                          icon: const Icon(Icons.grid_view_rounded),
-                          label: const Text('View full catalog'),
+                        ),
+                        child: HomeBannerCarousel(
+                          key: ValueKey(
+                            data.banners.map((banner) => banner.id).join(','),
+                          ),
+                          banners: data.banners,
                         ),
                       ),
-                    ]),
+                    ),
                   ),
+                  SliverList(delegate: SliverChildListDelegate(sections)),
                 ];
               },
             ),

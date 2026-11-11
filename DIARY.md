@@ -81,6 +81,31 @@ prsesentation ကောင်းဖို့ data seeder ပြည်စုံ�
 let's talk about reward
 
 
+
+for presentation purpose
+3 easy phone number like
+
++959 12345678 
++959 12345679
++959 12345670 
+
+with different 
+- member tier
+- purchase history
+- cart 
+- reward
+- earn
+- gift
+
+purchase history can used as earn, 
+
+like the user purchase 3 coconut donuts, so the user will be earn "100 pints " after another purchase of coconuts donuts
+so it's like recommendation system, 
+what to eat , for to get earn.
+it's fun.
+nice idea.
+
+
 ## What we do first.
 
 - [ ] data structure

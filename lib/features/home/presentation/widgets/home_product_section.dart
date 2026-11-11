@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../product/domain/entities/product_entity.dart';
+import '../../../product/presentation/widgets/product_hero_tags.dart';
 
 class HomeProductSection extends StatelessWidget {
   const HomeProductSection({
@@ -9,11 +10,17 @@ class HomeProductSection extends StatelessWidget {
     required this.title,
     required this.products,
     required this.onViewAll,
+    this.collectionKind,
+    this.collectionId,
+    this.imageUrl,
   });
 
   final String title;
   final List<ProductEntity> products;
   final VoidCallback onViewAll;
+  final String? collectionKind;
+  final int? collectionId;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +44,60 @@ class HomeProductSection extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Flexible(
-                        child: Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFF292F33),
+                      if (imageUrl != null &&
+                          imageUrl!.isNotEmpty &&
+                          collectionKind != null &&
+                          collectionId != null) ...[
+                        Hero(
+                          tag: ProductHeroTags.collectionImage(
+                            collectionKind!,
+                            collectionId!,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              imageUrl!,
+                              width: 36,
+                              height: 36,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const SizedBox(
+                                    width: 36,
+                                    height: 36,
+                                    child: Icon(Icons.image_outlined, size: 20),
+                                  ),
+                            ),
                           ),
                         ),
+                        const SizedBox(width: 10),
+                      ],
+                      Flexible(
+                        child: collectionKind != null && collectionId != null
+                            ? Hero(
+                                tag: ProductHeroTags.collectionTitle(
+                                  collectionKind!,
+                                  collectionId!,
+                                ),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: Text(
+                                    title,
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w800,
+                                      color: Color(0xFF292F33),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Text(
+                                title,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF292F33),
+                                ),
+                              ),
                       ),
                       if (isPopular || isSeasonal) ...[
                         const SizedBox(width: 7),
@@ -91,7 +143,8 @@ class HomeProductSection extends StatelessWidget {
                   width: cardWidth,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(22),
-                    onTap: () => context.push('/products/${product.id}'),
+                    onTap: () =>
+                        context.push('/products/${product.id}', extra: product),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -103,29 +156,38 @@ class HomeProductSection extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(24),
                           ),
-                          child: Image.asset(
-                            product.imageUrl,
-                            fit: BoxFit.contain,
-                            semanticLabel: product.name,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
-                                  Icons.bakery_dining_outlined,
-                                  size: 48,
-                                ),
+                          child: Hero(
+                            tag: ProductHeroTags.image(product.id),
+                            child: Image.asset(
+                              product.imageUrl,
+                              fit: BoxFit.contain,
+                              semanticLabel: product.name,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.bakery_dining_outlined,
+                                    size: 48,
+                                  ),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
-                          child: Text(
-                            product.name,
-                            maxLines: isSeasonal ? 1 : 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              height: 1.25,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF202529),
+                          child: Hero(
+                            tag: ProductHeroTags.name(product.id),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                product.name,
+                                maxLines: isSeasonal ? 1 : 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  height: 1.25,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF202529),
+                                ),
+                              ),
                             ),
                           ),
                         ),

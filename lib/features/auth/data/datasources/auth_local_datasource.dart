@@ -110,6 +110,10 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource{
   Future<UserEntity> registerUser({
     required UserRegisterParams userRegisterParams,
   }) async {
+
+
+    await Future.delayed(Duration(seconds: 2));
+
     final String firstName = userRegisterParams.firstName.trim();
     final String lastName = userRegisterParams.lastName.trim();
     final String phone = userRegisterParams.phone.trim();

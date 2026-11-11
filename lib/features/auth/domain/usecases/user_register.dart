@@ -1,7 +1,5 @@
 
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hometake/features/auth/domain/entities/params/user_login_params.dart';
 import 'package:hometake/features/auth/domain/entities/params/user_register_params.dart';
 import 'package:hometake/features/auth/domain/entities/user_entity.dart';
 

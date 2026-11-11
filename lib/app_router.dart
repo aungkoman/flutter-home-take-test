@@ -17,6 +17,9 @@ import 'features/home/presentation/screens/home_page.dart';
 import 'features/product/presentation/screens/category_detail_page.dart';
 import 'features/product/presentation/screens/product_detail_page.dart';
 import 'features/product/presentation/screens/product_type_detail_page.dart';
+import 'features/product/domain/entities/category_entity.dart';
+import 'features/product/domain/entities/product_entity.dart';
+import 'features/product/domain/entities/product_type_entity.dart';
 import 'features/rewards/presentation/screens/reward_page.dart';
 
 GoRouter createAppRouter() {
@@ -57,18 +60,42 @@ GoRouter createAppRouter() {
           ),
           GoRoute(
             path: 'categories/:id',
-            builder: (context, state) =>
-                CategoryDetailPage(id: state.pathParameters['id']!),
+            builder: (context, state) {
+              final CategoryEntity? preview = state.extra is CategoryEntity
+                  ? state.extra as CategoryEntity
+                  : null;
+              return CategoryDetailPage(
+                id: state.pathParameters['id']!,
+                name: preview?.name,
+                imageUrl: preview?.imageUrl,
+              );
+            },
           ),
           GoRoute(
             path: 'product-types/:id',
-            builder: (context, state) =>
-                ProductTypeDetailPage(id: state.pathParameters['id']!),
+            builder: (context, state) {
+              final ProductTypeEntity? preview =
+                  state.extra is ProductTypeEntity
+                  ? state.extra as ProductTypeEntity
+                  : null;
+              return ProductTypeDetailPage(
+                id: state.pathParameters['id']!,
+                name: preview?.name,
+                imageUrl: preview?.imageUrl,
+              );
+            },
           ),
           GoRoute(
             path: 'products/:id',
-            builder: (context, state) =>
-                ProductDetailPage(id: state.pathParameters['id']!),
+            builder: (context, state) {
+              final ProductEntity? preview = state.extra is ProductEntity
+                  ? state.extra as ProductEntity
+                  : null;
+              return ProductDetailPage(
+                id: state.pathParameters['id']!,
+                initialProduct: preview,
+              );
+            },
           ),
 
           // Bottom-nav shell

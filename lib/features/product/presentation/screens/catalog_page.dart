@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../providers/catalog_provider.dart';
+import '../widgets/product_hero_tags.dart';
 
 class CatalogPage extends ConsumerWidget {
   const CatalogPage({super.key, this.categoryId, this.productTypeId});
@@ -67,8 +68,17 @@ class CatalogPage extends ConsumerWidget {
                   children: [
                     for (final ProductEntity product in products)
                       ListTile(
-                        leading: _CatalogImage(path: product.imageUrl),
-                        title: Text(product.name),
+                        leading: _CatalogImage(
+                          path: product.imageUrl,
+                          heroTag: ProductHeroTags.image(product.id),
+                        ),
+                        title: Hero(
+                          tag: ProductHeroTags.name(product.id),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(product.name),
+                          ),
+                        ),
                         subtitle: Text(
                           '${product.price?.toStringAsFixed(2) ?? "Price unavailable"} '
                           '${product.currency ?? ""} · '
@@ -77,7 +87,10 @@ class CatalogPage extends ConsumerWidget {
                         ),
                         isThreeLine: true,
                         trailing: const Icon(Icons.chevron_right),
-                        onTap: () => context.push('/products/${product.id}'),
+                        onTap: () => context.push(
+                          '/products/${product.id}',
+                          extra: product,
+                        ),
                       ),
                   ],
                 ),
@@ -114,10 +127,28 @@ class CatalogPage extends ConsumerWidget {
                   children: [
                     for (final ProductTypeEntity type in data.productTypes)
                       ListTile(
-                        leading: _CatalogImage(path: type.imageUrl),
-                        title: Text(type.name),
+                        leading: _CatalogImage(
+                          path: type.imageUrl,
+                          heroTag: ProductHeroTags.collectionImage(
+                            'product-type',
+                            type.id,
+                          ),
+                        ),
+                        title: Hero(
+                          tag: ProductHeroTags.collectionTitle(
+                            'product-type',
+                            type.id,
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(type.name),
+                          ),
+                        ),
                         trailing: const Icon(Icons.chevron_right),
-                        onTap: () => context.push('/product-types/${type.id}'),
+                        onTap: () => context.push(
+                          '/product-types/${type.id}',
+                          extra: type,
+                        ),
                         subtitle: Text(
                           '${type.products.length} products · Priority ${type.priorityNo}',
                         ),
@@ -128,10 +159,28 @@ class CatalogPage extends ConsumerWidget {
                   children: [
                     for (final CategoryEntity category in data.categories)
                       ListTile(
-                        leading: _CatalogImage(path: category.imageUrl),
-                        title: Text(category.name),
+                        leading: _CatalogImage(
+                          path: category.imageUrl,
+                          heroTag: ProductHeroTags.collectionImage(
+                            'category',
+                            category.id,
+                          ),
+                        ),
+                        title: Hero(
+                          tag: ProductHeroTags.collectionTitle(
+                            'category',
+                            category.id,
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(category.name),
+                          ),
+                        ),
                         trailing: const Icon(Icons.chevron_right),
-                        onTap: () => context.push('/categories/${category.id}'),
+                        onTap: () => context.push(
+                          '/categories/${category.id}',
+                          extra: category,
+                        ),
                         subtitle: Text(
                           '${category.categoryProducts.length} products · '
                           '${category.isActive ? "Active" : "Inactive"}',
@@ -178,9 +227,10 @@ class _CatalogList extends StatelessWidget {
 }
 
 class _CatalogImage extends StatelessWidget {
-  const _CatalogImage({required this.path});
+  const _CatalogImage({required this.path, this.heroTag});
 
   final String path;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +241,7 @@ class _CatalogImage extends StatelessWidget {
         child: Icon(Icons.image_outlined),
       );
     }
-    return ClipRRect(
+    final Widget image = ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Image.asset(
         path,
@@ -206,5 +256,6 @@ class _CatalogImage extends StatelessWidget {
         ),
       ),
     );
+    return heroTag == null ? image : Hero(tag: heroTag!, child: image);
   }
 }

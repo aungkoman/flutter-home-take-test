@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'loading_effects.dart';
 import '../providers/product_collection_provider.dart';
+import 'product_hero_tags.dart';
 
 enum ProductCollectionKind { category, productType }
 
@@ -11,10 +13,14 @@ class ProductCollectionPage extends ConsumerStatefulWidget {
     super.key,
     required this.id,
     required this.kind,
+    this.initialName,
+    this.initialImageUrl,
   });
 
   final String id;
   final ProductCollectionKind kind;
+  final String? initialName;
+  final String? initialImageUrl;
 
   @override
   ConsumerState<ProductCollectionPage> createState() =>
@@ -71,11 +77,16 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
     final String fallbackTitle = widget.kind == ProductCollectionKind.category
         ? 'Category'
         : 'Product type';
+    final String heroKind = widget.kind == ProductCollectionKind.category
+        ? 'category'
+        : 'product-type';
 
     return collection.when(
-      loading: () => Scaffold(
-        appBar: AppBar(title: Text(fallbackTitle)),
-        body: const Center(child: CircularProgressIndicator()),
+      loading: () => ProductCollectionSkeleton(
+        title: widget.initialName ?? fallbackTitle,
+        kind: heroKind,
+        id: id,
+        imageUrl: widget.initialImageUrl,
       ),
       error: (error, stackTrace) => error is NoDataFailure
           ? _notFound(fallbackTitle)
@@ -134,14 +145,20 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                 ),
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: const EdgeInsets.fromLTRB(24, 0, 20, 18),
-                  title: Text(
-                    title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
+                  title: Hero(
+                    tag: ProductHeroTags.collectionTitle(heroKind, id),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                   background: ColoredBox(
@@ -154,16 +171,19 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                         widthFactor: 0.58,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(12, 32, 20, 20),
-                          child: Image.asset(
-                            image,
-                            fit: BoxFit.contain,
-                            excludeFromSemantics: true,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
-                                  Icons.bakery_dining_outlined,
-                                  size: 72,
-                                  color: Colors.white,
-                                ),
+                          child: Hero(
+                            tag: ProductHeroTags.collectionImage(heroKind, id),
+                            child: Image.asset(
+                              image,
+                              fit: BoxFit.contain,
+                              excludeFromSemantics: true,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.bakery_dining_outlined,
+                                    size: 72,
+                                    color: Colors.white,
+                                  ),
+                            ),
                           ),
                         ),
                       ),
@@ -176,32 +196,35 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                   color: const Color(0xFFF0F1F3),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-                    child: TextField(
-                      controller: _searchController,
-                      onChanged: (String value) =>
-                          setState(() => _query = value),
-                      textInputAction: TextInputAction.search,
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        prefixIcon: const Icon(Icons.search_rounded),
-                        suffixIcon: _query.isEmpty
-                            ? null
-                            : IconButton(
-                                tooltip: 'Clear search',
-                                onPressed: () {
-                                  _searchController.clear();
-                                  setState(() => _query = '');
-                                },
-                                icon: const Icon(Icons.close_rounded),
-                              ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 18,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide.none,
+                    child: StaggeredEntrance(
+                      index: 1,
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: (String value) =>
+                            setState(() => _query = value),
+                        textInputAction: TextInputAction.search,
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          prefixIcon: const Icon(Icons.search_rounded),
+                          suffixIcon: _query.isEmpty
+                              ? null
+                              : IconButton(
+                                  tooltip: 'Clear search',
+                                  onPressed: () {
+                                    _searchController.clear();
+                                    setState(() => _query = '');
+                                  },
+                                  icon: const Icon(Icons.close_rounded),
+                                ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 18,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
@@ -248,71 +271,85 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
                         ),
                         delegate: SliverChildBuilderDelegate((context, index) {
                           final ProductEntity product = results[index];
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(16),
-                            onTap: () =>
-                                context.push('/products/${product.id}'),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Container(
-                                  height: imageHeight,
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(
-                                      color: const Color(0xFFDFE2E2),
+                          return StaggeredEntrance(
+                            index: index,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () => context.push(
+                                '/products/${product.id}',
+                                extra: product,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Container(
+                                    height: imageHeight,
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(
+                                        color: const Color(0xFFDFE2E2),
+                                      ),
                                     ),
-                                  ),
-                                  child: Image.asset(
-                                    product.imageUrl,
-                                    fit: BoxFit.contain,
-                                    excludeFromSemantics: true,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                              Icons.bakery_dining_outlined,
-                                              size: 48,
-                                            ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                  ),
-                                  child: SizedBox(
-                                    height: nameHeight,
-                                    child: Text(
-                                      product.name,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        height: 1.25,
-                                        fontWeight: FontWeight.w700,
+                                    child: Hero(
+                                      tag: ProductHeroTags.image(product.id),
+                                      child: Image.asset(
+                                        product.imageUrl,
+                                        fit: BoxFit.contain,
+                                        excludeFromSemantics: true,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(
+                                                  Icons.bakery_dining_outlined,
+                                                  size: 48,
+                                                ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 4),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                  ),
-                                  child: Text(
-                                    _priceLabel(product),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      height: 1.4,
-                                      color: Color(0xFF454B4F),
+                                  const SizedBox(height: 10),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                    ),
+                                    child: SizedBox(
+                                      height: nameHeight,
+                                      child: Hero(
+                                        tag: ProductHeroTags.name(product.id),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: Text(
+                                            product.name,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              height: 1.25,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(height: 4),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                    ),
+                                    child: Text(
+                                      _priceLabel(product),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        height: 1.4,
+                                        color: Color(0xFF454B4F),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }, childCount: results.length),

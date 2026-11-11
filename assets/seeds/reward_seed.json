@@ -1,0 +1,98 @@
+{
+  "rewards": [
+    {
+      "id": 1,
+      "name": "Silver",
+      "description": "Your first step to sweeter rewards",
+      "imageUrl": "",
+      "colorCode": "#BAC0C7",
+      "rewardPoints": 0
+    },
+    {
+      "id": 2,
+      "name": "Gold",
+      "description": "More treats, more rewards",
+      "imageUrl": "",
+      "colorCode": "#E3C46D",
+      "rewardPoints": 500
+    },
+    {
+      "id": 3,
+      "name": "Platinum",
+      "description": "Our sweetest tier",
+      "imageUrl": "",
+      "colorCode": "#8BCDDD",
+      "rewardPoints": 1000
+    }
+  ],
+  "earns": [
+    {
+      "id": 1,
+      "productId": 8,
+      "quantity": 4,
+      "earnPoints": 100
+    },
+    {
+      "id": 2,
+      "productId": 24,
+      "quantity": 4,
+      "earnPoints": 100
+    },
+    {
+      "id": 3,
+      "productId": 102,
+      "quantity": 12,
+      "earnPoints": 200
+    }
+  ],
+  "gifts": [
+    {
+      "id": 1,
+      "name": "Plain Ring Donut",
+      "description": "Exchange your points for one Plain Ring Donut.",
+      "imageUrl": "assets/images/1767596518249-Plain Ring Donut.png",
+      "giftPoints": 100
+    },
+    {
+      "id": 2,
+      "name": "Americano treat",
+      "description": "One Hot Coffee Americano.",
+      "imageUrl": "assets/images/1766383605558-SC Hot Coffee Americano_.png",
+      "giftPoints": 300
+    },
+    {
+      "id": 3,
+      "name": "Donut surprise",
+      "description": "A sweet donut treat for your next visit.",
+      "imageUrl": "assets/images/donut-red.png",
+      "giftPoints": 500
+    }
+  ],
+  "progress": [
+    {
+      "phone": "+959123456781",
+      "earnId": 1,
+      "completedQuantity": 4
+    },
+    {
+      "phone": "+959123456781",
+      "earnId": 2,
+      "completedQuantity": 1
+    },
+    {
+      "phone": "+959123456781",
+      "earnId": 3,
+      "completedQuantity": 9
+    },
+    {
+      "phone": "+959123456782",
+      "earnId": 1,
+      "completedQuantity": 2
+    },
+    {
+      "phone": "+959123456783",
+      "earnId": 1,
+      "completedQuantity": 4
+    }
+  ]
+}

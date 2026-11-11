@@ -1,6 +1,5 @@
-
-
-import '../../../product/domain/entities/product_entity.dart' show ProductEntity;
+import '../../../product/domain/entities/product_entity.dart'
+    show ProductEntity;
 
 class EarnEntity {
   int id;
@@ -8,7 +7,6 @@ class EarnEntity {
   ProductEntity productEntity;
   int quantity;
   int earnPoints;
-
 
   EarnEntity({
     required this.id,
