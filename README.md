@@ -2,6 +2,18 @@
 
 A new Flutter project.
 
+
+current latest version at 11 st Nov 2026
+
+
+flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[√] Flutter (Channel stable, 3.47.9, on Microsoft Windows [Version 10.0.19045.6466], locale en-US)
+[√] Windows Version (10 Pro 64-bit, 22H2, 2009)
+[√] Android toolchain - develop for Android devices (Android SDK version 36.0.0)
+
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

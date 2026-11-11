@@ -106,6 +106,18 @@ it's fun.
 nice idea.
 
 
+so, 
+let's test up and running
+and then 
+
+prepare short list questions
+decisions
+
+and improve ui / ux 
+fill requested feature at doc.
+
+
+
 ## What we do first.
 
 - [ ] data structure
