@@ -9,6 +9,8 @@ import '../../domain/entities/params/get_proudct_params.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../datasources/product_local_datasource.dart';
 
+import '../../domain/entities/product_collection.dart';
+
 class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl({required this.localDatasource});
 
@@ -56,14 +58,45 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, ProductEntity>> getProductById({
     required GetProductByIdParams getProductByIdParams,
   }) async {
-    final Either<Failure, ProductCatalog> result = await getCatalog();
-    return result.fold((failure) => Left(failure), (catalog) {
-      for (final ProductEntity product in catalog.products) {
-        if (product.id == getProductByIdParams.productId) {
-          return Right(product);
-        }
-      }
-      return Left(NoDataFailure());
-    });
+    return _load<ProductEntity>(
+      'getProductById',
+      () => localDatasource.getProductById(
+        productId: getProductByIdParams.productId,
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, ProductCollection>> getCategoryProducts({
+    required int categoryId,
+  }) => _load<ProductCollection>(
+    'getCategoryProducts',
+    () => localDatasource.getCategoryProducts(categoryId: categoryId),
+  );
+
+  @override
+  Future<Either<Failure, ProductCollection>> getProductTypeProducts({
+    required int productTypeId,
+  }) => _load<ProductCollection>(
+    'getProductTypeProducts',
+    () => localDatasource.getProductTypeProducts(productTypeId: productTypeId),
+  );
+
+  Future<Either<Failure, T>> _load<T>(
+    String method,
+    Future<T?> Function() request,
+  ) async {
+    try {
+      final T? value = await request();
+      return value == null ? Left(NoDataFailure()) : Right(value);
+    } catch (error, stackTrace) {
+      log(
+        'ProductRepositoryImpl.$method failed',
+        name: 'product',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      return Left(CacheFailure());
+    }
   }
 }

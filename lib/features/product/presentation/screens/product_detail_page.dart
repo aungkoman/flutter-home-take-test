@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/catalog_provider.dart';
+import '../providers/product_detail_provider.dart';
 
 class ProductDetailPage extends ConsumerWidget {
   const ProductDetailPage({super.key, required this.id});
@@ -10,32 +10,33 @@ class ProductDetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<ProductCatalog> catalog = ref.watch(catalogProvider);
+    final int productId = int.tryParse(id) ?? -1;
+    final AsyncValue<ProductEntity> productState = ref.watch(
+      productDetailProvider(productId),
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('Product details')),
-      body: catalog.when(
+      body: productState.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Could not load this product.'),
+              Text(
+                error is NoDataFailure
+                    ? 'Product not found.'
+                    : 'Could not load this product.',
+              ),
               TextButton(
-                onPressed: () => ref.invalidate(catalogProvider),
+                onPressed: () =>
+                    ref.invalidate(productDetailProvider(productId)),
                 child: const Text('Retry'),
               ),
             ],
           ),
         ),
-        data: (ProductCatalog data) {
-          final int? productId = int.tryParse(id);
-          final ProductEntity? product = data.products
-              .where((product) => product.id == productId)
-              .firstOrNull;
-          if (product == null) {
-            return const Center(child: Text('Product not found.'));
-          }
+        data: (ProductEntity product) {
           return Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),

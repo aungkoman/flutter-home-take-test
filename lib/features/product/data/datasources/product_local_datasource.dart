@@ -3,7 +3,14 @@ import 'package:drift/drift.dart';
 import '../../../auth/data/database/app_database.dart' as database;
 import '../../domain/entities/product_catalog.dart';
 
+import '../../domain/entities/product_collection.dart';
+
 abstract class ProductLocalDatasource {
+  Future<ProductCollection?> getCategoryProducts({required int categoryId});
+  Future<ProductCollection?> getProductTypeProducts({
+    required int productTypeId,
+  });
+  Future<ProductEntity?> getProductById({required int productId});
   Future<ProductCatalog> getCatalog();
 }
 
@@ -13,8 +20,62 @@ class ProductLocalDatasourceImpl implements ProductLocalDatasource {
   final database.AppDatabase db;
 
   @override
-  Future<ProductCatalog> getCatalog() async{
-    await Future.delayed(Duration(seconds: 3));
+  Future<ProductCatalog> getCatalog() async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    return _readCatalog();
+  }
+
+  @override
+  Future<ProductCollection?> getCategoryProducts({
+    required int categoryId,
+  }) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final ProductCatalog catalog = await _readCatalog();
+    final CategoryEntity? category = catalog.categories
+        .where((category) => category.id == categoryId)
+        .firstOrNull;
+    if (category == null) return null;
+    final Set<int> productIds = category.categoryProducts
+        .map((link) => link.productId)
+        .toSet();
+    return ProductCollection(
+      name: category.name,
+      imageUrl: category.imageUrl,
+      products: category.name.trim().toLowerCase() == 'all'
+          ? catalog.products
+          : catalog.products
+                .where((product) => productIds.contains(product.id))
+                .toList(),
+    );
+  }
+
+  @override
+  Future<ProductCollection?> getProductTypeProducts({
+    required int productTypeId,
+  }) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final ProductCatalog catalog = await _readCatalog();
+    final ProductTypeEntity? type = catalog.productTypes
+        .where((type) => type.id == productTypeId)
+        .firstOrNull;
+    if (type == null) return null;
+    return ProductCollection(
+      name: type.name,
+      imageUrl: type.imageUrl,
+      products: type.products,
+    );
+  }
+
+  @override
+  Future<ProductEntity?> getProductById({required int productId}) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final ProductCatalog catalog = await _readCatalog();
+    return catalog.products
+        .where((product) => product.id == productId)
+        .firstOrNull;
+  }
+
+  Future<ProductCatalog> _readCatalog() async {
     return db.transaction(() async {
       final List<database.ProductType> typeRows =
           await (db.select(db.productTypes)..orderBy([

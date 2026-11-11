@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../providers/catalog_provider.dart';
+import '../providers/product_collection_provider.dart';
 
 enum ProductCollectionKind { category, productType }
 
@@ -62,55 +62,48 @@ class _ProductCollectionPageState extends ConsumerState<ProductCollectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<ProductCatalog> catalog = ref.watch(catalogProvider);
+    final int id = int.tryParse(widget.id) ?? -1;
+    final AsyncValue<ProductCollection> collection =
+        widget.kind == ProductCollectionKind.category
+        ? ref.watch(categoryProductsProvider(id))
+        : ref.watch(productTypeProductsProvider(id));
+
     final String fallbackTitle = widget.kind == ProductCollectionKind.category
         ? 'Category'
         : 'Product type';
 
-    return catalog.when(
+    return collection.when(
       loading: () => Scaffold(
         appBar: AppBar(title: Text(fallbackTitle)),
         body: const Center(child: CircularProgressIndicator()),
       ),
-      error: (error, stackTrace) => Scaffold(
-        appBar: AppBar(title: Text(fallbackTitle)),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('Could not load these products.'),
-              TextButton(
-                onPressed: () => ref.invalidate(catalogProvider),
-                child: const Text('Retry'),
+      error: (error, stackTrace) => error is NoDataFailure
+          ? _notFound(fallbackTitle)
+          : Scaffold(
+              appBar: AppBar(title: Text(fallbackTitle)),
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('Could not load these products.'),
+                    TextButton(
+                      onPressed: () {
+                        if (widget.kind == ProductCollectionKind.category) {
+                          ref.invalidate(categoryProductsProvider(id));
+                        } else {
+                          ref.invalidate(productTypeProductsProvider(id));
+                        }
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
-      data: (ProductCatalog data) {
-        final int? id = int.tryParse(widget.id);
-        final String title;
-        final String collectionImage;
-        final List<ProductEntity> products;
-        if (widget.kind == ProductCollectionKind.category) {
-          final CategoryEntity? category = data.categories
-              .where((category) => category.id == id)
-              .firstOrNull;
-          if (category == null) return _notFound(fallbackTitle);
-          title = category.name;
-          collectionImage = category.imageUrl;
-          products = category.name.trim().toLowerCase() == 'all'
-              ? data.products
-              : category.categoryProducts.map((link) => link.product).toList();
-        } else {
-          final ProductTypeEntity? type = data.productTypes
-              .where((type) => type.id == id)
-              .firstOrNull;
-          if (type == null) return _notFound(fallbackTitle);
-          title = type.name;
-          collectionImage = type.imageUrl;
-          products = type.products;
-        }
+            ),
+      data: (ProductCollection data) {
+        final String title = data.name;
+        final String collectionImage = data.imageUrl;
+        final List<ProductEntity> products = data.products;
         final String image = collectionImage.isNotEmpty
             ? collectionImage
             : (products.firstOrNull?.imageUrl ??

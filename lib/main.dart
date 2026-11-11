@@ -1,3 +1,6 @@
+import 'features/product/presentation/providers/product_collection_provider.dart';
+import 'features/product/presentation/providers/product_detail_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +24,16 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
+        categoryProductsProvider.overrideWith2(
+          (id) => CategoryProductsNotifier(di.sl<GetCategoryProducts>(), id),
+        ),
+        productTypeProductsProvider.overrideWith2(
+          (id) =>
+              ProductTypeProductsNotifier(di.sl<GetProductTypeProducts>(), id),
+        ),
+        productDetailProvider.overrideWith2(
+          (id) => ProductDetailNotifier(di.sl<GetProductById>(), id),
+        ),
         catalogProvider.overrideWith(
           () => CatalogNotifier(di.sl<GetProductCatalog>()),
         ),

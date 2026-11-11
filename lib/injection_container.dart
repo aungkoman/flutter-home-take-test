@@ -1,3 +1,7 @@
+import 'features/product/domain/usecases/get_product_by_id.dart';
+import 'features/product/domain/usecases/get_product_type_products.dart';
+import 'features/product/domain/usecases/get_category_products.dart';
+
 import 'package:get_it/get_it.dart';
 
 import 'features/product/data/datasources/product_local_datasource.dart';
@@ -40,6 +44,18 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<GetProductCatalog>(
     () => GetProductCatalog(repository: sl<ProductRepository>()),
+  );
+
+  sl.registerLazySingleton<GetCategoryProducts>(
+    () => GetCategoryProducts(repository: sl<ProductRepository>()),
+  );
+
+  sl.registerLazySingleton<GetProductTypeProducts>(
+    () => GetProductTypeProducts(repository: sl<ProductRepository>()),
+  );
+
+  sl.registerLazySingleton<GetProductById>(
+    () => GetProductById(repository: sl<ProductRepository>()),
   );
 
   // Use cases
